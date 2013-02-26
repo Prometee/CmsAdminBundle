@@ -1,0 +1,98 @@
+{% extends 'CmsCoreBundle::layout.html.twig' %}
+
+{% set nb_cols = 3 %}
+
+{% block content %}
+{%- block content_head -%}
+<section>
+{% endblock %}
+    {% block index_title %}
+    <div class="section-header">
+        <h2>{{ (translation_prefix ~ '.index.title')|trans([], bundle_name) }}</h2>
+    </div>
+    {% endblock %}
+    {% block index_filter %}
+        {% if filter %}
+    <form method="POST" action="{{ path(route_index) }}">
+        {{ form_widget(filter) }}
+        <input class="btn" type="submit" value="{{ 'global.index_crud.filter.submit'|trans([], 'CmsCoreBundle') }}" />
+    </form>
+        {% endif %}
+    {% endblock %}
+    {% block index_list_form %}
+    <form method="POST" action="{{ path(route_form_action) }}">
+    {% endblock %}
+    {% block index_list_actions %}
+        <div class="table-actions">
+            {% block index_list_other_actions %}
+            <div class="other-actions">
+                {% block index_list_other_actions_list %}
+                <a class="btn" href="{{ path(route_new) }}">{{ 'global.index.new'|trans([], 'CmsCoreBundle') }}</a>
+                {% endblock %}
+            </div>
+            {% endblock %}
+            {% block index_list_bashactions %}
+            {% if is_granted('ROLE_ADMIN') %}
+                <div class="group-actions">
+                    {{ form_widget(groupForm.action) }}
+                    {{ form_rest(groupForm) }}
+                    <input class="btn" type="submit" value="{{ 'global.index_crud.group_action.submit'|trans([], 'CmsCoreBundle') }}" />
+                </div>
+            {% endif %}
+            {% endblock %}
+        </div>
+    {% endblock %}
+    {% block index_list %}
+        <table class="table table-striped">
+            {% block index_list_head %}
+            <thead>
+                <tr>
+                    <th class="groupCheckbox"><input type="checkbox" /></th>
+                    <th>{{ 'global.index.name'|trans([], 'CmsCoreBundle') }}</th>
+                    <th>{{ 'global.index_crud.actions'|trans([], 'CmsCoreBundle') }}</th>
+                </tr>
+            </thead>
+            {% endblock %}
+            {% block index_list_body %}
+            <tbody>
+                {% for entity in pagination %}
+                <tr>
+                    {% block index_bashactions_item %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <td class="groupCheckbox"><input type="checkbox" name="ids[]" value="{{ entity.id }}" /></td>
+                    {% endif %}
+                    {% endblock %}
+                    {% block index_list_item_cols %}
+                    <td>{{ entity }}</td>
+                    {% endblock %}
+                    {% block index_list_items_actions %}
+                    <td class="items-actions">
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a class="bui btt-edit" href="{{ path(route_edit, { 'id': entity.id }) }}" title="{{ 'global.form_action.edit'|trans([], 'CmsCoreBundle') }}">{{ 'global.form_action.edit'|trans([], 'CmsCoreBundle') }}</a>
+                        {% endif %}
+                    </td>
+                    {% endblock %}
+                </tr>
+                {% else %}
+                {% block index_list_items_noresult %}
+                <tr class="no-result">
+                    <td colspan="{{ nb_cols }}">{{ ('global.index.no_result') |trans([], 'CmsCoreBundle') }}</td>
+                </tr>
+                {% endblock %}
+                {% endfor %}
+            </tbody>
+            {% endblock %}
+            {% block index_list_foot %}
+            {% endblock %}
+        </table>
+    {% endblock %}
+    {% block index_list_enform %}
+    </form>
+    {% endblock %}
+    {% block index_paginator %}
+    {{ pagination.render()|raw }}
+    {% endblock %}
+{%- block content_foot -%}
+</section>
+{% endblock %}
+{% endblock %}

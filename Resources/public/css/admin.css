@@ -1,0 +1,50 @@
+.form-horizontal label.entity-collections {
+	display: block;
+	width: auto;
+	text-align: left;
+	color: #FFF;
+	font-weight: bold;
+	text-transform: uppercase;
+	background-color: #999;
+	float: none;
+	padding: 5px;
+}
+.form-horizontal label.entity-collection {
+	display: none;
+}
+.form-horizontal .entity-collections .collection-field-row {
+	position: relative;
+/*	margin-top: 25px;*/
+}
+.form-horizontal .entity-collections .collection-field-row:before {
+	content: " " attr(data-prop);
+	position: absolute;
+	text-transform: uppercase;
+/*	top: -15px;*/
+/*	height: 20px;*/
+	width: 100%;
+/*	border: 1px #000 solid;*/
+/*	border-width: 2px 0 0 0;*/
+	text-align: left;
+}
+.delete-collection-row.btn {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+/*.collection-field-row:after {
+	clear:both;
+	content: '\00a0';
+}*/
+.form-horizontal .control-group {
+	text-align: left;
+}
+
+.logout {
+    float: right;
+    display: block;
+    width: 30px;
+    height: 40px;
+    background: url(../img/glyphicons-halflings-white.png) no-repeat -377px 14px;
+    text-indent: -500000px;
+}

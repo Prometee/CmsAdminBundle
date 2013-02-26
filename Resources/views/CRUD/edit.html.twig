@@ -1,0 +1,29 @@
+{% extends 'CmsCoreBundle::layout.html.twig' %}
+
+{% form_theme form with ['CmsCoreBundle:Form:fields.html.twig', 'CmsCoreBundle:Form:collection.html.twig'] %}
+
+{% block content %}
+{% spaceless %}
+<section>
+    {% block edit_form_title %}
+	<div class="section-header">
+	    <h2>{{ ( translation_prefix ~ '.edit.title' )|trans({'%name%': entity}, bundle_name) }}</h2>
+	</div>
+    {% endblock %}
+	<form class="form-horizontal" action="{{ path(route_form_action, { 'id': entity.id }) }}" method="post" {{ form_enctype(form) }}>
+	{% block edit_form %}
+            {{ form_widget(form) }}
+	{% endblock %}
+        {% block edit_form_actions %}
+		<div class="form-actions">
+            {% block edit_form_actions_list %}
+			<input type="submit" class="btn btn-primary" value="{{ 'global.form_action.update'|trans([], 'CmsCoreBundle') }}" >&nbsp;
+			<a class="btn danger bui-confirm-popover-above" data-popover-title="{{ 'global.form_action.are_you_sure'|trans([], 'CmsCoreBundle') }}" href="{{ path(route_delete, { 'id': entity.id }) }}" >{{ 'global.form_action.delete'|trans([], 'CmsCoreBundle') }}</a>&nbsp;
+			<a class="btn" href="{{ path(route_index) }}">{{ 'global.form_action.back_to_list'|trans([], 'CmsCoreBundle') }}</a>
+            {% endblock %}
+		    </div>
+        {% endblock %}
+		</form>
+</section>
+{% endspaceless %}
+{% endblock %}

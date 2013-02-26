@@ -1,0 +1,72 @@
+global:
+    ajax:
+        loading: Chargement ...
+        success: Ok
+        error: Une erreur est survenue
+    pagination:
+        previous: Précedent
+        next: Suivant
+    topbar:
+        logout: Se deconnecter
+        my_profile: Mon profil
+    index:
+        new: Nouveau
+        no_result: Aucun résultat
+        name: Nom
+    index_crud:
+        actions: Actions
+        group_action:
+            submit: Exécuter
+        filter:
+            submit: Filtrer
+    index_calendar:
+        prev_month: Mois précédent
+        next_month: Mois suivant
+        from_to: Du %start% au %end%
+    form_action:
+        add: Ajouter
+        edit: Editer
+        approve: Approuver
+        disapprove: Désapprouver
+        save: Enregistrer
+        show: Afficher
+        preview: Prévisualiser
+        back_to_list: Retour à la liste
+        save_and_add: Sauvegarder et ajouter
+        are_you_sure: Êtes-vous sûr ?
+        delete: Supprimer
+        update: Modifier
+        save_order: Enregistrer l'ordre
+        close: Fermer
+        cancel: Annuler
+        confirm: Ok
+        group:
+            approve: Approuver
+            disapprove: Désapprouver
+            delete: Supprimer
+            publish: Publier
+            unpublish: Dépublier
+            disable: Désactiver
+            enable: Activer
+
+login:
+    byatelier45: par Atelier45
+    label:
+        username: Nom d'utilisateur
+        password: Mot de passe
+        remember_me: Se souvenir de moi
+        submit: Se connecter
+site:
+    edit:
+        title: Edition du site
+    new:
+        title: Nouveau site
+    flash:
+        success:
+            delete: Site suprimé avec succès
+            new: Site créé avec succès
+            edit: Site modifié avec succès
+        error:
+            delete: Une erreur est survenue pendant la suppression. Vérifiez les droits sur les dossiers
+            new: Une erreur est survenue, aucun site n'a été créé
+            edit: Une erreur est survenue pendant la modification, veuillez vérifier les champs.

@@ -1,0 +1,33 @@
+{% block collection_widget %}
+{% spaceless %}
+    {% if prototype is defined %}
+        {% set attr = attr|merge({'data-prototype': form_row(prototype) }) %}
+    {% endif %}
+    <div {{ block('widget_container_attributes') }}>
+            <div class="collection-fields">
+                {{ form_errors(form) }}
+                {% for child in form %}
+                    <div class="collection-field-row" data-prop="">
+			{{ form_row(child) }}
+                        {% if allow_delete is defined and allow_delete %}
+                        <a href="#" class="delete-collection-row btn">
+                            {{ 'global.form_action.delete' | trans([], 'CmsCoreBundle') }}
+                        </a>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% if allow_add is defined and allow_add %}
+            <a href="#" class="add-collection-row btn">
+                {{ 'global.form_action.add' | trans([], 'CmsCoreBundle') }}
+            </a>
+        {% endif %}
+            {% if allow_delete is defined and allow_delete %}
+            <a href="#" class="delete-collection-row btn" style="display: none">
+                {{ 'global.form_action.delete' | trans([], 'CmsCoreBundle') }}
+            </a>
+            {% endif %}
+        {{ form_rest(form) }}
+    </div>
+{% endspaceless %}
+{% endblock collection_widget %}

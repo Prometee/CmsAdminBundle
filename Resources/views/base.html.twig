@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>{% block title %}{{ 'global.title'|trans({}, 'CmsCoreBundle') }}{% endblock %}</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width">
+
+{% block stylesheets %}
+	{% stylesheets
+		'@CmsCoreBundle/Resources/public/css/vendor/normalize/normalize.min.css',
+		'@CmsCoreBundle/Resources/public/css/vendor/bootstrap/bootstrap.min.css',
+		'@CmsCoreBundle/Resources/public/css/vendor/jquery-ui/jquery-ui-1.10.1.custom.min.css',
+		'@CmsCoreBundle/Resources/public/css/admin.css'
+	%}
+	<link rel="stylesheet" href="{{ asset_url }}" />
+	{% endstylesheets %}
+{% endblock %}
+
+{% block javascripts_head %}
+	{% javascripts
+		'@CmsCoreBundle/Resources/public/js/vendor/modernizr/modernizr-2.6.2-respond-1.1.0.min.js'
+	%}
+	<script type="text/javascript" src="{{ asset_url }}"></script>
+	{% javascripts %}
+{% endblock %}
+
+</head>
+	<body class="">
+
+{% block body %}{% endblock %}
+
+{% block javascripts_foot %}
+	{% javascripts
+		'@CmsCoreBundle/Resources/public/js/vendor/jquery/i18n/jquery.ui.datepicker-' ~ app.request.locale ~ '.js',
+		'@CmsCoreBundle/Resources/public/js/vendor/bootstrap/bootstrap.min.js',
+		'@CmsCoreBundle/Resources/public/js/admin.js'
+	%}
+	<script type="text/javascript" src="{{ asset_url }}"></script>
+	{% javascripts %}
+	
+	{{ tinymce_init() }}
+	
+{% endblock %}
+
+	</body>
+</html>

@@ -1,0 +1,63 @@
+{% extends 'CmsCoreBundle::base.html.twig' %}
+
+{% block body %}
+<div id="ajax-on-loading">
+    <span class="loading">{{ 'global.ajax.loading'|trans([], 'CmsCoreBundle') }}</span>
+    <span class="error">{{ 'global.ajax.error'|trans([], 'CmsCoreBundle') }}</span>
+    <span class="success">{{ 'global.ajax.success'|trans([], 'CmsCoreBundle') }}</span>
+</div>
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a href="{{ path('homepage') }}" class="brand">{{ 'site.title'|trans({}, 'CmsCoreBundle') }}</a>
+
+{% block topmenu %}{% endblock %}
+			
+            <a href="{{ path('fos_user_security_logout') }}">{{ 'global.logout'|trans({}, 'CmsCoreBundle') }}</a>
+        </div>
+    </div>
+</div>
+<div id="wrapper">
+    <div class="content">
+        <div class="fill">
+			
+{% block flashes %}
+	{% if app.session.hasFlash('notice')
+		or app.session.hasFlash('error')
+		or app.session.hasFlash('success')
+		or app.session.hasFlash('info') %}
+	<div>
+		{% if app.session.hasFlash('notice') %}
+		<div class="alert">
+			<a class="close" data-dismiss="alert">×</a>
+			{{ app.session.flash('notice') }}
+		</div>
+		{% endif %}
+		{% if app.session.hasFlash('error') %}
+		<div class="alert alert-error">
+			<a class="close" data-dismiss="alert">×</a>
+			{{ app.session.flash('error') }}
+		</div>
+		{% endif %}
+		{% if app.session.hasFlash('success') %}
+		<div class="alert alert-success">
+			<a class="close" data-dismiss="alert">×</a>
+			{{ app.session.flash('success') }}
+		</div>
+		{% endif %}
+		{% if app.session.hasFlash('info') %}
+		<div class="alert alert-info">
+			<a class="close" data-dismiss="alert">×</a>
+			{{ app.session.flash('info') }}
+		</div>
+		{% endif %}
+	</div>
+	{% endif %}
+{% endblock %}
+
+{% block content %}{% endblock %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+parameters:
+    cms_core.form.type.richeditor.class: Cms\Bundle\CoreBundle\Form\Extension\Type\RichEditorType
+    cms_core.form.type.image.class: Cms\Bundle\CoreBundle\Form\Extension\Type\ImageType
+
+services:
+            
+    form.type.richeditor:
+        class: %cms_core.form.type.richeditor.class%
+        tags:
+            - { name: form.type, alias: richeditor }
+            
+    form.type.image:
+        class: %cms_core.form.type.image.class%
+        tags:
+            - { name: form.type, alias: image }

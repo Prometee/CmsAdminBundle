@@ -1,0 +1,7 @@
+{% macro show(value) %}
+    {% if value == 1 %}
+        <img src="{{ asset('@CmsCoreBundle/Resources/public/img/ui/check.png') }}" alt="ok" />
+    {% else %}
+        <img src="{{ asset('@CmsCoreBundle/Resources/public/img/ui/delete.png') }}" alt="non" />
+    {% endif %}
+{% endmacro %}
