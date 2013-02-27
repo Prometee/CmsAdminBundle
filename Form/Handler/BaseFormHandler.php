@@ -1,6 +1,6 @@
 <?php
 
-namespace Cms\Bundle\CoreBundle\Form\Handler;
+namespace Cms\Bundle\AdminBundle\Form\Handler;
 
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,7 +11,7 @@ abstract class BaseFormHandler {
     protected $request;
     protected $em;
     protected $request_method = 'POST';
-    protected $class_name = 'Cms\Bundle\CoreBundle\Entity\Foo';
+    protected $class_name = 'Cms\Bundle\AdminBundle\Entity\Foo';
 
     public function __construct(Request $request, EntityManager $em) {
         $this->request = $request;

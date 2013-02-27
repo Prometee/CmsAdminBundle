@@ -1,6 +1,6 @@
 <?php
 
-namespace Cms\Bundle\CoreBundle\Controller;
+namespace Cms\Bundle\AdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;

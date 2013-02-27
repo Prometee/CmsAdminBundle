@@ -1,6 +1,6 @@
 <?php
 
-namespace Cms\Bundle\CoreBundle\Form\Handler;
+namespace Cms\Bundle\AdminBundle\Form\Handler;
 
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityManager;
 
 abstract class BaseGroupFormHandler {
 
-    protected $repository_name = 'CmsCoreBundle:Foo';
+    protected $repository_name = 'CmsAdminBundle:Foo';
     protected $request;
     protected $em;
     protected $request_method = 'POST';

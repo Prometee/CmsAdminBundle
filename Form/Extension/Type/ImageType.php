@@ -1,6 +1,6 @@
 <?php
 
-namespace Cms\Bundle\CoreBundle\Form\Extension\Type;
+namespace Cms\Bundle\AdminBundle\Form\Extension\Type;
 
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;

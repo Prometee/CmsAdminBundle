@@ -1,4 +1,4 @@
-{% extends 'CmsCoreBundle::layout.html.twig' %}
+{% extends 'CmsAdminBundle::layout.html.twig' %}
 
 {% set nb_cols = 3 %}
 
@@ -15,7 +15,7 @@
         {% if filter %}
     <form method="POST" action="{{ path(route_index) }}">
         {{ form_widget(filter) }}
-        <input class="btn" type="submit" value="{{ 'global.index_crud.filter.submit'|trans([], 'CmsCoreBundle') }}" />
+        <input class="btn" type="submit" value="{{ 'global.index_crud.filter.submit'|trans([], 'CmsAdminBundle') }}" />
     </form>
         {% endif %}
     {% endblock %}
@@ -27,7 +27,7 @@
             {% block index_list_other_actions %}
             <div class="other-actions">
                 {% block index_list_other_actions_list %}
-                <a class="btn" href="{{ path(route_new) }}">{{ 'global.index.new'|trans([], 'CmsCoreBundle') }}</a>
+                <a class="btn" href="{{ path(route_new) }}">{{ 'global.index.new'|trans([], 'CmsAdminBundle') }}</a>
                 {% endblock %}
             </div>
             {% endblock %}
@@ -36,7 +36,7 @@
                 <div class="group-actions">
                     {{ form_widget(groupForm.action) }}
                     {{ form_rest(groupForm) }}
-                    <input class="btn" type="submit" value="{{ 'global.index_crud.group_action.submit'|trans([], 'CmsCoreBundle') }}" />
+                    <input class="btn" type="submit" value="{{ 'global.index_crud.group_action.submit'|trans([], 'CmsAdminBundle') }}" />
                 </div>
             {% endif %}
             {% endblock %}
@@ -48,8 +48,8 @@
             <thead>
                 <tr>
                     <th class="groupCheckbox"><input type="checkbox" /></th>
-                    <th>{{ 'global.index.name'|trans([], 'CmsCoreBundle') }}</th>
-                    <th>{{ 'global.index_crud.actions'|trans([], 'CmsCoreBundle') }}</th>
+                    <th>{{ 'global.index.name'|trans([], 'CmsAdminBundle') }}</th>
+                    <th>{{ 'global.index_crud.actions'|trans([], 'CmsAdminBundle') }}</th>
                 </tr>
             </thead>
             {% endblock %}
@@ -68,7 +68,7 @@
                     {% block index_list_items_actions %}
                     <td class="items-actions">
                         {% if is_granted('ROLE_ADMIN') %}
-                            <a class="bui btt-edit" href="{{ path(route_edit, { 'id': entity.id }) }}" title="{{ 'global.form_action.edit'|trans([], 'CmsCoreBundle') }}">{{ 'global.form_action.edit'|trans([], 'CmsCoreBundle') }}</a>
+                            <a class="bui btt-edit" href="{{ path(route_edit, { 'id': entity.id }) }}" title="{{ 'global.form_action.edit'|trans([], 'CmsAdminBundle') }}">{{ 'global.form_action.edit'|trans([], 'CmsAdminBundle') }}</a>
                         {% endif %}
                     </td>
                     {% endblock %}
@@ -76,7 +76,7 @@
                 {% else %}
                 {% block index_list_items_noresult %}
                 <tr class="no-result">
-                    <td colspan="{{ nb_cols }}">{{ ('global.index.no_result') |trans([], 'CmsCoreBundle') }}</td>
+                    <td colspan="{{ nb_cols }}">{{ ('global.index.no_result') |trans([], 'CmsAdminBundle') }}</td>
                 </tr>
                 {% endblock %}
                 {% endfor %}

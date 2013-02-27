@@ -1,10 +1,10 @@
 <?php
 
-namespace Cms\Bundle\CoreBundle;
+namespace Cms\Bundle\AdminBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class CmsCoreBundle extends Bundle
+class CmsAdminBundle extends Bundle
 {
 	/*
 	 * @todo: force dependeancy for :  knplabs/KnpPaginator && avalanche123/Imagine && stfalcon/tinymce

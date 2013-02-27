@@ -1,6 +1,6 @@
-{% extends 'CmsCoreBundle::layout.html.twig' %}
+{% extends 'CmsAdminBundle::layout.html.twig' %}
 
-{% form_theme form with ['CmsCoreBundle:Form:fields.html.twig', 'CmsCoreBundle:Form:collection.html.twig'] %}
+{% form_theme form with ['CmsAdminBundle:Form:fields.html.twig', 'CmsAdminBundle:Form:collection.html.twig'] %}
 
 {% block content %}
 {% spaceless %}
@@ -17,9 +17,9 @@
         {% block edit_form_actions %}
 		<div class="form-actions">
             {% block edit_form_actions_list %}
-			<input type="submit" class="btn btn-primary" value="{{ 'global.form_action.update'|trans([], 'CmsCoreBundle') }}" >&nbsp;
-			<a class="btn danger bui-confirm-popover-above" data-popover-title="{{ 'global.form_action.are_you_sure'|trans([], 'CmsCoreBundle') }}" href="{{ path(route_delete, { 'id': entity.id }) }}" >{{ 'global.form_action.delete'|trans([], 'CmsCoreBundle') }}</a>&nbsp;
-			<a class="btn" href="{{ path(route_index) }}">{{ 'global.form_action.back_to_list'|trans([], 'CmsCoreBundle') }}</a>
+			<input type="submit" class="btn btn-primary" value="{{ 'global.form_action.update'|trans([], 'CmsAdminBundle') }}" >&nbsp;
+			<a class="btn danger bui-confirm-popover-above" data-popover-title="{{ 'global.form_action.are_you_sure'|trans([], 'CmsAdminBundle') }}" href="{{ path(route_delete, { 'id': entity.id }) }}" >{{ 'global.form_action.delete'|trans([], 'CmsAdminBundle') }}</a>&nbsp;
+			<a class="btn" href="{{ path(route_index) }}">{{ 'global.form_action.back_to_list'|trans([], 'CmsAdminBundle') }}</a>
             {% endblock %}
 		    </div>
         {% endblock %}

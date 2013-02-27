@@ -1,6 +1,6 @@
 <?php
 
-namespace Cms\Bundle\CoreBundle\Controller;
+namespace Cms\Bundle\AdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -8,10 +8,10 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 abstract class BaseAdminController extends Controller {
 
 	//Must to be implemanted by the master class
-	protected $doctrine_namespace = "CmsCoreBundle:Foo";
+	protected $doctrine_namespace = "CmsAdminBundle:Foo";
 	protected $translation_prefix = 'foo';
-	protected $bundle_name = 'CmsCoreBundle';
-	protected $class_repository = 'Cms\Bundle\CoreBundle\Entity\Foo';
+	protected $bundle_name = 'CmsAdminBundle';
+	protected $class_repository = 'Cms\Bundle\AdminBundle\Entity\Foo';
 	protected $object_name = 'Foo';
 	protected $form_type_name = 'FooFormType';
 	protected $form_handler_name = 'FooFormHandler';
@@ -29,10 +29,10 @@ abstract class BaseAdminController extends Controller {
 	protected $route_publish = 'np_foo_foo_publish_toggle';
 	protected $route_groupprocess = 'np_foo_foo_groupprocess';
 	//Default values
-	protected $template_index = 'CmsCoreBundle:CRUD:index.html.twig';
-	protected $template_new = 'CmsCoreBundle:CRUD:new.html.twig';
-	protected $template_edit = 'CmsCoreBundle:CRUD:edit.html.twig';
-	protected $template_show = 'CmsCoreBundle:CRUD:show.html.twig';
+	protected $template_index = 'CmsAdminBundle:CRUD:index.html.twig';
+	protected $template_new = 'CmsAdminBundle:CRUD:new.html.twig';
+	protected $template_edit = 'CmsAdminBundle:CRUD:edit.html.twig';
+	protected $template_show = 'CmsAdminBundle:CRUD:show.html.twig';
 	protected $max_per_page = 10;
 
 	public function setContainer(ContainerInterface $container = null) {

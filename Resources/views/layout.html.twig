@@ -1,19 +1,19 @@
-{% extends 'CmsCoreBundle::base.html.twig' %}
+{% extends 'CmsAdminBundle::base.html.twig' %}
 
 {% block body %}
 <div id="ajax-on-loading">
-    <span class="loading">{{ 'global.ajax.loading'|trans([], 'CmsCoreBundle') }}</span>
-    <span class="error">{{ 'global.ajax.error'|trans([], 'CmsCoreBundle') }}</span>
-    <span class="success">{{ 'global.ajax.success'|trans([], 'CmsCoreBundle') }}</span>
+    <span class="loading">{{ 'global.ajax.loading'|trans([], 'CmsAdminBundle') }}</span>
+    <span class="error">{{ 'global.ajax.error'|trans([], 'CmsAdminBundle') }}</span>
+    <span class="success">{{ 'global.ajax.success'|trans([], 'CmsAdminBundle') }}</span>
 </div>
 <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container">
-            <a href="{{ path('homepage') }}" class="brand">{{ 'site.title'|trans({}, 'CmsCoreBundle') }}</a>
+            <a href="{{ path('homepage') }}" class="brand">{{ 'site.title'|trans({}, 'CmsAdminBundle') }}</a>
 
-{% block topmenu %}{% endblock %}
+{% block menu_top %}{% endblock %}
 			
-            <a href="{{ path('fos_user_security_logout') }}">{{ 'global.logout'|trans({}, 'CmsCoreBundle') }}</a>
+            <a href="{{ path('fos_user_security_logout') }}">{{ 'global.logout'|trans({}, 'CmsAdminBundle') }}</a>
         </div>
     </div>
 </div>

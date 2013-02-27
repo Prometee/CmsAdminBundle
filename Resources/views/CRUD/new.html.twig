@@ -1,6 +1,6 @@
-{% extends 'CmsCoreBundle::layout.html.twig' %}
+{% extends 'CmsAdminBundle::layout.html.twig' %}
 
-{% form_theme form with ['CmsCoreBundle:Form:fields.html.twig', 'CmsCoreBundle:Form:collection.html.twig'] %}
+{% form_theme form with ['CmsAdminBundle:Form:fields.html.twig', 'CmsAdminBundle:Form:collection.html.twig'] %}
 
 {% block content %}
 {% spaceless %}
@@ -17,9 +17,9 @@
         {% block new_form_actions %}
 		<div class="form-actions">
             {% block new_form_actions_list %}
-			<input type="submit" class="btn btn-primary" value="{{ 'global.form_action.save'|trans([], 'CmsCoreBundle') }}" >&nbsp;
-			<input type="submit" class="btn btn-primary" name="save_and_add" value="{{ 'global.form_action.save_and_add'|trans([], 'CmsCoreBundle') }}">&nbsp;
-			<a class="btn" href="{{ path(route_index) }}">{{ 'global.form_action.back_to_list'|trans([], 'CmsCoreBundle') }}</a>
+			<input type="submit" class="btn btn-primary" value="{{ 'global.form_action.save'|trans([], 'CmsAdminBundle') }}" >&nbsp;
+			<input type="submit" class="btn btn-primary" name="save_and_add" value="{{ 'global.form_action.save_and_add'|trans([], 'CmsAdminBundle') }}">&nbsp;
+			<a class="btn" href="{{ path(route_index) }}">{{ 'global.form_action.back_to_list'|trans([], 'CmsAdminBundle') }}</a>
             {% endblock %}
 		    </div>
         {% endblock %}
