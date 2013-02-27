@@ -1,0 +1,35 @@
+{
+    "name": "prometee/cms-bundle",
+    "description": "Admin helpers for generating BackOffice interfaces",
+    "keywords": ["backend", "admin", "backoffice"],
+    "homepage": "https://github.com/Prometee/CmsAdminBundle",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "repositories":[
+        {
+            "type":"git",
+            "url":"https://github.com/Prometee/CmsAdminBundle.git"
+        }
+    ],
+
+    "authors": [
+        {
+            "name": "Francis Hilaire",
+            "email": "http://francishilaire.fr",
+            "homepage": "http://francishilaire.fr"
+        }
+    ],
+    "require": {
+        "symfony/framework-bundle": "2.*",
+		"knplabs/knp-paginator-bundle": "dev-master",
+		"friendsofsymfony/user-bundle": "*",
+		"doctrine/doctrine-fixtures-bundle": "dev-master",
+		"stof/doctrine-extensions-bundle": "1.1.x-dev",
+		"avalanche123/imagine-bundle": "dev-master",
+		"stfalcon/tinymce-bundle": "dev-master"
+    },
+    "autoload": {
+        "psr-0": { "Cms\\Bundle\\AdminBundle": "" }
+    },
+    "target-dir": "Cms/Bundle/AdminBundle"
+}
