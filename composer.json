@@ -26,7 +26,7 @@
 	"doctrine/doctrine-fixtures-bundle": "2.x-dev",
 	"stof/doctrine-extensions-bundle": "1.0.x-dev",
 	"avalanche123/imagine-bundle": "dev-develop",
-	"stfalcon/tinymce-bundle": "dev-master"
+	"stfalcon/tinymce-bundle": "2.0.x-dev"
     },
     "autoload": {
         "psr-0": { "Cms\\Bundle\\AdminBundle": "" }
