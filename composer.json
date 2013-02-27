@@ -25,10 +25,8 @@
 	"friendsofsymfony/user-bundle": "*",
 	"doctrine/doctrine-fixtures-bundle": "*",
 	"stof/doctrine-extensions-bundle": "*",
-	"avalanche123/imagine-bundle": "*"
-    },
-    "require-dev": {
-        "stfalcon/tinymce-bundle": "2.0.*"
+	"avalanche123/imagine-bundle": "*",
+	"stfalcon/tinymce-bundle": "*"
     },
     "autoload": {
         "psr-0": { "Cms\\Bundle\\AdminBundle": "" }
