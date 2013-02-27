@@ -21,12 +21,12 @@
     ],
     "require": {
         "symfony/framework-bundle": "2.*",
-	"knplabs/knp-paginator-bundle": "2.3.x-dev",
-	"friendsofsymfony/user-bundle": "2.x-dev",
-	"doctrine/doctrine-fixtures-bundle": "2.x-dev",
-	"stof/doctrine-extensions-bundle": "1.0.x-dev",
+	"knplabs/knp-paginator-bundle": "2.3.*",
+	"friendsofsymfony/user-bundle": "2.*",
+	"doctrine/doctrine-fixtures-bundle": "2.*",
+	"stof/doctrine-extensions-bundle": "1.0.*",
 	"avalanche123/imagine-bundle": "dev-develop",
-	"stfalcon/tinymce-bundle": "2.0.x-dev"
+	"stfalcon/tinymce-bundle": "2.0.*"
     },
     "autoload": {
         "psr-0": { "Cms\\Bundle\\AdminBundle": "" }
