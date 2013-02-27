@@ -8,7 +8,7 @@ use Doctrine\ORM\EntityManager;
 
 abstract class BaseGroupFormHandler {
 
-    protected $repository_name = 'CmsAdminBundle:Foo';
+    protected $repository_name = 'AdminBundle:Foo';
     protected $request;
     protected $em;
     protected $request_method = 'POST';

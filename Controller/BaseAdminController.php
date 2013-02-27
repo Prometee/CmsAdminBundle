@@ -8,9 +8,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 abstract class BaseAdminController extends Controller {
 
 	//Must to be implemanted by the master class
-	protected $doctrine_namespace = "CmsAdminBundle:Foo";
+	protected $doctrine_namespace = "AdminBundle:Foo";
 	protected $translation_prefix = 'foo';
-	protected $bundle_name = 'CmsAdminBundle';
+	protected $bundle_name = 'AdminBundle';
 	protected $class_repository = 'Cms\Bundle\AdminBundle\Entity\Foo';
 	protected $object_name = 'Foo';
 	protected $form_type_name = 'FooFormType';
@@ -29,10 +29,10 @@ abstract class BaseAdminController extends Controller {
 	protected $route_publish = 'np_foo_foo_publish_toggle';
 	protected $route_groupprocess = 'np_foo_foo_groupprocess';
 	//Default values
-	protected $template_index = 'CmsAdminBundle:CRUD:index.html.twig';
-	protected $template_new = 'CmsAdminBundle:CRUD:new.html.twig';
-	protected $template_edit = 'CmsAdminBundle:CRUD:edit.html.twig';
-	protected $template_show = 'CmsAdminBundle:CRUD:show.html.twig';
+	protected $template_index = 'AdminBundle:CRUD:index.html.twig';
+	protected $template_new = 'AdminBundle:CRUD:new.html.twig';
+	protected $template_edit = 'AdminBundle:CRUD:edit.html.twig';
+	protected $template_show = 'AdminBundle:CRUD:show.html.twig';
 	protected $max_per_page = 10;
 
 	public function setContainer(ContainerInterface $container = null) {

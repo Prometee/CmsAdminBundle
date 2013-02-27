@@ -22,7 +22,7 @@
                         {{ form_row(child) }}
                         {% if allow_delete is defined and allow_delete %}
                         <a href="#" class="delete-collection-row btn">
-                            {{ 'global.form_action.delete' | trans([], 'CmsAdminBundle') }}
+                            {{ 'global.form_action.delete' | trans([], 'AdminBundle') }}
                         </a>
                         {% endif %}
                     </div>
@@ -30,12 +30,12 @@
             </div>
         {% if allow_add is defined and allow_add %}
             <a href="#" class="add-collection-row btn">
-                {{ 'global.form_action.add' | trans([], 'CmsAdminBundle') }}
+                {{ 'global.form_action.add' | trans([], 'AdminBundle') }}
             </a>
         {% endif %}
             {% if allow_delete is defined and allow_delete %}
             <a href="#" class="delete-collection-row btn" style="display: none">
-                {{ 'global.form_action.delete' | trans([], 'CmsAdminBundle') }}
+                {{ 'global.form_action.delete' | trans([], 'AdminBundle') }}
             </a>
             {% endif %}
         {{ form_rest(form) }}

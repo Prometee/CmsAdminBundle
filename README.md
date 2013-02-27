@@ -1,4 +1,4 @@
-CmsAdminBundle
+AdminBundle
 =============
 
 Core Bundle for quick developement
