@@ -21,11 +21,11 @@
     ],
     "require": {
         "symfony/framework-bundle": "2.*",
-	"knplabs/knp-paginator-bundle": "*",
-	"friendsofsymfony/user-bundle": "*",
-	"doctrine/doctrine-fixtures-bundle": "dev-master",
-	"stof/doctrine-extensions-bundle": "1.1.x-dev",
-	"avalanche123/imagine-bundle": "dev-master",
+	"knplabs/knp-paginator-bundle": "2.3.x-dev",
+	"friendsofsymfony/user-bundle": "2.x-dev",
+	"doctrine/doctrine-fixtures-bundle": "2.x-dev",
+	"stof/doctrine-extensions-bundle": "1.0.x-dev",
+	"avalanche123/imagine-bundle": "dev-develop",
 	"stfalcon/tinymce-bundle": "dev-master"
     },
     "autoload": {
