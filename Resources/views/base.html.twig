@@ -27,13 +27,15 @@
 {% endblock %}
 
 </head>
-	<body class="">
+	<body>
 
 {% block body %}{% endblock %}
 
 {% block javascripts_foot %}
 	{% javascripts
+		'@CmsAdminBundle/Resources/public/js/vendor/jquery/jquery-1.9.1.min.js',
 		'@CmsAdminBundle/Resources/public/js/vendor/jquery/i18n/jquery.ui.datepicker-' ~ app.request.locale ~ '.js',
+		'@CmsAdminBundle/Resources/public/js/vendor/jquery/jquery-ui-1.10.1.custom.min.js',
 		'@CmsAdminBundle/Resources/public/js/vendor/bootstrap/bootstrap.min.js',
 		'@CmsAdminBundle/Resources/public/js/admin.js'
 	%}
