@@ -1,15 +1,15 @@
 parameters:
-    admin.form.type.richeditor.class: Cms\Bundle\AdminBundle\Form\Extension\Type\RichEditorType
-    admin.form.type.image.class: Cms\Bundle\AdminBundle\Form\Extension\Type\ImageType
+    cms_admin.form.type.richeditor.class: Cms\Bundle\AdminBundle\Form\Extension\Type\RichEditorType
+    cms_admin.form.type.image.class: Cms\Bundle\AdminBundle\Form\Extension\Type\ImageType
 
 services:
             
     form.type.richeditor:
-        class: %admin.form.type.richeditor.class%
+        class: %cms_admin.form.type.richeditor.class%
         tags:
             - { name: form.type, alias: richeditor }
             
     form.type.image:
-        class: %admin.form.type.image.class%
+        class: %cms_admin.form.type.image.class%
         tags:
             - { name: form.type, alias: image }

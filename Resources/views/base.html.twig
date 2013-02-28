@@ -1,4 +1,4 @@
-{% trans_default_domain "AdminBundle" %}
+{% trans_default_domain "CmsAdminBundle" %}
 <!DOCTYPE html>
 <html class="no-js">
 <head>
@@ -10,10 +10,10 @@
 
 {% block stylesheets %}
 	{% stylesheets
-		'@AdminBundle/Resources/public/css/vendor/normalize/normalize.min.css'
-		'@AdminBundle/Resources/public/css/vendor/bootstrap/bootstrap.min.css'
-		'@AdminBundle/Resources/public/css/vendor/jquery-ui/jquery-ui-1.10.1.custom.min.css'
-		'@AdminBundle/Resources/public/css/admin.css'
+		'@CmsAdminBundle/Resources/public/css/vendor/normalize/normalize.min.css'
+		'@CmsAdminBundle/Resources/public/css/vendor/bootstrap/bootstrap.min.css'
+		'@CmsAdminBundle/Resources/public/css/vendor/jquery-ui/jquery-ui-1.10.1.custom.min.css'
+		'@CmsAdminBundle/Resources/public/css/admin.css'
 	%}
 	<link rel="stylesheet" href="{{ asset_url }}" />
 	{% endstylesheets %}
@@ -21,7 +21,7 @@
 
 {% block javascripts_head %}
 	{% javascripts
-		'@AdminBundle/Resources/public/js/vendor/modernizr/modernizr-2.6.2-respond-1.1.0.min.js'
+		'@CmsAdminBundle/Resources/public/js/vendor/modernizr/modernizr-2.6.2-respond-1.1.0.min.js'
 	%}
 	<script type="text/javascript" src="{{ asset_url }}"></script>
 	{% endjavascripts %}
@@ -34,11 +34,11 @@
 
 {% block javascripts_foot %}
 	{% javascripts
-		'@AdminBundle/Resources/public/js/vendor/jquery/jquery-1.9.1.min.js'
-		'@AdminBundle/Resources/public/js/vendor/jquery/i18n/jquery.ui.datepicker-%locale%.js'
-		'@AdminBundle/Resources/public/js/vendor/jquery/jquery-ui-1.10.1.custom.min.js'
-		'@AdminBundle/Resources/public/js/vendor/bootstrap/bootstrap.min.js'
-		'@AdminBundle/Resources/public/js/admin.js'
+		'@CmsAdminBundle/Resources/public/js/vendor/jquery/jquery-1.9.1.min.js'
+		'@CmsAdminBundle/Resources/public/js/vendor/jquery/i18n/jquery.ui.datepicker-%locale%.js'
+		'@CmsAdminBundle/Resources/public/js/vendor/jquery/jquery-ui-1.10.1.custom.min.js'
+		'@CmsAdminBundle/Resources/public/js/vendor/bootstrap/bootstrap.min.js'
+		'@CmsAdminBundle/Resources/public/js/admin.js'
 	%}
 	<script type="text/javascript" src="{{ asset_url }}"></script>
 	{% endjavascripts %}

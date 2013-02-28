@@ -8,9 +8,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 abstract class BaseAdminController extends Controller {
 
 	//Must to be implemanted by the master class
-	protected $doctrine_namespace = "AdminBundle:Foo";
+	protected $doctrine_namespace = "CmsAdminBundle:Foo";
 	protected $translation_prefix = 'foo';
-	protected $bundle_name = 'AdminBundle';
+	protected $bundle_name = 'CmsAdminBundle';
 	protected $class_repository = 'Cms\Bundle\AdminBundle\Entity\Foo';
 	protected $object_name = 'Foo';
 	protected $form_type_name = 'FooFormType';
