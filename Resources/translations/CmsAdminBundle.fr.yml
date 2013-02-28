@@ -1,34 +1,35 @@
 global.title: Administration
 global.form_action.delete: Supprimer
 global.form_action.add: Ajouter
-global.ajax.loading: 'Chargement ...'
-global.ajax.error: 'Une erreur est survenue'
+global.ajax.loading: Chargement ...
+global.ajax.error: Une erreur est survenue
 global.ajax.success: Ok
+global.copyright: © Company 2013
 global.index_crud.filter.submit: Filtrer
 global.index.new: Nouveau
 global.index_crud.group_action.submit: Exécuter
 global.index.name: Nom
 global.index_crud.actions: Actions
 global.form_action.edit: Editer
-global.index.no_result: 'Aucun résultat'
+global.index.no_result: Aucun résultat
 global.form_action.save: Enregistrer
-global.form_action.save_and_add: 'Sauvegarder et ajouter'
-global.form_action.back_to_list: 'Retour à la liste'
+global.form_action.save_and_add: Sauvegarder et ajouter
+global.form_action.back_to_list: Retour à la liste
 global.form_action.update: Modifier
-global.form_action.are_you_sure: 'Êtes-vous sûr ?'
+global.form_action.are_you_sure: Êtes-vous sûr ?
 global.pagination.previous: Précedent
 global.pagination.next: Suivant
-global.topbar.logout: 'Se deconnecter'
-global.topbar.my_profile: 'Mon profil'
-global.index_calendar.prev_month: 'Mois précédent'
-global.index_calendar.next_month: 'Mois suivant'
-global.index_calendar.from_to: 'Du %start% au %end%'
+global.topbar.logout: Se deconnecter
+global.topbar.my_profile: Mon profil
+global.index_calendar.prev_month: Mois précédent
+global.index_calendar.next_month: Mois suivant
+global.index_calendar.from_to: Du %start% au %end%
 global.logout: Se déconnecter
 global.form_action.approve: Approuver
 global.form_action.disapprove: Désapprouver
 global.form_action.show: Afficher
 global.form_action.preview: Prévisualiser
-global.form_action.save_order: 'Enregistrer l''ordre'
+global.form_action.save_order: Enregistrer l'ordre
 global.form_action.close: Fermer
 global.form_action.cancel: Annuler
 global.form_action.confirm: Ok
@@ -41,8 +42,8 @@ global.form_action.group.unpublish: Masquer
 global.form_action.group.disable: Désactiver
 global.form_action.group.enable: Activer
 global.edit.published: Publié
-login.label.username: 'Nom d''utilisateur'
-login.label.password: 'Mot de passe'
-login.label.remember_me: 'Se souvenir de moi'
-login.label.submit: 'Se connecter'
-site.title: 'SITE TITLE'
+global.goto_dashboard: Allez au tableau de bord de l'administration
+login.label.username: Nom d'utilisateur
+login.label.password: Mot de passe
+login.label.remember_me: Se souvenir de moi
+login.label.submit: Se connecter

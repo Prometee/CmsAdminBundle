@@ -1,0 +1,3 @@
+cms_admin_dashboard:
+    pattern:  /
+    defaults: { _controller: CmsAdminBundle:AdminDashboard:index }

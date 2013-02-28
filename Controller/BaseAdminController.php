@@ -21,13 +21,13 @@ abstract class BaseAdminController extends Controller {
 	protected $group_object_name = 'FooGroup';
 	protected $group_form_type_name = 'FooGroupFormType';
 	protected $group_form_handler_name = 'FooGroupFormHandler';
-	protected $route_index = 'np_foo_foo_index';
-	protected $route_new = 'np_foo_foo_new';
-	protected $route_edit = 'np_foo_foo_edit';
-	protected $route_show = 'np_foo_foo_show';
-	protected $route_delete = 'np_foo_foo_delete';
-	protected $route_publish = 'np_foo_foo_publish_toggle';
-	protected $route_groupprocess = 'np_foo_foo_groupprocess';
+	protected $route_index = 'cms_foo_admin_foo_index';
+	protected $route_new = 'cms_foo_admin_foo_new';
+	protected $route_edit = 'cms_foo_admin_foo_edit';
+	protected $route_show = 'cms_foo_admin_foo_show';
+	protected $route_delete = 'cms_foo_admin_foo_delete';
+	protected $route_publish = 'cms_foo_admin_foo_publish_toggle';
+	protected $route_group_process = 'cms_foo_admin_foo_group_process';
 	//Default values
 	protected $template_index = 'AdminBundle:CRUD:index.html.twig';
 	protected $template_new = 'AdminBundle:CRUD:new.html.twig';
@@ -70,14 +70,14 @@ abstract class BaseAdminController extends Controller {
 				$this->group_form_handler_name = $class_path . 'Form\\Handler\\' . $class_name . 'GroupFormHandler';
 
 			$this->translation_prefix = $this->container->underscore($class_name);
-			$route_prefix = $this->container->underscore(preg_replace('#Bundle$#', '', $this->bundle_name));
-			$this->route_index = ($this->route_index != 'np_foo_foo_index') ? $this->route_index : $route_prefix . '_' . $this->translation_prefix . '_index';
-			$this->route_new = ($this->route_new != 'np_foo_foo_new') ? $this->route_new : $route_prefix . '_' . $this->translation_prefix . '_new';
-			$this->route_edit = ($this->route_edit != 'np_foo_foo_edit') ? $this->route_new : $route_prefix . '_' . $this->translation_prefix . '_edit';
-			$this->route_show = ($this->route_show != 'np_foo_foo_show') ? $this->route_new : $route_prefix . '_' . $this->translation_prefix . '_show';
-			$this->route_delete = ($this->route_delete != 'np_foo_foo_delete') ? $this->route_new : $route_prefix . '_' . $this->translation_prefix . '_delete';
-			$this->route_publish = ($this->route_publish != 'np_foo_foo_publish_toggle') ? $this->route_new : $route_prefix . '_' . $this->translation_prefix . '_publish_toggle';
-			$this->route_groupprocess = ($this->route_groupprocess != 'np_foo_foo_groupprocess') ? $this->route_groupprocess : $route_prefix . '_' . $this->translation_prefix . '_groupprocess';
+			$route_prefix = $this->container->underscore(preg_replace('#Bundle$#', '', $this->bundle_name)).'_admin';
+			$this->route_index = ($this->route_index != 'cms_foo_admin_foo_index') ? $this->route_index : $route_prefix . '_' . $this->translation_prefix . '_index';
+			$this->route_new = ($this->route_new != 'cms_foo_admin_foo_new') ? $this->route_new : $route_prefix . '_' . $this->translation_prefix . '_new';
+			$this->route_edit = ($this->route_edit != 'cms_foo_admin_foo_edit') ? $this->route_new : $route_prefix . '_' . $this->translation_prefix . '_edit';
+			$this->route_show = ($this->route_show != 'cms_foo_admin_foo_show') ? $this->route_new : $route_prefix . '_' . $this->translation_prefix . '_show';
+			$this->route_delete = ($this->route_delete != 'cms_foo_admin_foo_delete') ? $this->route_new : $route_prefix . '_' . $this->translation_prefix . '_delete';
+			$this->route_publish = ($this->route_publish != 'cms_foo_admin_foo_publish_toggle') ? $this->route_new : $route_prefix . '_' . $this->translation_prefix . '_publish_toggle';
+			$this->route_group_process = ($this->route_group_process != 'cms_foo_admin_foo_group_process') ? $this->route_group_process : $route_prefix . '_' . $this->translation_prefix . '_group_process';
 		}
 	}
 
@@ -130,7 +130,7 @@ abstract class BaseAdminController extends Controller {
 					'route_show' => $this->route_show,
 					'route_delete' => $this->route_delete,
 					'route_publish' => $this->route_publish,
-					'route_form_action' => $this->route_groupprocess
+					'route_form_action' => $this->route_group_process
 		));
 	}
 
