@@ -12,7 +12,7 @@ abstract class BaseAdminController extends Controller {
 	protected $translation_prefix = 'foo';
 	protected $bundle_name = 'CmsAdminBundle';
 	protected $class_repository = 'Cms\Bundle\AdminBundle\Entity\Foo';
-	protected $object_name = 'Foo';
+	protected $entity_name = 'Foo';
 	protected $form_type_name = 'FooFormType';
 	protected $form_handler_name = 'FooFormHandler';
 	protected $filter_object_name = 'FooFilter';
@@ -29,10 +29,10 @@ abstract class BaseAdminController extends Controller {
 	protected $route_publish = 'cms_foo_admin_foo_publish_toggle';
 	protected $route_group_process = 'cms_foo_admin_foo_group_process';
 	//Default values
-	protected $template_index = 'AdminBundle:CRUD:index.html.twig';
-	protected $template_new = 'AdminBundle:CRUD:new.html.twig';
-	protected $template_edit = 'AdminBundle:CRUD:edit.html.twig';
-	protected $template_show = 'AdminBundle:CRUD:show.html.twig';
+	protected $template_index = 'CmsAdminBundle:CRUD:index.html.twig';
+	protected $template_new = 'CmsAdminBundle:CRUD:new.html.twig';
+	protected $template_edit = 'CmsAdminBundle:CRUD:edit.html.twig';
+	protected $template_show = 'CmsAdminBundle:CRUD:show.html.twig';
 	protected $max_per_page = 10;
 
 	public function setContainer(ContainerInterface $container = null) {
@@ -45,9 +45,9 @@ abstract class BaseAdminController extends Controller {
 		if (false !== $pos = strpos($this->doctrine_namespace, ':')) {
 			$this->bundle_name = substr($this->doctrine_namespace, 0, $pos);
 			$class_name = substr($this->doctrine_namespace, $pos + 1);
-			$class_path = $this->getDoctrine()->getEntityNamespace($this->bundle_name);
-			if (!class_exists($this->object_name))
-				$this->object_name = $class_path . '\\' . $class_name;
+			$class_path = $this->getDoctrine()->getAliasNamespace($this->bundle_name);
+			if (!class_exists($this->entity_name))
+				$this->entity_name = $class_path . '\\' . $class_name;
 
 			$class_path = preg_replace('#Entity$#', '', $class_path);
 			if (!class_exists($this->form_type_name))
@@ -82,7 +82,7 @@ abstract class BaseAdminController extends Controller {
 	}
 
 	protected function getClassRepository() {
-		return $this->getDoctrine()->getRepository($this->object_name);
+		return $this->getDoctrine()->getRepository($this->entity_name);
 	}
 
 	protected function getGroupForm($entity) {
@@ -103,6 +103,26 @@ abstract class BaseAdminController extends Controller {
 
 	protected function retrieveEntity($id) {
 		return $this->getClassRepository()->findOneById($id);
+	}
+	
+	protected function redirectEditSuccess($entity=null) {
+		return $this->redirect($this->generateUrl($this->route_edit, array('id' => $entity->getId())));
+	}
+	
+	protected function redirectNewSuccess($entity=null) {
+		return $this->redirect($this->generateUrl($this->route_edit, array('id' => $entity->getId())));
+	}
+	
+	protected function redirectPublishSuccess($entity=null) {
+		return $this->redirect($this->generateUrl($this->route_index));
+	}
+	
+	protected function redirectDeleteSuccess($entity=null) {
+		return $this->redirect($this->generateUrl($this->route_index));
+	}
+	
+	protected function redirectGroupProcessSuccess($process_action) {
+		return $this->redirect($this->generateUrl($this->route_index));
 	}
 
 	public function indexAction() {
@@ -138,7 +158,7 @@ abstract class BaseAdminController extends Controller {
 
 		if ('POST' == $this->getRequest()->getMethod()) {
 			$handler = new $this->filter_form_handler_name(
-					$this->getRequest(), $this->getDoctrine()->getEntityManager()
+					$this->getRequest(), $this->getDoctrine()->getManager()
 			);
 
 			return $handler->process($filter, $this);
@@ -158,12 +178,12 @@ abstract class BaseAdminController extends Controller {
 	}
 
 	public function newAction() {
-		$entity = new $this->object_name();
+		$entity = new $this->entity_name();
 
 		$form = $this->getForm($entity);
 
 		$handler = new $this->form_handler_name(
-				$this->getRequest(), $this->getDoctrine()->getEntityManager()
+				$this->getRequest(), $this->getDoctrine()->getManager()
 		);
 
 		if ($handler->process($form, $this)) {
@@ -174,7 +194,7 @@ abstract class BaseAdminController extends Controller {
 			if ($this->getRequest()->get('save_and_add') != null) {
 				return $this->redirect($this->generateUrl($this->route_new));
 			}
-			return $this->redirect($this->generateUrl($this->route_edit, array('id' => $entity->getId())));
+			return $this->redirectNewSuccess($entity);
 		}
 
 		return $this->render($this->template_new, array(
@@ -192,15 +212,15 @@ abstract class BaseAdminController extends Controller {
 		$form = $this->getForm($entity);
 
 		$handler = new $this->form_handler_name(
-				$this->getRequest(), $this->getDoctrine()->getEntityManager()
+				$this->getRequest(), $this->getDoctrine()->getManager()
 		);
 
 		if ($handler->process($form, $this)) {
 			$this->get('session')->setFlash('success', $this->get('translator')->trans(
-							$this->translation_prefix . '.flash.success.edit', array('%name%' => $entity), $this->bundle_name)
+				$this->translation_prefix . '.flash.success.edit', array('%name%' => $entity), $this->bundle_name)
 			);
 
-			return $this->redirect($this->generateUrl($this->route_edit, array('id' => $entity->getId())));
+			return $this->redirectEditSuccess($entity);
 		}
 
 		return $this->render($this->template_edit, array(
@@ -214,75 +234,69 @@ abstract class BaseAdminController extends Controller {
 					'bundle_name' => $this->bundle_name
 		));
 	}
-
-	public function publish_toggleAction($id) {
-		$object = $this->getClassRepository()->findOneById($id);
-		$em = $this->getDoctrine()->getEntityManager();
-		$object->getPublished() ? $object->setPublished(0) : $object->setPublished(1);
-		$em->flush();
+	
+	public function publishState($id, $publish_state) {
+		
+		$em = $this->getDoctrine()->getManager();
+		
+		$entity = $this->getClassRepository()->findOneById($id);
+		
+		//toggle
+		if ($publish_state === null) {
+			$publish_state = ($entity->getPublished()) ? false : true;
+		}
+		
+		$entity->setPublished($publish_state);
+		
+		$em->persist($entity)->flush();
 
 		$this->get('session')->setFlash('success', $this->get('translator')->trans(
-						$object->getPublished() ? $this->translation_prefix . '.flash.success.publish' : $this->translation_prefix . '.flash.success.unpublish', array(), $this->bundle_name)
+			$this->translation_prefix . '.flash.success.'.($entity->getPublished() ? '' : 'un').'publish', array(), $this->bundle_name)
 		);
 
-		return $this->redirect($this->generateUrl($this->route_index));
+		return $this->redirectPublishSuccess($entity);
+	}
+
+	public function publishToggleAction($id) {
+		return $this->publishState($id, null);
 	}
 
 	public function publishAction($id) {
-		$object = $this->getClassRepository()->findOneById($id);
-		$em = $this->getDoctrine()->getEntityManager();
-		$object->setPublished(1);
-		$em->flush();
-
-		$this->get('session')->setFlash('success', $this->get('translator')->trans(
-						$this->translation_prefix . '.flash.success.publish', array(), $this->bundle_name)
-		);
-
-		return $this->redirect($this->generateUrl($this->route_index));
+		return $this->publishState($id, true);
 	}
 
 	public function unpublishAction($id) {
-		$object = $this->getClassRepository()->findOneById($id);
-		$em = $this->getDoctrine()->getEntityManager();
-		$object->setPublished(0);
-		$em->flush();
-
-		$this->get('session')->setFlash('success', $this->get('translator')->trans(
-						$this->translation_prefix . '.flash.success.unpublish', array(), $this->bundle_name)
-		);
-
-		return $this->redirect($this->generateUrl($this->route_index));
+		return $this->publishState($id, false);
 	}
 
 	public function deleteAction($id) {
-		$object = $this->getClassRepository()->findOneById($id);
-		$em = $this->getDoctrine()->getEntityManager();
-		$em->remove($object);
+		$entity = $this->getClassRepository()->findOneById($id);
+		$em = $this->getDoctrine()->getManager();
+		$em->remove($entity);
 		$em->flush();
 
 		$this->get('session')->setFlash('success', $this->get('translator')->trans(
-						$this->translation_prefix . '.flash.success.delete', array(), $this->bundle_name)
+			$this->translation_prefix . '.flash.success.delete', array(), $this->bundle_name)
 		);
 
-		return $this->redirect($this->generateUrl($this->route_index));
+		return $this->redirectDeleteSuccess($entity);
 	}
 
 	public function groupProcessAction() {
 		$form = $this->getGroupForm(new $this->group_object_name());
 
 		$handler = new $this->group_form_handler_name(
-				$this->getRequest(), $this->getDoctrine()->getEntityManager()
+				$this->getRequest(), $this->getDoctrine()->getManager()
 		);
 
 		$process = $handler->process($form, $this->getRequest()->get('ids'));
 		if ($process != false) {
 			$this->get('session')->setFlash('success', $this->get('translator')->trans(
-							$this->translation_prefix . '.flash.success.group.' . $process, array(), $this->bundle_name)
+				$this->translation_prefix . '.flash.success.group.' . $process, array(), $this->bundle_name)
 			);
 		}
 
-		return $this->indexAction();
-		//return $this->redirect($this->generateUrl($this->route_index));
+		return $this->redirectGroupProcessSuccess($process);
 	}
 
 }

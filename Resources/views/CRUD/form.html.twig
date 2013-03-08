@@ -1,0 +1,32 @@
+{% form_theme form with ['CmsAdminBundle:Form:fields.html.twig', 'CmsAdminBundle:Form:collection.html.twig'] %}
+{% trans_default_domain 'CmsAdminBundle' %}
+
+{% block form_wrapper %}
+{% spaceless %}
+<section>
+    {% block form_header %}
+	<h2>{% block form_title '' %}</h2>
+    {% endblock %}
+	{% block form_tag %}
+	<form
+		class="{% block form_class 'form-horizontal' %}"
+		action="{% block form_action path(route_form_action) %}"
+		method="{% block form_method 'post' %}"
+		{{ form_enctype(form) }}
+	>
+	{% endblock %}
+		{% block form form_widget(form) %}
+        {% block form_actions %}
+		<div class="form-actions">
+			{% block form_actions_list_default %}
+			<input type="submit" class="btn btn-primary" value="{{ 'global.form_action.save'|trans }}">&nbsp;
+			{% endblock %}
+            {% block form_actions_list %}
+			<a class="btn" href="{{ path(route_index) }}">{{ 'global.form_action.back_to_list'|trans }}</a>
+            {% endblock %}
+		   </div>
+        {% endblock %}
+	</form>
+</section>
+{% endspaceless %}
+{% endblock %}
