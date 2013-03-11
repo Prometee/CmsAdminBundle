@@ -1,0 +1,37 @@
+{% extends 'CmsAdminBundle:CRUD:form.html.twig' %}
+{% trans_default_domain 'CmsAdminBundle' %}
+
+{% block form_title ( translation_prefix ~ '.edit.title' )|trans({'%name%': entity}, bundle_name) %}
+{% block form_action path(route_form_action, { 'id': entity.id }) %}
+
+{% block form_actions_list_default '' %}
+
+{% block form_actions_list %}
+	<input type="submit" class="btn btn-primary" value="{{ 'global.form_action.update'|trans }}">&nbsp;
+	<a class="btn danger bui-confirm-popover-above" data-popover-title="{{ 'global.form_action.are_you_sure'|trans }}" href="{{ path(route_delete, { 'id': entity.id }) }}" >{{ 'global.form_action.delete'|trans }}</a>
+{% endblock %}
+		
+{% if modal == true %}
+	{% block form_wrapper_tag %}
+	<div id="{{ modal_id }}" aria-labelledby="{{ modal_id }}_label" class="modal hide fade" role="dialog" aria-hidden="true">
+	{% endblock %}
+	{% block form_actions '' %}
+	{% block form_header '' %}
+	{% block form_tag %}
+		{{ parent() }}
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="{{ modal_id ~ '_label' }}">{{ block('form_title') }}</h3>
+		</div>
+		<div class="modal-body">
+	{% endblock %}
+	{% block form_end_tag %}
+		</div>
+		<div class="modal-footer">
+			<button class="btn" data-dismiss="modal" aria-hidden="true">{{ 'global.form_modal_action.close'|trans }}</button>
+			{{ block('form_actions_list') }}
+		</div>
+		{{ parent() }}
+	{% endblock %}
+	{% block form_wrapper_end_tag '</div>' %}
+{% endif %}

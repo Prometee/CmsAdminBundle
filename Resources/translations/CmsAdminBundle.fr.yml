@@ -17,6 +17,7 @@ global.form_action.save_and_add: Sauvegarder et ajouter
 global.form_action.back_to_list: Retour à la liste
 global.form_action.update: Modifier
 global.form_action.are_you_sure: Êtes-vous sûr ?
+global.form_modal_action.close: Annuler
 global.pagination.previous: Précedent
 global.pagination.next: Suivant
 global.topbar.logout: Se deconnecter

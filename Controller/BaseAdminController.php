@@ -124,6 +124,16 @@ abstract class BaseAdminController extends Controller {
 	protected function redirectGroupProcessSuccess($process_action) {
 		return $this->redirect($this->generateUrl($this->route_index));
 	}
+	
+	protected function getTemplateFor($action, $modal) {
+		$template_name = $this->{'template_'.$action};
+		$template_prefix = ($this->getRequest()->isXmlHttpRequest() || $modal) ? 'ajax_' : '';
+		if (!empty($template_prefix)) {
+			list($bundle_name, $module, $template) = explode(':', $template_name);
+			$template_name = $bundle_name.':'.$module.':'.$template_prefix.$template;
+		}
+		return $template_name;
+	}
 
 	public function indexAction() {
 		$form = $this->getGroupForm(new $this->group_object_name());
@@ -177,7 +187,7 @@ abstract class BaseAdminController extends Controller {
 		));
 	}
 
-	public function newAction() {
+	public function newAction($modal=false) {
 		$entity = new $this->entity_name();
 
 		$form = $this->getForm($entity);
@@ -197,7 +207,9 @@ abstract class BaseAdminController extends Controller {
 			return $this->redirectNewSuccess($entity);
 		}
 
-		return $this->render($this->template_new, array(
+		return $this->render($this->getTemplateFor('new', $modal), array(
+					'modal'=>$modal,
+					'modal_id'=>'modal_'.$this->translation_prefix.'_new',
 					'form' => $form->createView(),
 					'route_form_action' => $this->route_new,
 					'route_index' => $this->route_index,
@@ -206,7 +218,7 @@ abstract class BaseAdminController extends Controller {
 		));
 	}
 
-	public function editAction($id) {
+	public function editAction($id, $modal=false) {
 		$entity = $this->retrieveEntity($id);
 
 		$form = $this->getForm($entity);
@@ -223,7 +235,9 @@ abstract class BaseAdminController extends Controller {
 			return $this->redirectEditSuccess($entity);
 		}
 
-		return $this->render($this->template_edit, array(
+		return $this->render($this->getTemplateFor('edit', $modal), array(
+					'modal'=>$modal,
+					'modal_id'=>'modal_'.$this->translation_prefix.'_edit_'.$id,
 					'form' => $form->createView(),
 					'entity' => $entity,
 					'route_form_action' => $this->route_edit,
