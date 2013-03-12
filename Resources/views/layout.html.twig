@@ -35,19 +35,12 @@
 		<div class="container-fluid">
 			<div class="row-fluid">
 
-				<div class="span3">
+				<div class="span2">
 		{% block menuleft %}
-					<div class="well sidebar-nav">
-						<ul class="nav nav-list">
-							<li class="nav-header">&nbsp;</li>
-							<li class="active"><a href="#">&nbsp;</a></li>
-							<li><a href="#">&nbsp;</a></li>
-						</ul>
-					</div>
 		{% endblock %}
 				</div>
 
-				<div class="span9">
+				<div class="span10">
 
 		{% block flashes %}
 					{% for flashMessage in app.session.flashbag.get('notice') %}

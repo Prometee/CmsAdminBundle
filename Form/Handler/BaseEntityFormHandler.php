@@ -6,7 +6,7 @@ use Symfony\Component\Form\Form;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Exception\NotValidException;
 
-abstract class BaseEntityFormHandler extends BaseFormHandler {
+class BaseEntityFormHandler extends BaseFormHandler {
 	
     protected $class_name = 'Cms\Bundle\AdminBundle\Entity\Foo';
 

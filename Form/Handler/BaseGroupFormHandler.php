@@ -4,7 +4,7 @@ namespace Cms\Bundle\AdminBundle\Form\Handler;
 
 use Symfony\Component\Form\Form;
 
-abstract class BaseGroupFormHandler extends BaseFormHandler {
+class BaseGroupFormHandler extends BaseFormHandler {
 
     protected $repository_name = 'CmsAdminBundle:Foo';
 
