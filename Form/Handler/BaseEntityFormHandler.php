@@ -4,6 +4,7 @@ namespace Cms\Bundle\AdminBundle\Form\Handler;
 
 use Symfony\Component\Form\Form;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Exception\NotValidException;
 
 abstract class BaseEntityFormHandler extends BaseFormHandler {
 	
@@ -27,6 +28,8 @@ abstract class BaseEntityFormHandler extends BaseFormHandler {
                     $this->postSave($form, $controller);
 
                     return true;
+                } else {
+                    throw new NotValidException('This form is not valid');
                 }
             }
             return false;
