@@ -24,7 +24,7 @@
 	"knplabs/knp-paginator-bundle": "*",
 	"friendsofsymfony/user-bundle": "*",
 	"doctrine/doctrine-fixtures-bundle": "*",
-	"stof/doctrine-extensions-bundle": "1.*",
+	"stof/doctrine-extensions-bundle": "master",
 	"avalanche123/imagine-bundle": "*",
 	"stfalcon/tinymce-bundle": "*"
     },
