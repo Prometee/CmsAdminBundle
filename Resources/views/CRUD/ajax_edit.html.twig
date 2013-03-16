@@ -27,10 +27,16 @@
 	{% endblock %}
 	{% block form_end_tag %}
 		</div>
+		{% block ajax_form_footer %}
 		<div class="modal-footer">
-			<button class="btn" data-dismiss="modal" aria-hidden="true">{{ 'global.form_modal_action.close'|trans }}</button>
+			{% block ajax_form_footer_actions %}
 			{{ block('form_actions_list') }}
+			{% endblock %}
+			{% block ajax_form_footer_default_actions %}
+			<button class="btn btn-link" data-dismiss="modal" aria-hidden="true">{{ 'global.form_modal_action.close'|trans }}</button>
+			{% endblock %}
 		</div>
+		{% endblock %}
 		{{ parent() }}
 	{% endblock %}
 	{% block form_wrapper_end_tag '</div>' %}
