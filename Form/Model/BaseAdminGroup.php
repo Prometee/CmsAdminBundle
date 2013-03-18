@@ -4,7 +4,7 @@ namespace Cms\Bundle\AdminBundle\Form\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
 
-abstract class BaseAdminGroup
+class BaseAdminGroup
 {
     /**
      * @Assert\Choice(callback = "getActions")
@@ -14,8 +14,8 @@ abstract class BaseAdminGroup
     public static function getActions()
     {
         return array(
-            'none',
-            'delete'
+            'none' => '',
+            'delete' => 'global.form_action.group.delete'
         );
     }
 }

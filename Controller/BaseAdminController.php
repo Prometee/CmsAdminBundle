@@ -18,8 +18,8 @@ abstract class BaseAdminController extends Controller {
 	protected $filter_object_name = 'FooFilter';
 	protected $filter_form_type_name = 'FooFilterFormType';
 	protected $filter_form_handler_name = 'FooFilterFormHandler';
-	protected $group_object_name = 'FooGroup';
-	protected $group_form_type_name = 'FooGroupFormType';
+	protected $group_object_name = 'Cms\Bundle\AdminBundle\Form\Model\BaseAdminGroup';
+	protected $group_form_type_name = 'Cms\Bundle\AdminBundle\Form\Type\BaseAdminGroupFormType';
 	protected $group_form_handler_name = 'FooGroupFormHandler';
 	protected $route_index = 'cms_foo_admin_foo_index';
 	protected $route_new = 'cms_foo_admin_foo_new';
@@ -61,11 +61,15 @@ abstract class BaseAdminController extends Controller {
 				$this->filter_form_type_name = $class_path . 'Form\\Type\\' . $class_name . 'FilterFormType';
 			if (!class_exists($this->filter_form_handler_name))
 				$this->filter_form_handler_name = $class_path . 'Form\\Handler\\' . $class_name . 'FilterFormHandler';
-
-			if (!class_exists($this->group_object_name))
-				$this->group_object_name = $class_path . 'Form\\Model\\' . $class_name . 'Group';
-			if (!class_exists($this->group_form_type_name))
-				$this->group_form_type_name = $class_path . 'Form\\Type\\' . $class_name . 'GroupFormType';
+			
+			$group_object_name = $class_path . 'Form\\Model\\' . $class_name . 'Group';
+			if (class_exists($group_object_name))
+				$this->group_object_name = $group_object_name;
+			
+			$group_form_type_name = $class_path . 'Form\\Type\\' . $class_name . 'GroupFormType';
+			if (class_exists($group_form_type_name))
+				$this->group_form_type_name = $group_form_type_name;
+			
 			if (!class_exists($this->group_form_handler_name))
 				$this->group_form_handler_name = $class_path . 'Form\\Handler\\' . $class_name . 'GroupFormHandler';
 

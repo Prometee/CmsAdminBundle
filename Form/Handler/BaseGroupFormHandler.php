@@ -6,7 +6,7 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManager;
 
-abstract class BaseGroupFormHandler extends BaseFormHandler {
+class BaseGroupFormHandler extends BaseFormHandler {
 
     protected $repository_name = 'CmsAdminBundle:Foo';
 
