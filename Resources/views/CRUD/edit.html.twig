@@ -1,5 +1,9 @@
 {% extends 'CmsAdminBundle::layout.html.twig' %}
 
+{% block menuleft %}
+	{{ include(template_menuleft) }}
+{% endblock %}
+
 {% block content %}
 	{% embed 'CmsAdminBundle:CRUD:form.html.twig' %}
 		{% trans_default_domain 'CmsAdminBundle' %}

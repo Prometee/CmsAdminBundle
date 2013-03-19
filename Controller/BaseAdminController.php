@@ -10,6 +10,7 @@ abstract class BaseAdminController extends Controller {
 	//Must to be implemanted by the master class
 	protected $doctrine_namespace = "CmsAdminBundle:Foo";
 	protected $translation_prefix = 'foo';
+	protected $translation_domain = 'CmsAdminBundle';
 	protected $bundle_name = 'CmsAdminBundle';
 	protected $class_repository = 'Cms\Bundle\AdminBundle\Entity\Foo';
 	protected $entity_name = 'Foo';
@@ -21,6 +22,7 @@ abstract class BaseAdminController extends Controller {
 	protected $group_object_name = 'Cms\Bundle\AdminBundle\Form\Model\BaseAdminGroup';
 	protected $group_form_type_name = 'Cms\Bundle\AdminBundle\Form\Type\BaseAdminGroupFormType';
 	protected $group_form_handler_name = 'FooGroupFormHandler';
+	protected $route_prefix = '';
 	protected $route_index = 'cms_foo_admin_foo_index';
 	protected $route_new = 'cms_foo_admin_foo_new';
 	protected $route_edit = 'cms_foo_admin_foo_edit';
@@ -33,6 +35,7 @@ abstract class BaseAdminController extends Controller {
 	protected $template_new = 'CmsAdminBundle:CRUD:new.html.twig';
 	protected $template_edit = 'CmsAdminBundle:CRUD:edit.html.twig';
 	protected $template_show = 'CmsAdminBundle:CRUD:show.html.twig';
+	protected $template_menuleft = 'CmsAdminBundle::menuleft.html.twig';
 	protected $max_per_page = 10;
 
 	public function setContainer(ContainerInterface $container = null) {
@@ -74,14 +77,37 @@ abstract class BaseAdminController extends Controller {
 				$this->group_form_handler_name = $class_path . 'Form\\Handler\\' . $class_name . 'GroupFormHandler';
 
 			$this->translation_prefix = $this->container->underscore($class_name);
-			$route_prefix = $this->container->underscore(preg_replace('#Bundle$#', '', $this->bundle_name)).'_admin';
-			$this->route_index = ($this->route_index != 'cms_foo_admin_foo_index') ? $this->route_index : $route_prefix . '_' . $this->translation_prefix . '_index';
-			$this->route_new = ($this->route_new != 'cms_foo_admin_foo_new') ? $this->route_new : $route_prefix . '_' . $this->translation_prefix . '_new';
-			$this->route_edit = ($this->route_edit != 'cms_foo_admin_foo_edit') ? $this->route_new : $route_prefix . '_' . $this->translation_prefix . '_edit';
-			$this->route_show = ($this->route_show != 'cms_foo_admin_foo_show') ? $this->route_new : $route_prefix . '_' . $this->translation_prefix . '_show';
-			$this->route_delete = ($this->route_delete != 'cms_foo_admin_foo_delete') ? $this->route_new : $route_prefix . '_' . $this->translation_prefix . '_delete';
-			$this->route_publish = ($this->route_publish != 'cms_foo_admin_foo_publish_toggle') ? $this->route_new : $route_prefix . '_' . $this->translation_prefix . '_publish_toggle';
-			$this->route_group_process = ($this->route_group_process != 'cms_foo_admin_foo_group_process') ? $this->route_group_process : $route_prefix . '_' . $this->translation_prefix . '_group_process';
+			if (empty($this->route_prefix)) {
+				$this->route_prefix = $this->container->underscore(preg_replace('#Bundle$#', '', $this->bundle_name)).'_admin';
+			}
+			$this->route_index = ($this->route_index != 'cms_foo_admin_foo_index') ? $this->route_index : $this->route_prefix . '_' . $this->translation_prefix . '_index';
+			$this->route_new = ($this->route_new != 'cms_foo_admin_foo_new') ? $this->route_new : $this->route_prefix . '_' . $this->translation_prefix . '_new';
+			$this->route_edit = ($this->route_edit != 'cms_foo_admin_foo_edit') ? $this->route_new : $this->route_prefix . '_' . $this->translation_prefix . '_edit';
+			$this->route_show = ($this->route_show != 'cms_foo_admin_foo_show') ? $this->route_new : $this->route_prefix . '_' . $this->translation_prefix . '_show';
+			$this->route_delete = ($this->route_delete != 'cms_foo_admin_foo_delete') ? $this->route_new : $this->route_prefix . '_' . $this->translation_prefix . '_delete';
+			$this->route_publish = ($this->route_publish != 'cms_foo_admin_foo_publish_toggle') ? $this->route_new : $this->route_prefix . '_' . $this->translation_prefix . '_publish_toggle';
+			$this->route_group_process = ($this->route_group_process != 'cms_foo_admin_foo_group_process') ? $this->route_group_process : $this->route_prefix . '_' . $this->translation_prefix . '_group_process';
+			
+			$template_index = $this->bundle_name.':Admin'.$class_name.':index.html.twig';
+			if ($this->get('templating')->exists($template_index)) {
+				$this->template_index = $template_index;
+			}
+			$template_new = $this->bundle_name.':Admin'.$class_name.':new.html.twig';
+			if ($this->get('templating')->exists($template_new)) {
+				$this->template_new = $template_new;
+			}
+			$template_edit = $this->bundle_name.':Admin'.$class_name.':edit.html.twig';
+			if ($this->get('templating')->exists($template_edit)) {
+				$this->template_edit = $template_edit;
+			}
+			$template_show = $this->bundle_name.':Admin'.$class_name.':show.html.twig';
+			if ($this->get('templating')->exists($template_show)) {
+				$this->template_show = $template_show;
+			}
+			$template_menuleft = $this->bundle_name.':Admin'.$class_name.':menuleft.html.twig';
+			if ($this->get('templating')->exists($template_menuleft)) {
+				$this->template_menuleft = $template_menuleft;
+			}
 		}
 	}
 
@@ -90,7 +116,10 @@ abstract class BaseAdminController extends Controller {
 	}
 
 	protected function getGroupForm($entity) {
-		return $this->createForm(new $this->group_form_type_name($this->get('translator')), $entity);
+		return $this->createForm(new $this->group_form_type_name(), $entity, array(
+			'data_class'=>$this->group_object_name,
+			'translation_domain'=>$this->translation_domain
+		));
 	}
 
 	protected function getForm($entity) {
@@ -164,7 +193,8 @@ abstract class BaseAdminController extends Controller {
 					'route_show' => $this->route_show,
 					'route_delete' => $this->route_delete,
 					'route_publish' => $this->route_publish,
-					'route_form_action' => $this->route_group_process
+					'route_form_action' => $this->route_group_process,
+					'template_menuleft'=>$this->template_menuleft
 		));
 	}
 
@@ -218,7 +248,8 @@ abstract class BaseAdminController extends Controller {
 					'route_form_action' => $this->route_new,
 					'route_index' => $this->route_index,
 					'translation_prefix' => $this->translation_prefix,
-					'bundle_name' => $this->bundle_name
+					'bundle_name' => $this->bundle_name,
+					'template_menuleft'=>$this->template_menuleft
 		));
 	}
 
@@ -249,7 +280,8 @@ abstract class BaseAdminController extends Controller {
 					'route_delete' => $this->route_delete,
 					'route_show' => $this->route_show,
 					'translation_prefix' => $this->translation_prefix,
-					'bundle_name' => $this->bundle_name
+					'bundle_name' => $this->bundle_name,
+					'template_menuleft'=>$this->template_menuleft
 		));
 	}
 	

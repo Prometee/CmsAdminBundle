@@ -1,0 +1,10 @@
+{% extends 'CmsAdminBundle::layout.html.twig' %}
+{% trans_default_domain "CmsAdminBundle" %}
+
+{% block menuleft %}
+	{{ include(template_menuleft) }}
+{% endblock %}
+
+{% block content %}
+	{{ entity }}
+{% endblock %}

@@ -14,7 +14,7 @@ class BaseAdminGroup
     public static function getActions()
     {
         return array(
-            'none' => '',
+            'none' => 'global.form_action.group.none',
             'delete' => 'global.form_action.group.delete'
         );
     }

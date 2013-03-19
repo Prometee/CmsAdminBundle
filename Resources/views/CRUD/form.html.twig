@@ -2,7 +2,6 @@
 {% trans_default_domain 'CmsAdminBundle' %}
 
 {% block form_wrapper %}
-{% spaceless %}
 	{% block form_wrapper_tag '<section>' %}
 		{% block form_header %}
 		<h2>{% block form_title '' %}</h2>
@@ -28,5 +27,4 @@
 			{% endblock %}
 		{% block form_end_tag '</form>' %}
 	{% block form_wrapper_end_tag '</section>' %}
-{% endspaceless %}
 {% endblock %}
