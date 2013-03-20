@@ -234,8 +234,18 @@ abstract class BaseAdminController extends Controller {
 		$handler = new $this->form_handler_name(
 				$this->getRequest(), $this->getDoctrine()->getManager()
 		);
+		
+		try {
+            $process = $handler->process($form, $this);
+        } catch (NotValidException $e) {
+            $process = false;
+            $this->get('session')->setFlash('error', $this->get('translator')->trans(
+                    $this->translation_prefix . '.flash.error.new', array(), $this->bundle_name
+                )
+            );
+        }
 
-		if ($handler->process($form, $this)) {
+		if ($process) {
 			$this->get('session')->setFlash('success', $this->get('translator')->trans(
 							$this->translation_prefix . '.flash.success.new', array('%name%' => $entity), $this->bundle_name)
 			);
@@ -266,8 +276,18 @@ abstract class BaseAdminController extends Controller {
 		$handler = new $this->form_handler_name(
 				$this->getRequest(), $this->getDoctrine()->getManager()
 		);
+		
+		try {
+            $process = $handler->process($form, $this);
+        } catch (NotValidException $e) {
+            $process = false;
+            $this->get('session')->setFlash('error', $this->get('translator')->trans(
+                    $this->translation_prefix . '.flash.error.edit', array('%name%' => $entity), $this->bundle_name
+                )
+            );
+        }
 
-		if ($handler->process($form, $this)) {
+		if ($process) {
 			$this->get('session')->setFlash('success', $this->get('translator')->trans(
 							$this->translation_prefix . '.flash.success.edit', array('%name%' => $entity), $this->bundle_name)
 			);
@@ -311,17 +331,17 @@ abstract class BaseAdminController extends Controller {
 		);
 
 		try {
-			$process = $handler->process($form, $this->getRequest()->get('ids'));
-		} catch (NotValidException $e) {
-
-			$this->get('session')->setFlash('error', $this->get('translator')->trans(
-							$this->translation_prefix . '.flash.error.group.' . $process, array(), $this->bundle_name
-					)
-			);
-			return $this->redirectGroupProcessError($process);
-		}
-
-		if ($process != false) {
+            $process = $handler->process($form, $this->getRequest()->get('ids'));
+        } catch (NotValidException $e) {
+            
+            $this->get('session')->setFlash('error', $this->get('translator')->trans(
+                    $this->translation_prefix . '.flash.error.group.' . $process, array(), $this->bundle_name
+                )
+            );
+            return $this->redirectGroupProcessError($process);
+        }
+        
+        if ($process != false) {
 			$this->get('session')->setFlash('success', $this->get('translator')->trans(
 							$this->translation_prefix . '.flash.success.group.' . $process, array(), $this->bundle_name
 					)

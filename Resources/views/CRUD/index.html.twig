@@ -62,7 +62,7 @@
 							{% block index_list_items_actions %}
 							<td class="items-actions">
 								{% if is_granted('ROLE_ADMIN') %}
-									<a class="bui btt-edit" href="{{ path(route_edit, { 'id': entity.id }) }}" title="{{ 'global.form_action.edit'|trans }}">{{ 'global.form_action.edit'|trans }}</a>
+									<a class="btn btn-mini btn-primary" href="{{ path(route_edit, { 'id': entity.id }) }}" title="{{ 'global.form_action.edit'|trans }}">{{ 'global.form_action.edit'|trans }}</a>
 								{% endif %}
 							</td>
 							{% endblock %}
