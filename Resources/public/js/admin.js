@@ -1,5 +1,11 @@
 jQuery(document).ready(function(){
 	
+	jQuery('.btn-confirm').bind('click', function(e) {
+		if (!window.confirm(jQuery(this).data('title'))) {
+			e.preventDefault();
+		}
+	});
+	
 	jQuery('.form-horizontal .entity-collections .collection-field-row:before').css({
 		'content': jQuery('input:first',this).val()
 	});

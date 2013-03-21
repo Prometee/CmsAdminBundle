@@ -1,9 +1,21 @@
+{% if bundle_name is defined  %}
+	{% trans_default_domain bundle_name %}
+{% endif %}
 <div class="well sidebar-nav">
 	<ul class="nav nav-list">
 		<li class="nav-header">{% block menuleft_title 'Actions' %}</li>
 		<li class="divider"></li>
 		{% block menuleft_content %}
-		<li>&nbsp;</li>
+			{% if translation_prefix is defined %}
+				{% if route_index is defined  %}
+					<li><a href="{{ path(route_index) }}" title="">{{ (translation_prefix ~ '.index.title')|trans }}</a></li>
+				{% endif %}
+				{% if route_new is defined  %}
+					<li><a href="{{ path(route_new) }}" title="">{{ (translation_prefix ~ '.new.title')|trans }}</a></li>
+				{% endif %}
+			{% else %}
+				<li>&nbsp;</li>
+			{% endif %}
 		{% endblock %}
 	</ul>
 </div>

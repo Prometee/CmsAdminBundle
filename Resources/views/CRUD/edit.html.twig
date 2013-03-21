@@ -1,20 +1,12 @@
-{% extends 'CmsAdminBundle::layout.html.twig' %}
+{% extends 'CmsAdminBundle:CRUD:form.html.twig' %}
+{% trans_default_domain 'CmsAdminBundle' %}
 
-{% block menuleft %}
-	{{ include(template_menuleft) }}
-{% endblock %}
+{% block form_title ( translation_prefix ~ '.edit.title' )|trans({'%name%': entity}, bundle_name) %}
+{% block form_action path(route_form_action, { 'id': entity.id }) %}
 
-{% block content %}
-	{% embed 'CmsAdminBundle:CRUD:form.html.twig' %}
-		{% trans_default_domain 'CmsAdminBundle' %}
-		{% block form_title ( translation_prefix ~ '.edit.title' )|trans({'%name%': entity}, bundle_name) %}
-		{% block form_action path(route_form_action, { 'id': entity.id }) %}
-
-		{% block form_actions_list_default '' %}
-		{% block form_actions_list %}
-			<input type="submit" class="btn btn-primary" value="{{ 'global.form_action.update'|trans }}">
-			<a class="btn btn-danger bui-confirm-popover-above" data-popover-title="{{ 'global.form_action.are_you_sure'|trans }}" href="{{ path(route_delete, { 'id': entity.id }) }}" >{{ 'global.form_action.delete'|trans }}</a>
-			{{ parent() }}
-		{% endblock %}
-	{% endembed %}
+{% block form_actions_list_default '' %}
+{% block form_actions_list %}
+	<input type="submit" class="btn btn-primary" value="{{ 'global.form_action.update'|trans }}">
+	<a class="btn btn-danger btn-confirm" data-title="{{ 'global.form_action.are_you_sure'|trans }}" href="{{ path(route_delete, { 'id': entity.id }) }}" >{{ 'global.form_action.delete'|trans }}</a>
+	{{ parent() }}
 {% endblock %}

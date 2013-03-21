@@ -1,4 +1,5 @@
-{% extends 'CmsAdminBundle:CRUD:form.html.twig' %}
+{% extends 'CmsAdminBundle:CRUD:ajax_form.html.twig' %}
+{% form_theme form with ['CmsAdminBundle:Form:fields.html.twig', 'CmsAdminBundle:Form:collection.html.twig'] %}
 {% trans_default_domain 'CmsAdminBundle' %}
 
 {% block form_title ( translation_prefix ~ '.new.title' )|trans([], bundle_name) %}

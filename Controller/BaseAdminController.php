@@ -11,32 +11,43 @@ abstract class BaseAdminController extends Controller {
 	//Must to be implemanted by the master class
 	protected $doctrine_namespace = "CmsAdminBundle:Foo";
 	protected $translation_prefix = 'foo';
-	protected $translation_domain = 'CmsAdminBundle';
 	protected $bundle_name = 'CmsAdminBundle';
 	protected $class_repository = 'Cms\Bundle\AdminBundle\Entity\Foo';
 	protected $entity_name = 'Foo';
+	
+	protected $translation_domain = 'CmsAdminBundle';
+	
 	protected $form_type_name = 'FooFormType';
 	protected $form_handler_name = 'FooFormHandler';
+	
 	protected $filter_object_name = 'FooFilter';
 	protected $filter_form_type_name = 'FooFilterFormType';
 	protected $filter_form_handler_name = 'FooFilterFormHandler';
+	
 	protected $group_object_name = 'Cms\Bundle\AdminBundle\Form\Model\BaseAdminGroup';
 	protected $group_form_type_name = 'Cms\Bundle\AdminBundle\Form\Type\BaseAdminGroupFormType';
 	protected $group_form_handler_name = 'FooGroupFormHandler';
+	
 	protected $route_prefix = '';
 	protected $route_index = 'cms_foo_admin_foo_index';
 	protected $route_new = 'cms_foo_admin_foo_new';
 	protected $route_edit = 'cms_foo_admin_foo_edit';
 	protected $route_show = 'cms_foo_admin_foo_show';
 	protected $route_delete = 'cms_foo_admin_foo_delete';
-	protected $route_publish = 'cms_foo_admin_foo_publish_toggle';
 	protected $route_group_process = 'cms_foo_admin_foo_group_process';
+	
 	//Default values
-	protected $template_index = 'CmsAdminBundle:CRUD:index.html.twig';
-	protected $template_new = 'CmsAdminBundle:CRUD:new.html.twig';
-	protected $template_edit = 'CmsAdminBundle:CRUD:edit.html.twig';
-	protected $template_show = 'CmsAdminBundle:CRUD:show.html.twig';
-	protected $template_menuleft = 'CmsAdminBundle::menuleft.html.twig';
+	private $default_template_index = 'CmsAdminBundle:CRUD:index.html.twig';
+	private $default_template_new = 'CmsAdminBundle:CRUD:new.html.twig';
+	private $default_template_edit = 'CmsAdminBundle:CRUD:edit.html.twig';
+	private $default_template_show = 'CmsAdminBundle:CRUD:show.html.twig';
+	private $default_template_menuleft = 'CmsAdminBundle::menuleft.html.twig';
+	
+	protected $template_index = 'FooBundle:AdminFoo:index.html.twig';
+	protected $template_new = 'FooBundle:AdminFoo:new.html.twig';
+	protected $template_edit = 'FooBundle:AdminFoo:edit.html.twig';
+	protected $template_show = 'FooBundle:AdminFoo:show.html.twig';
+	protected $template_menuleft = 'FooBundle:AdminFoo:menuleft.html.twig';
 	protected $max_per_page = 10;
 
 	public function setContainer(ContainerInterface $container = null) {
@@ -86,30 +97,53 @@ abstract class BaseAdminController extends Controller {
 			$this->route_edit = ($this->route_edit != 'cms_foo_admin_foo_edit') ? $this->route_new : $this->route_prefix . '_' . $this->translation_prefix . '_edit';
 			$this->route_show = ($this->route_show != 'cms_foo_admin_foo_show') ? $this->route_new : $this->route_prefix . '_' . $this->translation_prefix . '_show';
 			$this->route_delete = ($this->route_delete != 'cms_foo_admin_foo_delete') ? $this->route_new : $this->route_prefix . '_' . $this->translation_prefix . '_delete';
-			$this->route_publish = ($this->route_publish != 'cms_foo_admin_foo_publish_toggle') ? $this->route_new : $this->route_prefix . '_' . $this->translation_prefix . '_publish_toggle';
 			$this->route_group_process = ($this->route_group_process != 'cms_foo_admin_foo_group_process') ? $this->route_group_process : $this->route_prefix . '_' . $this->translation_prefix . '_group_process';
 
-			$template_index = $this->bundle_name . ':Admin' . $class_name . ':index.html.twig';
-			if ($this->get('templating')->exists($template_index)) {
-				$this->template_index = $template_index;
+			if (!$this->get('templating')->exists($this->template_index)) {
+				$template_index = $this->bundle_name . ':Admin' . $class_name . ':index.html.twig';
+				$this->template_index = $this->get('templating')->exists($template_index) ? $template_index : $this->default_template_index;
 			}
-			$template_new = $this->bundle_name . ':Admin' . $class_name . ':new.html.twig';
-			if ($this->get('templating')->exists($template_new)) {
-				$this->template_new = $template_new;
+			
+			if (!$this->get('templating')->exists($this->template_new)) {
+				$template_new = $this->bundle_name . ':Admin' . $class_name . ':new.html.twig';
+				$this->template_new = $this->get('templating')->exists($template_new) ? $template_new : $this->default_template_new;
 			}
-			$template_edit = $this->bundle_name . ':Admin' . $class_name . ':edit.html.twig';
-			if ($this->get('templating')->exists($template_edit)) {
-				$this->template_edit = $template_edit;
+			
+			if (!$this->get('templating')->exists($this->template_edit)) {
+				$template_edit = $this->bundle_name . ':Admin' . $class_name . ':edit.html.twig';
+				$this->template_edit = $this->get('templating')->exists($template_edit) ? $template_edit : $this->default_template_edit;
 			}
-			$template_show = $this->bundle_name . ':Admin' . $class_name . ':show.html.twig';
-			if ($this->get('templating')->exists($template_show)) {
-				$this->template_show = $template_show;
+			
+			if (!$this->get('templating')->exists($this->template_show)) {
+				$template_show = $this->bundle_name . ':Admin' . $class_name . ':show.html.twig';
+				$this->template_show = $this->get('templating')->exists($template_show) ? $template_show : $this->default_template_show;
 			}
-			$template_menuleft = $this->bundle_name . ':Admin' . $class_name . ':menuleft.html.twig';
-			if ($this->get('templating')->exists($template_menuleft)) {
+			
+			if (!$this->get('templating')->exists($this->template_menuleft)) {
+				$template_menuleft = $this->bundle_name . ':Admin' . $class_name . ':menuleft.html.twig';
+				if ($this->get('templating')->exists($template_menuleft)) {
 				$this->template_menuleft = $template_menuleft;
+				} else {
+					$template_menuleft = $this->bundle_name . '::menuleft.html.twig';
+					$this->template_menuleft = $this->get('templating')->exists($template_menuleft) ? $template_menuleft : $this->default_template_menuleft;
+				}
 			}
 		}
+	}
+
+	protected function getTemplateFor($action, $modal) {
+		$template_name = $this->{'template_' . $action};
+		$template_prefix = ($this->getRequest()->isXmlHttpRequest() || $modal) ? 'ajax_' : '';
+		if (!empty($template_prefix)) {
+			list($bundle_name, $module, $template) = explode(':', $template_name);
+			$template_name = $bundle_name . ':' . $module . ':' . $template_prefix . $template;
+			if (!$this->get('templating')->exists($template_name)) {
+				$template_name = $this->{'default_template_' . $action};
+				list($bundle_name, $module, $template) = explode(':', $template_name);
+				$template_name = $bundle_name . ':' . $module . ':' . $template_prefix . $template;
+			}
+		}
+		return $template_name;
 	}
 
 	protected function getClassRepository() {
@@ -147,10 +181,6 @@ abstract class BaseAdminController extends Controller {
 		return $this->redirect($this->generateUrl($this->route_edit, array('id' => $entity->getId())));
 	}
 
-	protected function redirectPublishSuccess($entity = null) {
-		return $this->redirect($this->generateUrl($this->route_index));
-	}
-
 	protected function redirectDeleteSuccess($entity = null) {
 		return $this->redirect($this->generateUrl($this->route_index));
 	}
@@ -161,16 +191,6 @@ abstract class BaseAdminController extends Controller {
 
 	protected function redirectGroupProcessError($process_action) {
 		return $this->redirect($this->generateUrl($this->route_index));
-	}
-
-	protected function getTemplateFor($action, $modal) {
-		$template_name = $this->{'template_' . $action};
-		$template_prefix = ($this->getRequest()->isXmlHttpRequest() || $modal) ? 'ajax_' : '';
-		if (!empty($template_prefix)) {
-			list($bundle_name, $module, $template) = explode(':', $template_name);
-			$template_name = $bundle_name . ':' . $module . ':' . $template_prefix . $template;
-		}
-		return $template_name;
 	}
 
 	public function indexAction() {
@@ -197,7 +217,6 @@ abstract class BaseAdminController extends Controller {
 					'route_edit' => $this->route_edit,
 					'route_show' => $this->route_show,
 					'route_delete' => $this->route_delete,
-					'route_publish' => $this->route_publish,
 					'route_form_action' => $this->route_group_process,
 					'template_menuleft' => $this->template_menuleft
 		));
@@ -260,6 +279,7 @@ abstract class BaseAdminController extends Controller {
 					'modal' => $modal,
 					'modal_id' => 'modal_' . $this->translation_prefix . '_new',
 					'form' => $form->createView(),
+					'entity' => $entity,
 					'route_form_action' => $this->route_new,
 					'route_index' => $this->route_index,
 					'translation_prefix' => $this->translation_prefix,
@@ -333,12 +353,12 @@ abstract class BaseAdminController extends Controller {
 		try {
             $process = $handler->process($form, $this->getRequest()->get('ids'));
         } catch (NotValidException $e) {
-            
+			$action = $form->getData()->action;
             $this->get('session')->setFlash('error', $this->get('translator')->trans(
-                    $this->translation_prefix . '.flash.error.group.' . $process, array(), $this->bundle_name
+                    $this->translation_prefix . '.flash.error.group.' . $action, array(), $this->bundle_name
                 )
             );
-            return $this->redirectGroupProcessError($process);
+            return $this->redirectGroupProcessError($action);
         }
         
         if ($process != false) {
@@ -350,39 +370,4 @@ abstract class BaseAdminController extends Controller {
 
 		return $this->redirectGroupProcessSuccess($process);
 	}
-
-	public function publishState($id, $publish_state) {
-
-		$em = $this->getDoctrine()->getManager();
-
-		$entity = $this->getClassRepository()->findOneById($id);
-
-		//toggle
-		if ($publish_state === null) {
-			$publish_state = ($entity->getPublished()) ? false : true;
-		}
-
-		$entity->setPublished($publish_state);
-
-		$em->persist($entity)->flush();
-
-		$this->get('session')->setFlash('success', $this->get('translator')->trans(
-						$this->translation_prefix . '.flash.success.' . ($entity->getPublished() ? '' : 'un') . 'publish', array(), $this->bundle_name)
-		);
-
-		return $this->redirectPublishSuccess($entity);
-	}
-
-	public function publishToggleAction($id) {
-		return $this->publishState($id, null);
-	}
-
-	public function publishAction($id) {
-		return $this->publishState($id, true);
-	}
-
-	public function unpublishAction($id) {
-		return $this->publishState($id, false);
-	}
-
 }

@@ -3,6 +3,7 @@
 namespace Cms\Bundle\AdminBundle\Form\Handler;
 
 use Symfony\Component\Form\Form;
+use Symfony\Component\Form\Exception\NotValidException;
 
 class BaseGroupFormHandler extends BaseFormHandler {
 

@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class BaseAdminGroup
 {
     /**
-     * @Assert\Choice(callback = "getActions")
+     * @Assert\Choice(callback = "getActionsKeys")
      */
     public $action;
     
@@ -18,4 +18,8 @@ class BaseAdminGroup
             'delete' => 'global.form_action.group.delete'
         );
     }
+	
+	public static function getActionsKeys() {
+		return array_keys(self::getActions());
+	}
 }

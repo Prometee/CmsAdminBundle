@@ -1,17 +1,9 @@
-{% extends 'CmsAdminBundle::layout.html.twig' %}
+{% extends 'CmsAdminBundle:CRUD:form.html.twig' %}
+{% trans_default_domain 'CmsAdminBundle' %}
 
-{% block menuleft %}
-	{{ include(template_menuleft) }}
-{% endblock %}
+{% block form_title ( translation_prefix ~ '.new.title' )|trans([], bundle_name) %}
 
-{% block content %}
-	{% embed 'CmsAdminBundle:CRUD:form.html.twig' %}
-		{% trans_default_domain 'CmsAdminBundle' %}
-		{% block form_title ( translation_prefix ~ '.new.title' )|trans([], bundle_name) %}
-
-		{% block form_actions_list %}
-			<input type="submit" class="btn btn-info" name="save_and_add" value="{{ 'global.form_action.save_and_add'|trans }}">
-			{{ parent() }}
-		{% endblock %}
-	{% endembed %}
+{% block form_actions_list %}
+	<input type="submit" class="btn btn-info" name="save_and_add" value="{{ 'global.form_action.save_and_add'|trans }}">
+	{{ parent() }}
 {% endblock %}
