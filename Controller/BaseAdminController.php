@@ -282,6 +282,7 @@ abstract class BaseAdminController extends Controller {
 					'entity' => $entity,
 					'route_form_action' => $this->route_new,
 					'route_index' => $this->route_index,
+					'route_new' => $this->route_new,
 					'translation_prefix' => $this->translation_prefix,
 					'bundle_name' => $this->bundle_name,
 					'template_menuleft' => $this->template_menuleft
@@ -324,6 +325,7 @@ abstract class BaseAdminController extends Controller {
 					'route_index' => $this->route_index,
 					'route_delete' => $this->route_delete,
 					'route_show' => $this->route_show,
+					'route_new' => $this->route_new,
 					'translation_prefix' => $this->translation_prefix,
 					'bundle_name' => $this->bundle_name,
 					'template_menuleft' => $this->template_menuleft
