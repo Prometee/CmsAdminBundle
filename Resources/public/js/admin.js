@@ -1,6 +1,6 @@
 jQuery(document).ready(function(){
 	
-	jQuery('.btn-confirm').bind('click', function(e) {
+	jQuery(document).on('click', '.btn-confirm', function(e) {
 		if (!window.confirm(jQuery(this).data('title'))) {
 			e.preventDefault();
 		}
@@ -58,12 +58,12 @@ jQuery(document).ready(function(){
             index = jQuery('#list-photos .thumbnail').size() + 1;
         }
 
-        jQuery('.add-collection-row', $c.parent()).click(function(e) {
+        jQuery($c.parent()).on('click', '.add-collection-row', function(e) {
             e.preventDefault();
             add_row();
         });
 
-        jQuery('.delete-collection-row', $c.parent()).click(function(e) {
+        jQuery($c.parent()).on('click', '.delete-collection-row', function(e) {
             e.preventDefault();
             del_row(jQuery(this));
         });
