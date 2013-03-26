@@ -3,19 +3,9 @@
 namespace Cms\Bundle\AdminBundle\Form\Extension\Type;
 
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class RichEditorType extends TextareaType {
-
-	/**
-	 * {@inheritdoc}
-	 */
-	public function getDefaultOptions(array $options) {
-		$parent_options = parent::getDefaultOptions($options);
-		$parent_options['required'] = 0;
-		$parent_options['attr']['class'] = 'tinymce';
-		$parent_options['attr']['data-theme'] = 'simple';
-		return $parent_options;
-	}
 
 	/**
 	 * {@inheritdoc}
@@ -30,5 +20,18 @@ class RichEditorType extends TextareaType {
 	public function getName() {
 		return 'richeditor';
 	}
+
+	/**
+	 * {@inheritdoc}
+	 */
+    public function setDefaultOptions(OptionsResolverInterface $resolver) {
+        $resolver->setDefaults(array(
+            'required' => 0,
+            'attr' => array(
+                'class'=>'tinymce',
+                'data-theme'=>'simple'
+            )
+        ));
+    }
 
 }
