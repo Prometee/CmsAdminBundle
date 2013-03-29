@@ -1,4 +1,8 @@
 jQuery(document).ready(function(){
+    
+    if (jQuery("[rel=tooltip]").length) {
+        jQuery("[rel=tooltip]").tooltip();
+    }
 	
 	jQuery(document).on('click', '.btn-confirm', function(e) {
 		if (!window.confirm(jQuery(this).data('title'))) {
