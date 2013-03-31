@@ -24,9 +24,7 @@
 	"knplabs/knp-paginator-bundle": "*",
 	"friendsofsymfony/user-bundle": "*",
 	"doctrine/doctrine-fixtures-bundle": "*",
-	"avalanche123/imagine-bundle": "*"
-    },
-    "require-dev": {
+	"avalanche123/imagine-bundle": "*",
 	"stfalcon/tinymce-bundle": "*"
     },
     "autoload": {
