@@ -11,7 +11,7 @@ class BaseGroupFormHandler extends BaseFormHandler {
 
     public function process(Form $form, $ids) {
         if ($this->request_method == $this->request->getMethod()) {
-            $form->bindRequest($this->request);
+            $form->bind($this->request);
 
             if (!is_array($ids) || count($ids) <= 0)
                 return false;

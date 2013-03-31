@@ -2,21 +2,21 @@
 
 namespace Cms\Bundle\AdminBundle\Form\Handler;
 
-use Symfony\Component\Form\Form;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\Form\Exception\NotValidException;
 
 class BaseEntityFormHandler extends BaseFormHandler {
-	
+
     protected $class_name = 'Cms\Bundle\AdminBundle\Entity\Foo';
 
-    public function process(Form $form, Controller $controller) {
+    public function process(FormInterface $form, ContainerAwareInterface $controller) {
 
         if (!$form->getData() instanceof $this->class_name) {
             throw new \Exception('This entity is not an instance of ' . $this->class_name);
         } else {
             if ($this->request_method == $this->request->getMethod()) {
-                $form->bindRequest($this->request);
+                $form->bind($this->request);
 
                 if ($form->isValid()) {
 
@@ -36,12 +36,12 @@ class BaseEntityFormHandler extends BaseFormHandler {
         }
     }
 
-    protected function preSave(Form $form, Controller $controller) {
-        
+    protected function preSave(FormInterface $form, ContainerAwareInterface $controller) {
+
     }
 
-    protected function postSave(Form $form, Controller $controller) {
-        
+    protected function postSave(FormInterface $form, ContainerAwareInterface $controller) {
+
     }
 
 }

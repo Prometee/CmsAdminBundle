@@ -49,3 +49,28 @@ login.label.username: Nom d'utilisateur
 login.label.password: Mot de passe
 login.label.remember_me: Se souvenir de moi
 login.label.submit: Se connecter
+
+user:
+  index:
+    title: Liste des utilisateurs
+  edit:
+    title: Edition de l'utilisateur «%name%»
+  new:
+    title: Nouveau utilisateur
+  flash:
+    success:
+      delete: L'utilisateur a été suprimé avec succés
+      new: L'utilisateur a été créé avec succès
+      edit: L'utilisateur a été modifié avec succès
+      group:
+        success: Les utilisateurs sélectionnés ont été supprimés
+    error:
+      delete: Une erreur est survenue lors de la tentative de suppression
+      new: Une erreur est survenue, aucun utilisateur n'a été créé
+      edit: Une erreur est survenue pendant la modification, veuillez vérifier les champs saisis
+      group:
+        delete: Une erreur est survenue lors de la tentative de suppression de ces utilisateurs
+
+  roles:
+    admin: Rédacteur
+    super_admin: Proviseur
