@@ -7,16 +7,16 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class BaseAdminGroupFormType extends AbstractType {
-	
-	protected $name_prefix;
-		
+
+    protected $name_prefix;
+
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('action', 'choice', array(
-			'choices'=>$options['data']->getActions()
-		));
+            'choices' => call_user_func(array($options['data_class'], 'getActions'))
+        ));
     }
-	
-	public function setDefaultOptions(OptionsResolverInterface $resolver) {
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setRequired(array(
             'data_class'
         ));
@@ -25,4 +25,5 @@ class BaseAdminGroupFormType extends AbstractType {
     public function getName() {
         return 'cms_admin_group';
     }
+
 }

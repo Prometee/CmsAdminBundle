@@ -14,20 +14,20 @@ abstract class BaseAdminController extends Controller {
 	protected $bundle_name = 'CmsAdminBundle';
 	protected $class_repository = 'Cms\Bundle\AdminBundle\Entity\Foo';
 	protected $entity_name = 'Foo';
-	
+
 	protected $translation_domain = 'CmsAdminBundle';
-	
+
 	protected $form_type_name = 'FooFormType';
 	protected $form_handler_name = 'FooFormHandler';
-	
+
 	protected $filter_object_name = 'FooFilter';
 	protected $filter_form_type_name = 'FooFilterFormType';
 	protected $filter_form_handler_name = 'FooFilterFormHandler';
-	
+
 	protected $group_object_name = 'Cms\Bundle\AdminBundle\Form\Model\BaseAdminGroup';
 	protected $group_form_type_name = 'Cms\Bundle\AdminBundle\Form\Type\BaseAdminGroupFormType';
 	protected $group_form_handler_name = 'FooGroupFormHandler';
-	
+
 	protected $route_prefix = '';
 	protected $route_index = 'cms_foo_admin_foo_index';
 	protected $route_new = 'cms_foo_admin_foo_new';
@@ -35,14 +35,14 @@ abstract class BaseAdminController extends Controller {
 	protected $route_show = 'cms_foo_admin_foo_show';
 	protected $route_delete = 'cms_foo_admin_foo_delete';
 	protected $route_group_process = 'cms_foo_admin_foo_group_process';
-	
+
 	//Default values
 	private $default_template_index = 'CmsAdminBundle:CRUD:index.html.twig';
 	private $default_template_new = 'CmsAdminBundle:CRUD:new.html.twig';
 	private $default_template_edit = 'CmsAdminBundle:CRUD:edit.html.twig';
 	private $default_template_show = 'CmsAdminBundle:CRUD:show.html.twig';
 	private $default_template_menuleft = 'CmsAdminBundle::menuleft.html.twig';
-	
+
 	protected $template_index = 'FooBundle:AdminFoo:index.html.twig';
 	protected $template_new = 'FooBundle:AdminFoo:new.html.twig';
 	protected $template_edit = 'FooBundle:AdminFoo:edit.html.twig';
@@ -94,31 +94,31 @@ abstract class BaseAdminController extends Controller {
 			}
 			$this->route_index = ($this->route_index != 'cms_foo_admin_foo_index') ? $this->route_index : $this->route_prefix . '_' . $this->translation_prefix . '_index';
 			$this->route_new = ($this->route_new != 'cms_foo_admin_foo_new') ? $this->route_new : $this->route_prefix . '_' . $this->translation_prefix . '_new';
-			$this->route_edit = ($this->route_edit != 'cms_foo_admin_foo_edit') ? $this->route_new : $this->route_prefix . '_' . $this->translation_prefix . '_edit';
-			$this->route_show = ($this->route_show != 'cms_foo_admin_foo_show') ? $this->route_new : $this->route_prefix . '_' . $this->translation_prefix . '_show';
-			$this->route_delete = ($this->route_delete != 'cms_foo_admin_foo_delete') ? $this->route_new : $this->route_prefix . '_' . $this->translation_prefix . '_delete';
+			$this->route_edit = ($this->route_edit != 'cms_foo_admin_foo_edit') ? $this->route_edit : $this->route_prefix . '_' . $this->translation_prefix . '_edit';
+			$this->route_show = ($this->route_show != 'cms_foo_admin_foo_show') ? $this->route_show : $this->route_prefix . '_' . $this->translation_prefix . '_show';
+			$this->route_delete = ($this->route_delete != 'cms_foo_admin_foo_delete') ? $this->route_delete : $this->route_prefix . '_' . $this->translation_prefix . '_delete';
 			$this->route_group_process = ($this->route_group_process != 'cms_foo_admin_foo_group_process') ? $this->route_group_process : $this->route_prefix . '_' . $this->translation_prefix . '_group_process';
 
 			if (!$this->get('templating')->exists($this->template_index)) {
 				$template_index = $this->bundle_name . ':Admin' . $class_name . ':index.html.twig';
 				$this->template_index = $this->get('templating')->exists($template_index) ? $template_index : $this->default_template_index;
 			}
-			
+
 			if (!$this->get('templating')->exists($this->template_new)) {
 				$template_new = $this->bundle_name . ':Admin' . $class_name . ':new.html.twig';
 				$this->template_new = $this->get('templating')->exists($template_new) ? $template_new : $this->default_template_new;
 			}
-			
+
 			if (!$this->get('templating')->exists($this->template_edit)) {
 				$template_edit = $this->bundle_name . ':Admin' . $class_name . ':edit.html.twig';
 				$this->template_edit = $this->get('templating')->exists($template_edit) ? $template_edit : $this->default_template_edit;
 			}
-			
+
 			if (!$this->get('templating')->exists($this->template_show)) {
 				$template_show = $this->bundle_name . ':Admin' . $class_name . ':show.html.twig';
 				$this->template_show = $this->get('templating')->exists($template_show) ? $template_show : $this->default_template_show;
 			}
-			
+
 			if (!$this->get('templating')->exists($this->template_menuleft)) {
 				$template_menuleft = $this->bundle_name . ':Admin' . $class_name . ':menuleft.html.twig';
 				if ($this->get('templating')->exists($template_menuleft)) {
@@ -160,6 +160,12 @@ abstract class BaseAdminController extends Controller {
 	protected function getForm($entity) {
 		return $this->createForm(new $this->form_type_name(), $entity);
 	}
+
+        protected function getFormHandler() {
+            return new $this->form_handler_name(
+		$this->getRequest(), $this->getDoctrine()->getManager()
+            );
+        }
 
 	protected function getFilterForm($entity) {
 		if (class_exists($this->filter_form_type_name)) {
@@ -250,22 +256,20 @@ abstract class BaseAdminController extends Controller {
 
 		$form = $this->getForm($entity);
 
-		$handler = new $this->form_handler_name(
-				$this->getRequest(), $this->getDoctrine()->getManager()
-		);
-		
+		$handler = $this->getFormHandler();
+
 		try {
             $process = $handler->process($form, $this);
         } catch (NotValidException $e) {
             $process = false;
-            $this->get('session')->setFlash('error', $this->get('translator')->trans(
+            $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans(
                     $this->translation_prefix . '.flash.error.new', array(), $this->bundle_name
                 )
             );
         }
 
 		if ($process) {
-			$this->get('session')->setFlash('success', $this->get('translator')->trans(
+			$this->get('session')->getFlashBag()->set('success', $this->get('translator')->trans(
 							$this->translation_prefix . '.flash.success.new', array('%name%' => $entity), $this->bundle_name)
 			);
 
@@ -294,22 +298,20 @@ abstract class BaseAdminController extends Controller {
 
 		$form = $this->getForm($entity);
 
-		$handler = new $this->form_handler_name(
-				$this->getRequest(), $this->getDoctrine()->getManager()
-		);
-		
+		$handler = $this->getFormHandler();
+
 		try {
             $process = $handler->process($form, $this);
         } catch (NotValidException $e) {
             $process = false;
-            $this->get('session')->setFlash('error', $this->get('translator')->trans(
+            $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans(
                     $this->translation_prefix . '.flash.error.edit', array('%name%' => $entity), $this->bundle_name
                 )
             );
         }
 
 		if ($process) {
-			$this->get('session')->setFlash('success', $this->get('translator')->trans(
+			$this->get('session')->getFlashBag()->set('success', $this->get('translator')->trans(
 							$this->translation_prefix . '.flash.success.edit', array('%name%' => $entity), $this->bundle_name)
 			);
 
@@ -338,7 +340,7 @@ abstract class BaseAdminController extends Controller {
 		$em->remove($entity);
 		$em->flush();
 
-		$this->get('session')->setFlash('success', $this->get('translator')->trans(
+		$this->get('session')->getFlashBag()->set('success', $this->get('translator')->trans(
 						$this->translation_prefix . '.flash.success.delete', array(), $this->bundle_name)
 		);
 
@@ -356,15 +358,15 @@ abstract class BaseAdminController extends Controller {
             $process = $handler->process($form, $this->getRequest()->get('ids'));
         } catch (NotValidException $e) {
 			$action = $form->getData()->action;
-            $this->get('session')->setFlash('error', $this->get('translator')->trans(
+            $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans(
                     $this->translation_prefix . '.flash.error.group.' . $action, array(), $this->bundle_name
                 )
             );
             return $this->redirectGroupProcessError($action);
         }
-        
+
         if ($process != false) {
-			$this->get('session')->setFlash('success', $this->get('translator')->trans(
+			$this->get('session')->getFlashBag()->set('success', $this->get('translator')->trans(
 							$this->translation_prefix . '.flash.success.group.' . $process, array(), $this->bundle_name
 					)
 			);

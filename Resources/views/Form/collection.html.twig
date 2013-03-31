@@ -8,7 +8,7 @@
                 {{ form_errors(form) }}
                 {% for child in form %}
                     <div class="collection-field-row">
-						{{ form_row(child) }}
+			{{ form_row(child) }}
                         {% if allow_delete is defined and allow_delete %}
                         <a href="#" class="delete-collection-row btn btn-danger">
                             {{ 'global.form_action.delete' | trans([], 'CmsAdminBundle') }}
@@ -18,17 +18,17 @@
                 {% endfor %}
             </div>
         {% if allow_add is defined and allow_add %}
-		<div class="controls">
-            <a href="#" class="add-collection-row btn">
-                {{ 'global.form_action.add' | trans([], 'CmsAdminBundle') }}
-            </a>
-		</div>
+            <div class="controls">
+                <a href="#" class="add-collection-row btn">
+                    {{ 'global.form_action.add' | trans([], 'CmsAdminBundle') }}
+                </a>
+            </div>
         {% endif %}
-		{% if allow_delete is defined and allow_delete %}
-		<a href="#" class="delete-collection-row btn btn-danger" style="display: none">
-			{{ 'global.form_action.delete' | trans([], 'CmsAdminBundle') }}
-		</a>
-		{% endif %}
+            {% if allow_delete is defined and allow_delete %}
+            <a href="#" class="delete-collection-row btn btn-danger" style="display: none">
+                    {{ 'global.form_action.delete' | trans([], 'CmsAdminBundle') }}
+            </a>
+            {% endif %}
         {{ form_rest(form) }}
     </div>
 {% endspaceless %}
