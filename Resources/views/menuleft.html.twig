@@ -13,6 +13,9 @@
 				{% if route_new is defined  %}
 					<li><a href="{{ path(route_new) }}" title="">{{ (translation_prefix ~ '.new.title')|trans }}</a></li>
 				{% endif %}
+				{% if route_order is defined  %}
+					<li><a href="{{ path(route_order) }}" title="">{{ (translation_prefix ~ '.order.title')|trans }}</a></li>
+				{% endif %}
 			{% else %}
 				<li>&nbsp;</li>
 			{% endif %}

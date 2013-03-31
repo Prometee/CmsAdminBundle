@@ -5,36 +5,42 @@ namespace Cms\Bundle\AdminBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\Exception\NotValidException;
+use Cms\Bundle\AdminBundle\Controller\Extension\MissingDoctrineNamespaceException;
+use Cms\Bundle\AdminBundle\Controller\Extension\ControllerExtensionInterface;
 
 abstract class BaseAdminController extends Controller {
 
 	//Must to be implemanted by the master class
-	protected $doctrine_namespace = "CmsAdminBundle:Foo";
-	protected $translation_prefix = 'foo';
-	protected $bundle_name = 'CmsAdminBundle';
-	protected $class_repository = 'Cms\Bundle\AdminBundle\Entity\Foo';
-	protected $entity_name = 'Foo';
+	public $doctrine_namespace = "CmsAdminBundle:Foo";
+	public $translation_prefix = 'foo';
+	public $bundle_name = 'CmsAdminBundle';
+	public $entity_name = 'Foo';
 	
-	protected $translation_domain = 'CmsAdminBundle';
+	public $form_type_name = 'FooFormType';
+	public $form_handler_name = 'FooFormHandler';
 	
-	protected $form_type_name = 'FooFormType';
-	protected $form_handler_name = 'FooFormHandler';
+	public $filter_object_name = 'FooFilter';
+	public $filter_form_type_name = 'FooFilterFormType';
+	public $filter_form_handler_name = 'FooFilterFormHandler';
 	
-	protected $filter_object_name = 'FooFilter';
-	protected $filter_form_type_name = 'FooFilterFormType';
-	protected $filter_form_handler_name = 'FooFilterFormHandler';
+	public $group_object_name = 'Cms\Bundle\AdminBundle\Form\Model\BaseAdminGroup';
+	public $group_form_type_name = 'Cms\Bundle\AdminBundle\Form\Type\BaseAdminGroupFormType';
+	public $group_form_handler_name = 'FooGroupFormHandler';
 	
-	protected $group_object_name = 'Cms\Bundle\AdminBundle\Form\Model\BaseAdminGroup';
-	protected $group_form_type_name = 'Cms\Bundle\AdminBundle\Form\Type\BaseAdminGroupFormType';
-	protected $group_form_handler_name = 'FooGroupFormHandler';
+	public $route_prefix = '';
+	public $route_index = 'cms_foo_admin_foo_index';
+	public $route_new = 'cms_foo_admin_foo_new';
+	public $route_edit = 'cms_foo_admin_foo_edit';
+	public $route_show = 'cms_foo_admin_foo_show';
+	public $route_delete = 'cms_foo_admin_foo_delete';
+	public $route_group_process = 'cms_foo_admin_foo_group_process';
 	
-	protected $route_prefix = '';
-	protected $route_index = 'cms_foo_admin_foo_index';
-	protected $route_new = 'cms_foo_admin_foo_new';
-	protected $route_edit = 'cms_foo_admin_foo_edit';
-	protected $route_show = 'cms_foo_admin_foo_show';
-	protected $route_delete = 'cms_foo_admin_foo_delete';
-	protected $route_group_process = 'cms_foo_admin_foo_group_process';
+	public $template_index = 'FooBundle:AdminFoo:index.html.twig';
+	public $template_new = 'FooBundle:AdminFoo:new.html.twig';
+	public $template_edit = 'FooBundle:AdminFoo:edit.html.twig';
+	public $template_show = 'FooBundle:AdminFoo:show.html.twig';
+	public $template_menuleft = 'FooBundle:AdminFoo:menuleft.html.twig';
+	public $max_per_page = 10;
 	
 	//Default values
 	private $default_template_index = 'CmsAdminBundle:CRUD:index.html.twig';
@@ -43,12 +49,25 @@ abstract class BaseAdminController extends Controller {
 	private $default_template_show = 'CmsAdminBundle:CRUD:show.html.twig';
 	private $default_template_menuleft = 'CmsAdminBundle::menuleft.html.twig';
 	
-	protected $template_index = 'FooBundle:AdminFoo:index.html.twig';
-	protected $template_new = 'FooBundle:AdminFoo:new.html.twig';
-	protected $template_edit = 'FooBundle:AdminFoo:edit.html.twig';
-	protected $template_show = 'FooBundle:AdminFoo:show.html.twig';
-	protected $template_menuleft = 'FooBundle:AdminFoo:menuleft.html.twig';
-	protected $max_per_page = 10;
+	protected $default_render_parameters = array(
+		'translation_prefix',
+		'bundle_name',
+		'route_new',
+		'route_index',
+		'route_edit',
+		'route_show',
+		'route_delete',
+		'template_menuleft',
+		'template_index',
+		'template_new',
+		'template_edit',
+		'template_show',
+		'template_menuleft'
+	);
+	
+	protected $controller_extension_list = array();
+	
+	protected $controller_extensions = array();
 
 	public function setContainer(ContainerInterface $container = null) {
 		parent::setContainer($container);
@@ -94,9 +113,9 @@ abstract class BaseAdminController extends Controller {
 			}
 			$this->route_index = ($this->route_index != 'cms_foo_admin_foo_index') ? $this->route_index : $this->route_prefix . '_' . $this->translation_prefix . '_index';
 			$this->route_new = ($this->route_new != 'cms_foo_admin_foo_new') ? $this->route_new : $this->route_prefix . '_' . $this->translation_prefix . '_new';
-			$this->route_edit = ($this->route_edit != 'cms_foo_admin_foo_edit') ? $this->route_new : $this->route_prefix . '_' . $this->translation_prefix . '_edit';
-			$this->route_show = ($this->route_show != 'cms_foo_admin_foo_show') ? $this->route_new : $this->route_prefix . '_' . $this->translation_prefix . '_show';
-			$this->route_delete = ($this->route_delete != 'cms_foo_admin_foo_delete') ? $this->route_new : $this->route_prefix . '_' . $this->translation_prefix . '_delete';
+			$this->route_edit = ($this->route_edit != 'cms_foo_admin_foo_edit') ? $this->route_edit : $this->route_prefix . '_' . $this->translation_prefix . '_edit';
+			$this->route_show = ($this->route_show != 'cms_foo_admin_foo_show') ? $this->route_show : $this->route_prefix . '_' . $this->translation_prefix . '_show';
+			$this->route_delete = ($this->route_delete != 'cms_foo_admin_foo_delete') ? $this->route_delete : $this->route_prefix . '_' . $this->translation_prefix . '_delete';
 			$this->route_group_process = ($this->route_group_process != 'cms_foo_admin_foo_group_process') ? $this->route_group_process : $this->route_prefix . '_' . $this->translation_prefix . '_group_process';
 
 			if (!$this->get('templating')->exists($this->template_index)) {
@@ -128,7 +147,35 @@ abstract class BaseAdminController extends Controller {
 					$this->template_menuleft = $this->get('templating')->exists($template_menuleft) ? $template_menuleft : $this->default_template_menuleft;
 				}
 			}
+			
+			foreach ($this->controller_extension_list as $controller_extension) {
+				$this->addControllerExtension(new $controller_extension($this));
+			}
+			
+		} else {
+			throw new MissingDoctrineNamespaceException('Please provide $this->doctrine_namespace.');
 		}
+	}
+	
+	protected function addControllerExtension(ControllerExtensionInterface $controller_extension) {
+		$controller_extension->configure();
+		$this->controller_extensions[] = $controller_extension;
+	}
+	
+	public function AddDefaultRenderParameter($param) {
+		if (!in_array($param, $this->default_render_parameters)) {
+			$this->default_render_parameters[] = $param;
+		}
+	}
+	public function render($view, array $parameters = array(), \Symfony\Component\HttpFoundation\Response $response = null) {
+		
+		foreach ($this->default_render_parameters as $parameter) {
+			if (!in_array($parameter, $parameters)) {
+				$parameters[$parameter] = $this->$parameter;
+			}
+		}
+		
+		return parent::render($view, $parameters, $response);
 	}
 
 	protected function getTemplateFor($action, $modal) {
@@ -153,7 +200,7 @@ abstract class BaseAdminController extends Controller {
 	protected function getGroupForm($entity) {
 		return $this->createForm(new $this->group_form_type_name(), $entity, array(
 					'data_class' => $this->group_object_name,
-					'translation_domain' => $this->translation_domain
+					'translation_domain' => $this->bundle_name
 		));
 	}
 
@@ -210,15 +257,7 @@ abstract class BaseAdminController extends Controller {
 					'filter' => (($filter) ? $filter->createView() : null),
 					'pagination' => $pagination,
 					'groupForm' => $form->createView(),
-					'translation_prefix' => $this->translation_prefix,
-					'bundle_name' => $this->bundle_name,
-					'route_new' => $this->route_new,
-					'route_index' => $this->route_index,
-					'route_edit' => $this->route_edit,
-					'route_show' => $this->route_show,
-					'route_delete' => $this->route_delete,
 					'route_form_action' => $this->route_group_process,
-					'template_menuleft' => $this->template_menuleft
 		));
 	}
 
@@ -239,9 +278,7 @@ abstract class BaseAdminController extends Controller {
 		$entity = $this->getClassRepository()->findOneBy(array('id' => $id));
 
 		return $this->render($this->template_show, array(
-					'entity' => $entity,
-					'route_index' => $this->route_index,
-					'route_edit' => $this->route_edit
+					'entity' => $entity
 		));
 	}
 
@@ -281,11 +318,6 @@ abstract class BaseAdminController extends Controller {
 					'form' => $form->createView(),
 					'entity' => $entity,
 					'route_form_action' => $this->route_new,
-					'route_index' => $this->route_index,
-					'route_new' => $this->route_new,
-					'translation_prefix' => $this->translation_prefix,
-					'bundle_name' => $this->bundle_name,
-					'template_menuleft' => $this->template_menuleft
 		));
 	}
 
@@ -310,7 +342,7 @@ abstract class BaseAdminController extends Controller {
 
 		if ($process) {
 			$this->get('session')->setFlash('success', $this->get('translator')->trans(
-							$this->translation_prefix . '.flash.success.edit', array('%name%' => $entity), $this->bundle_name)
+				$this->translation_prefix . '.flash.success.edit', array('%name%' => $entity), $this->bundle_name)
 			);
 
 			return $this->redirectEditSuccess($entity);
@@ -322,13 +354,6 @@ abstract class BaseAdminController extends Controller {
 					'form' => $form->createView(),
 					'entity' => $entity,
 					'route_form_action' => $this->route_edit,
-					'route_index' => $this->route_index,
-					'route_delete' => $this->route_delete,
-					'route_show' => $this->route_show,
-					'route_new' => $this->route_new,
-					'translation_prefix' => $this->translation_prefix,
-					'bundle_name' => $this->bundle_name,
-					'template_menuleft' => $this->template_menuleft
 		));
 	}
 
@@ -371,5 +396,21 @@ abstract class BaseAdminController extends Controller {
 		}
 
 		return $this->redirectGroupProcessSuccess($process);
+	}
+	
+	public function __get($name) {
+		foreach($this->controller_extensions as $controller_extension){
+			if (property_exists($controller_extension, $name)){
+				return $controller_extension->$name;
+			}
+		}
+	}
+	
+	public function __call($name, $arguments) {
+		foreach($this->controller_extensions as $controller_extension){
+			if (method_exists($controller_extension, $name)){
+				return call_user_func_array(array($controller_extension, $name), $arguments);
+			}
+		}
 	}
 }

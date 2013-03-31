@@ -1,0 +1,70 @@
+{% extends 'CmsAdminBundle::layout.html.twig' %}
+{% trans_default_domain "CmsAdminBundle" %}
+
+{% block content %}
+{%- block content_head -%}
+<section>
+{% endblock %}
+    {% block index_title %}
+    <div class="section-header">
+        <h2>{{ (translation_prefix ~ '.index.title')|trans([], bundle_name) }}</h2>
+    </div>
+    {% endblock %}
+    {% block index_list_form %}
+    <form method="POST" action="{{ path(route_form_action) }}">
+        {{ form_widget(groupForm) }}
+    {% endblock %}
+    {% block index_list_actions %}
+        <div class="table-actions">
+            {% block index_list_other_actions %}
+            <div class="other-actions">
+                {% block index_list_other_actions_list %}
+                <a class="btn" href="{{ path(route_index) }}">{{ (translation_prefix ~ '.index.title')|trans([], bundle_name) }}</a>
+                {% endblock %}
+            </div>
+            {% endblock %}
+        </div>
+    {% endblock %}
+    {% block index_list %}
+        <table class="table table-striped table-order">
+            {% block index_list_head %}
+            <thead>
+                <tr>
+                    <th>{{ 'global.index.name'|trans }}</th>
+                </tr>
+            </thead>
+            {% endblock %}
+            {% block index_list_body %}
+            <tbody>
+                {% for i, entity in entity_list %}
+                <tr>
+                    {% block index_list_item_cols %}
+                    <td>
+                        <input type="hidden" name="ids[]" value="{{ entity.id }}" />
+                        ({{ i }}) - {{ entity }}
+                    </td>
+                    {% endblock %}
+                </tr>
+                {% else %}
+                {% block index_list_items_noresult %}
+                <tr class="no-result">
+                    <td>{{ ('global.index.no_result') |trans }}</td>
+                </tr>
+                {% endblock %}
+                {% endfor %}
+            </tbody>
+            {% endblock %}
+            {% block index_list_foot %}
+            {% endblock %}
+        </table>
+    {% endblock %}
+    {% block index_list_enform %}
+            <div class="other-actions">
+            <input type="submit" class="btn btn-primary" value="{{ 'global.form_action.order'|trans }}">
+            </div>
+    </form>
+    {% endblock %}
+{%- block content_foot -%}
+</section>
+{% endblock %}
+{% endblock %}

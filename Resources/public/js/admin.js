@@ -52,15 +52,9 @@ jQuery(document).ready(function(){
             */
         var del_row = function(el) {
             el.parent().remove();
-            if ($c.children().length == 0) {
-                    index = 0;
-            }
         };
 
-		index = $c.children().length;
-        if( jQuery('#list-photos .thumbnail').size() ){
-            index = jQuery('#list-photos .thumbnail').size() + 1;
-        }
+		index = ($c.data('start-index') > 0) ? $c.data('start-index') : $c.children().length;
 
         jQuery($c.parent()).on('click', '.add-collection-row', function(e) {
             e.preventDefault();

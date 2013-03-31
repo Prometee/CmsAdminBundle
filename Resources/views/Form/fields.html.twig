@@ -223,8 +223,8 @@
         {% set attr = attr|merge({'class': attr.class|default('') ~ ' required'}) %}
     {% endif %}
     {% set trans_label = id|replace({'_':'.'}) %}
-    {% if trans_label != (trans_label|trans) %}
-        {% set label = trans_label|trans %}
+    {% if trans_label != (trans_label|trans({}, translation_domain)) %}
+        {% set label = trans_label|trans({}, translation_domain) %}
     {% else %}
         {% set label = label|trans %}
     {% endif %}
