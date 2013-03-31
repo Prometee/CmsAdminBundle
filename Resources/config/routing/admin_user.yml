@@ -1,0 +1,23 @@
+cms_admin_admin_user_index:
+    pattern: /
+    defaults: { _controller: CmsAdminBundle:AdminUser:index }
+
+cms_admin_admin_user_new:
+    pattern: /new
+    defaults: { _controller: CmsAdminBundle:AdminUser:new }
+
+cms_admin_admin_user_delete:
+    pattern: /{id}/delete
+    defaults: { _controller: CmsAdminBundle:AdminUser:delete }
+    requirements:
+      id: \d+
+
+cms_admin_admin_user_edit:
+    pattern: /{id}/edit
+    defaults: { _controller: CmsAdminBundle:AdminUser:edit }
+    requirements:
+      id: \d+
+
+cms_admin_admin_user_group_process:
+    pattern: /group_process
+    defaults: { _controller: CmsAdminBundle:AdminUser:groupProcess }
