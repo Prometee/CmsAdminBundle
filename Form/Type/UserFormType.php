@@ -13,7 +13,7 @@ class UserFormType extends AbstractType {
                 ->add('username')
                 ->add('email')
                 ->add('plainPassword', null, array('required' => false))
-                ->add('enabled')
+                ->add('enabled', null, array('required' => false))
                 ->add('roles', 'choice', array(
                     'choices' => call_user_func(array($options['data_class'], 'getRolesChoices')),
                     'multiple' => true
