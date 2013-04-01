@@ -18,7 +18,8 @@ class BaseAdminGroupFormType extends AbstractType {
 
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setRequired(array(
-            'data_class'
+            'data_class',
+			'translation_domain'
         ));
     }
 

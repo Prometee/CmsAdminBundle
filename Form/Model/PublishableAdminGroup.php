@@ -1,8 +1,8 @@
 <?php
 
-namespace Cms\Bundle\AdminBundle\Form\Model\Extension;
+namespace Cms\Bundle\AdminBundle\Form\Model;
 
-class PublishableGroupExtension extends BaseAdminGroup {
+class PublishableAdminGroup extends BaseAdminGroup {
 	
 	public static function getActions() {
 		$actions = parent::getActions();

@@ -35,6 +35,7 @@ global.form_action.close: Fermer
 global.form_action.cancel: Annuler
 global.form_action.confirm: Ok
 global.form_action.publish_toggle: Publier/Masquer
+global.form_action.order: Ordonner
 global.form_action.group.none: -- Choisissez une action --
 global.form_action.group.approve: Approuver
 global.form_action.group.disapprove: Désapprouver
@@ -43,6 +44,7 @@ global.form_action.group.publish: Publier
 global.form_action.group.unpublish: Masquer
 global.form_action.group.disable: Désactiver
 global.form_action.group.enable: Activer
+global.form_action.group.not_blank: Veuillez choisir une action
 global.edit.published: Publié
 global.goto_dashboard: Allez au tableau de bord de l'administration
 login.label.username: Nom d'utilisateur

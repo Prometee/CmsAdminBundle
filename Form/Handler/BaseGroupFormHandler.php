@@ -2,17 +2,17 @@
 
 namespace Cms\Bundle\AdminBundle\Form\Handler;
 
-use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\Exception\NotValidException;
 
 class BaseGroupFormHandler extends BaseFormHandler {
 
     protected $repository_name = 'CmsAdminBundle:Foo';
 
-    public function process(Form $form, $ids) {
+    public function process(FormInterface $form, $ids) {
         if ($this->request_method == $this->request->getMethod()) {
             $form->bind($this->request);
-
+			
             if (!is_array($ids) || count($ids) <= 0)
                 return false;
 

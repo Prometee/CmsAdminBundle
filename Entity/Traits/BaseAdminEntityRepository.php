@@ -8,9 +8,9 @@ trait BaseAdminEntityRepository {
         $qb = $this->createQueryBuilder('t');
 
         $qb->delete()
-                ->where($qb->expr()->in('t.id', $ids))
-                ->getQuery()
-                ->execute();
+			->where($qb->expr()->in('t.id', $ids))
+			->getQuery()
+			->execute();
 
         $this->_em->flush();
     }

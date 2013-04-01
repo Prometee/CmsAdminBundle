@@ -66,4 +66,7 @@ jQuery(document).ready(function(){
             del_row(jQuery(this));
         });
     });
+	
+	//Sortable Extension
+	jQuery('.table-order tbody').sortable().disableSelection();
 });

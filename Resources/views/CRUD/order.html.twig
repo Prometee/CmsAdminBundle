@@ -1,13 +1,17 @@
 {% extends 'CmsAdminBundle::layout.html.twig' %}
 {% trans_default_domain "CmsAdminBundle" %}
 
+{% block menuleft %}
+	{{ include(template_menuleft) }}
+{% endblock %}
+
 {% block content %}
 {%- block content_head -%}
 <section>
 {% endblock %}
     {% block index_title %}
     <div class="section-header">
-        <h2>{{ (translation_prefix ~ '.index.title')|trans([], bundle_name) }}</h2>
+        <h2>{{ (translation_prefix ~ '.order.title')|trans([], bundle_name) }}</h2>
     </div>
     {% endblock %}
     {% block index_list_form %}

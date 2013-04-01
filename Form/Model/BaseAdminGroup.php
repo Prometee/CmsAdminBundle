@@ -7,13 +7,16 @@ use Symfony\Component\Validator\Constraints as Assert;
 class BaseAdminGroup {
 
     /**
-     * @Assert\Choice(callback = "getActionsKeys")
+	 * @var string
+	 * 
+     * @Assert\Choice(callback="getActionsKeys")
+	 * @Assert\NotBlank(message="global.form_action.group.not_blank");
      */
     public $action;
 
     public static function getActions() {
         return array(
-            'none' => 'global.form_action.group.none',
+            '' => 'global.form_action.group.none',
             'delete' => 'global.form_action.group.delete'
         );
     }

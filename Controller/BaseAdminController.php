@@ -11,36 +11,36 @@ use Cms\Bundle\AdminBundle\Controller\Extension\ControllerExtensionInterface;
 abstract class BaseAdminController extends Controller {
 
 	//Must to be implemanted by the master class
-	public $doctrine_namespace = "CmsAdminBundle:Foo";
-	public $translation_prefix = 'foo';
-	public $bundle_name = 'CmsAdminBundle';
-	public $entity_name = 'Foo';
+	protected $doctrine_namespace = "CmsAdminBundle:Foo";
+	protected $translation_prefix = 'foo';
+	protected $bundle_name = 'CmsAdminBundle';
+	protected $entity_name = 'Foo';
 	
-	public $form_type_name = 'FooFormType';
-	public $form_handler_name = 'FooFormHandler';
+	protected $form_type_name = 'FooFormType';
+	protected $form_handler_name = 'FooFormHandler';
 	
-	public $filter_object_name = 'FooFilter';
-	public $filter_form_type_name = 'FooFilterFormType';
-	public $filter_form_handler_name = 'FooFilterFormHandler';
+	protected $filter_object_name = 'FooFilter';
+	protected $filter_form_type_name = 'FooFilterFormType';
+	protected $filter_form_handler_name = 'FooFilterFormHandler';
 	
-	public $group_object_name = 'Cms\Bundle\AdminBundle\Form\Model\BaseAdminGroup';
-	public $group_form_type_name = 'Cms\Bundle\AdminBundle\Form\Type\BaseAdminGroupFormType';
-	public $group_form_handler_name = 'FooGroupFormHandler';
+	protected $group_object_name = 'Cms\Bundle\AdminBundle\Form\Model\BaseAdminGroup';
+	protected $group_form_type_name = 'Cms\Bundle\AdminBundle\Form\Type\BaseAdminGroupFormType';
+	protected $group_form_handler_name = 'FooGroupFormHandler';
 	
-	public $route_prefix = '';
-	public $route_index = 'cms_foo_admin_foo_index';
-	public $route_new = 'cms_foo_admin_foo_new';
-	public $route_edit = 'cms_foo_admin_foo_edit';
-	public $route_show = 'cms_foo_admin_foo_show';
-	public $route_delete = 'cms_foo_admin_foo_delete';
-	public $route_group_process = 'cms_foo_admin_foo_group_process';
+	protected $route_prefix = '';
+	protected $route_index = 'cms_foo_admin_foo_index';
+	protected $route_new = 'cms_foo_admin_foo_new';
+	protected $route_edit = 'cms_foo_admin_foo_edit';
+	protected $route_show = 'cms_foo_admin_foo_show';
+	protected $route_delete = 'cms_foo_admin_foo_delete';
+	protected $route_group_process = 'cms_foo_admin_foo_group_process';
 	
-	public $template_index = 'FooBundle:AdminFoo:index.html.twig';
-	public $template_new = 'FooBundle:AdminFoo:new.html.twig';
-	public $template_edit = 'FooBundle:AdminFoo:edit.html.twig';
-	public $template_show = 'FooBundle:AdminFoo:show.html.twig';
-	public $template_menuleft = 'FooBundle:AdminFoo:menuleft.html.twig';
-	public $max_per_page = 10;
+	protected $template_index = 'FooBundle:AdminFoo:index.html.twig';
+	protected $template_new = 'FooBundle:AdminFoo:new.html.twig';
+	protected $template_edit = 'FooBundle:AdminFoo:edit.html.twig';
+	protected $template_show = 'FooBundle:AdminFoo:show.html.twig';
+	protected $template_menuleft = 'FooBundle:AdminFoo:menuleft.html.twig';
+	protected $max_per_page = 10;
 		
 	//Default values
 	private $default_template_index = 'CmsAdminBundle:CRUD:index.html.twig';
@@ -74,7 +74,7 @@ abstract class BaseAdminController extends Controller {
 		$this->buildController();
 	}
 
-	public function buildController() {
+	protected function buildController() {
 
 		if (false !== $pos = strpos($this->doctrine_namespace, ':')) {
 			$this->bundle_name = substr($this->doctrine_namespace, 0, $pos);
@@ -148,21 +148,12 @@ abstract class BaseAdminController extends Controller {
 				}
 			}
 			
-			foreach ($this->controller_extension_list as $controller_extension) {
-				$this->addControllerExtension(new $controller_extension($this));
-			}
-			
 		} else {
 			throw new MissingDoctrineNamespaceException('Please provide $this->doctrine_namespace.');
 		}
 	}
 	
-	protected function addControllerExtension(ControllerExtensionInterface $controller_extension) {
-		$controller_extension->configure();
-		$this->controller_extensions[] = $controller_extension;
-	}
-	
-	public function AddDefaultRenderParameter($param) {
+	protected function addDefaultRenderParameter($param) {
 		if (!in_array($param, $this->default_render_parameters)) {
 			$this->default_render_parameters[] = $param;
 		}
@@ -200,7 +191,7 @@ abstract class BaseAdminController extends Controller {
 	protected function getGroupForm($entity) {
 		return $this->createForm(new $this->group_form_type_name(), $entity, array(
 					'data_class' => $this->group_object_name,
-					'translation_domain' => $this->bundle_name
+					'translation_domain' => 'CmsAdminBundle'
 		));
 	}
 
@@ -238,6 +229,10 @@ abstract class BaseAdminController extends Controller {
 		return $this->redirect($this->generateUrl($this->route_index));
 	}
 
+	protected function redirectDeleteError($entity = null) {
+		return $this->redirect($this->generateUrl($this->route_index));
+	}
+
 	protected function redirectGroupProcessSuccess($process_action) {
 		return $this->redirect($this->generateUrl($this->route_index));
 	}
@@ -267,7 +262,7 @@ abstract class BaseAdminController extends Controller {
 		));
 	}
 
-	public function processFilter($filter, $filter_entity) {
+	protected function processFilter($filter, $filter_entity) {
 
 		if ('POST' == $this->getRequest()->getMethod()) {
 			$handler = new $this->filter_form_handler_name(
@@ -317,11 +312,11 @@ abstract class BaseAdminController extends Controller {
 		}
 
 		return $this->render($this->getTemplateFor('new', $modal), array(
-					'modal' => $modal,
-					'modal_id' => 'modal_' . $this->translation_prefix . '_new',
-					'form' => $form->createView(),
-					'entity' => $entity,
-					'route_form_action' => $this->route_new,
+			'modal' => $modal,
+			'modal_id' => 'modal_' . $this->translation_prefix . '_new',
+			'form' => $form->createView(),
+			'entity' => $entity,
+			'route_form_action' => $this->route_new,
 		));
 	}
 
@@ -362,11 +357,21 @@ abstract class BaseAdminController extends Controller {
 	public function deleteAction($id) {
 		$entity = $this->getClassRepository()->findOneById($id);
 		$em = $this->getDoctrine()->getManager();
-		$em->remove($entity);
-		$em->flush();
+		try {
+			$em->remove($entity);
+			$em->flush();
+		} catch (\Exception $e) {
+			$this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans(
+				$this->translation_prefix . '.flash.error.delete',
+				array('%exception%'=>$e->getMessage()),
+				$this->bundle_name
+			));
+			
+			return $this->redirectDeleteError($entity);
+		}
 
 		$this->get('session')->getFlashBag()->set('success', $this->get('translator')->trans(
-						$this->translation_prefix . '.flash.success.delete', array(), $this->bundle_name)
+			$this->translation_prefix . '.flash.success.delete', array(), $this->bundle_name)
 		);
 
 		return $this->redirectDeleteSuccess($entity);
@@ -390,11 +395,10 @@ abstract class BaseAdminController extends Controller {
             return $this->redirectGroupProcessError($action);
         }
 
-        if ($process != false) {
+        if ($process) {
 			$this->get('session')->getFlashBag()->set('success', $this->get('translator')->trans(
-							$this->translation_prefix . '.flash.success.group.' . $process, array(), $this->bundle_name
-					)
-			);
+				$this->translation_prefix . '.flash.success.group.' . $process, array(), $this->bundle_name
+			));
 		}
 
 		return $this->redirectGroupProcessSuccess($process);
