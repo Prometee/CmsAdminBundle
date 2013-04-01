@@ -3,14 +3,14 @@
 namespace Cms\Bundle\AdminBundle\Controller\Traits;
 
 trait PublishableControllerTrait {
-	
+
 	protected $route_publish = 'cms_foo_admin_foo_publish_toggle';
-	protected $group_object_name = 'Cms\\Bundle\\AdminBundle\\Form\\Model\\PublishableAdminGroup';
-	
+	protected $group_publish_object_name = 'Cms\\Bundle\\AdminBundle\\Form\\Model\\PublishableAdminGroup';
+
 	protected function redirectPublishSuccess($entity = null) {
 		return $this->redirect($this->generateUrl($this->route_index));
 	}
-	
+
 	protected function redirectPublishError($entity = null) {
 		return $this->redirect($this->generateUrl($this->route_index));
 	}
@@ -29,14 +29,15 @@ trait PublishableControllerTrait {
 		$entity->setPublished($publish_state);
 
 		try {
-			$em->persist($entity)->flush();
+			$em->persist($entity);
+                        $em->flush();
 		} catch (Exception $e) {
 			$this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans(
 				$this->translation_prefix . '.flash.error.' . ($entity->getPublished() ? '' : 'un') . 'publish',
 				array('%exception%'=>$e->getMessage()),
 				$this->bundle_name
 			));
-			
+
 			return $this->redirectPublishError();
 		}
 

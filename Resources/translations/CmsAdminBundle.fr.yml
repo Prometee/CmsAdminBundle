@@ -10,6 +10,7 @@ global.index.new: Nouveau
 global.index_crud.group_action.submit: Exécuter
 global.index.name: Nom
 global.index_crud.actions: Actions
+global.index_crud.published: Publié
 global.form_action.edit: Editer
 global.index.no_result: Aucun résultat
 global.form_action.save: Enregistrer

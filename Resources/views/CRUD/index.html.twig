@@ -1,5 +1,6 @@
 {% extends 'CmsAdminBundle::layout.html.twig' %}
 {% trans_default_domain "CmsAdminBundle" %}
+{% import "CmsAdminBundle:Macro:boolean.html.twig" as bool %}
 
 {% set nb_cols = 3 %}
 
@@ -43,6 +44,9 @@
 						<tr>
 							<th class="groupCheckbox"><input type="checkbox" /></th>
 							<th>{{ 'global.index.name'|trans }}</th>
+                                                        {% if route_publish is defined  %}
+							<th>{{ 'global.index_crud.published'|trans }}</th>
+							{% endif %}
 							<th>{{ 'global.index_crud.actions'|trans }}</th>
 						</tr>
 					</thead>
@@ -59,12 +63,15 @@
 							{% block index_list_item_cols %}
 							<td>{{ entity }}</td>
 							{% endblock %}
+                                                        {% if route_publish is defined  %}
+							<td>{{ bool.show(entity.published) }}</td>
+							{% endif %}
 							{% block index_list_items_actions %}
 							<td class="items-actions">
 								<a class="btn btn-mini btn-primary" href="{{ path(route_edit, { 'id': entity.id }) }}" title="{{ 'global.form_action.edit'|trans }}">{{ 'global.form_action.edit'|trans }}</a>
 								{% if route_publish is defined  %}
-								<a class="btn btn-mini btn-primary" href="{{ path(route_publish, { 'id': entity.id }) }}" title="{{ 'global.form_action.publish_toggle'|trans([], 'NPCoreBundle') }}">
-									{{ 'global.form_action.publish_toggle'|trans([], 'NPCoreBundle') }}
+								<a class="btn btn-mini btn-primary" href="{{ path(route_publish, { 'id': entity.id }) }}" title="{{ 'global.form_action.publish_toggle'|trans }}">
+									{{ 'global.form_action.publish_toggle'|trans }}
 								</a>
 								{% endif %}
 							</td>
@@ -83,7 +90,7 @@
 					{% endblock %}
 				</table>
 			{% endblock %}
-		
+
 			{% block index_list_bashactions %}
 				{% if is_granted('ROLE_ADMIN') %}
 				<div>
@@ -93,7 +100,7 @@
 				</div>
 				{% endif %}
 			{% endblock %}
-				
+
 		{% block index_list_enform %}
 		</form>
 		{% endblock %}
