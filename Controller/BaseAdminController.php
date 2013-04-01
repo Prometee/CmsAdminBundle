@@ -399,20 +399,4 @@ abstract class BaseAdminController extends Controller {
 
 		return $this->redirectGroupProcessSuccess($process);
 	}
-	
-	public function __get($name) {
-		foreach($this->controller_extensions as $controller_extension){
-			if (property_exists($controller_extension, $name)){
-				return $controller_extension->$name;
-			}
-		}
-	}
-	
-	public function __call($name, $arguments) {
-		foreach($this->controller_extensions as $controller_extension){
-			if (method_exists($controller_extension, $name)){
-				return call_user_func_array(array($controller_extension, $name), $arguments);
-			}
-		}
-	}
 }
