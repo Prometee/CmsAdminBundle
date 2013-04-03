@@ -6,7 +6,7 @@ use Symfony\Component\Form\Exception\NotValidException;
 
 trait SortableControllerTrait {
 
-        protected $route_order = 'cms_foo_admin_foo_order';
+    protected $route_order = 'cms_foo_admin_foo_order';
 	protected $template_order = 'FooBundle:AdminFoo:order.html.twig';
 	protected $order_group_form_type_name = 'Cms\Bundle\AdminBundle\Form\Type\SortableAdminGroupFormType';
 	protected $order_group_object_name = 'Cms\Bundle\AdminBundle\Form\Model\SortableAdminGroup';

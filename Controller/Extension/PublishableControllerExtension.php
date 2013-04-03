@@ -9,6 +9,8 @@ class PublishableControllerExtension extends BaseAdminController {
 
 	protected function buildController() {
 		parent::buildController();
+        
+        $this->group_object_name = $this->publish_group_object_name;
 		
 		$this->route_publish = ($this->route_publish != 'cms_foo_admin_foo_publish_toggle')
 				? $this->route_publish

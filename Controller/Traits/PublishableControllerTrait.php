@@ -5,7 +5,7 @@ namespace Cms\Bundle\AdminBundle\Controller\Traits;
 trait PublishableControllerTrait {
 
 	protected $route_publish = 'cms_foo_admin_foo_publish_toggle';
-	protected $group_publish_object_name = 'Cms\\Bundle\\AdminBundle\\Form\\Model\\PublishableAdminGroup';
+	protected $publish_group_object_name = 'Cms\\Bundle\\AdminBundle\\Form\\Model\\PublishableAdminGroup';
 
 	protected function redirectPublishSuccess($entity = null) {
 		return $this->redirect($this->generateUrl($this->route_index));

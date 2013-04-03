@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\Exception\NotValidException;
 use Cms\Bundle\AdminBundle\Controller\Extension\MissingDoctrineNamespaceException;
-use Cms\Bundle\AdminBundle\Controller\Extension\ControllerExtensionInterface;
 
 abstract class BaseAdminController extends Controller {
 
