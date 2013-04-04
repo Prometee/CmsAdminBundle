@@ -1,5 +1,3 @@
-var collection_field_selector = '.collection-fields';
-
 var process_collection_row = function() {
     var $c = jQuery(this);
 
@@ -9,7 +7,7 @@ var process_collection_row = function() {
         .data('parent', this)
         .on('click', function(e) {
             e.preventDefault();
-            collection_field_row_add(jQuery(this));
+            collection_field_row_add(jQuery(this), '.collection-fields');
             $c.data('index', $c.data('index')+1);
         });
 
@@ -24,7 +22,7 @@ var process_collection_row = function() {
  *
  * @context null
  */
-var collection_field_row_add = function($el) {
+var collection_field_row_add = function($el, other_collection_field_selector) {
     var $c = jQuery($el.data('parent')),
         data_prototype = $c.parent().attr('data-prototype'),
         del_btn = jQuery('.delete-collection-row:first', $c.parent());
@@ -40,7 +38,9 @@ var collection_field_row_add = function($el) {
         e.preventDefault();
         collection_field_row_delete(jQuery(this));
     });
-    jQuery(collection_field_selector, html).each(process_collection_row);
+    if (other_collection_field_selector) {
+        jQuery(other_collection_field_selector, html).each(process_collection_row);
+    }
     return html;
 };
 
@@ -58,5 +58,5 @@ jQuery(document).ready(function(){
     // Collection fields
     // rendered with jQuery
     // ============
-    jQuery(collection_field_selector).each(process_collection_row);
+    jQuery('.collection-fields').each(process_collection_row);
 });

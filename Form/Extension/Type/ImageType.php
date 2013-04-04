@@ -21,7 +21,7 @@ class ImageType extends AbstractType {
 	 * {@inheritdoc}
 	 */
 	public function buildView(FormView $view, FormInterface $form, array $options) {
-		$view->set('image_width', $form->getAttribute('image_width'));
+		$view->vars['image_width'] = $form->getAttribute('image_width');
 	}
 
 	public function getParent() {
