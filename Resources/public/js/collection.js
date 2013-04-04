@@ -1,12 +1,11 @@
 var collection_field_selector = '.collection-fields';
 
 var process_collection_row = function() {
-    var index = 0,
-        $c = jQuery(this);
+    var $c = jQuery(this);
 
     $c.data('index', ($c.data('index') > 0) ? $c.data('index') : $c.children().length);
 
-    jQuery('>.add-collection-row:first', $c.parent())
+    jQuery('.add-collection-row', $c.parent())
         .data('parent', this)
         .on('click', function(e) {
             e.preventDefault();
@@ -14,7 +13,7 @@ var process_collection_row = function() {
             $c.data('index', $c.data('index')+1);
         });
 
-    jQuery($c.parent()).on('click', '>.delete-collection-row', function(e) {
+    jQuery('.delete-collection-row', $c).on('click', function(e) {
         e.preventDefault();
         collection_field_row_delete(jQuery(this));
     });
@@ -33,13 +32,13 @@ var collection_field_row_add = function($el) {
         del_btn = del_btn.clone().removeClass('hide');
     }
     var html = jQuery('<div class="collection-field-row new" />')
-            .append(data_prototype.replace(/__name__/g, $c.data('index'))
+            .append(data_prototype.replace(/__name__/g, $c.data('index')))
             .append(del_btn);
 
     $c.append(html);
     del_btn.click(function(e) {
         e.preventDefault();
-        collection_field_row_delete($el);
+        collection_field_row_delete(jQuery(this));
     });
     jQuery(collection_field_selector, html).each(process_collection_row);
     return html;
