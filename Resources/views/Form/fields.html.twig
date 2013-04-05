@@ -55,10 +55,7 @@
     {% if expanded %}
         <div {{ block('widget_container_attributes') }}>
         {% for child in form %}
-            <div class="checkb">
-            {{ form_widget(child) }}
-            {{ form_label(child) }}
-            </div>
+            <label class="checkbox">{{ form_widget(child) }}{{ child.vars.label|trans({}, translation_domain)|escape }}</label>
         {% endfor %}
         </div>
     {% else %}
