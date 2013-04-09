@@ -1,57 +1,76 @@
-global.title: Administration
-global.form_action.delete: Supprimer
-global.form_action.add: Ajouter
-global.ajax.loading: Chargement ...
-global.ajax.error: Une erreur est survenue
-global.ajax.success: Ok
-global.copyright: © Company 2013
-global.index_crud.filter.submit: Filtrer
-global.index.new: Nouveau
-global.index_crud.group_action.submit: Exécuter
-global.index.name: Nom
-global.index_crud.actions: Actions
-global.index_crud.published: Publié
-global.form_action.edit: Editer
-global.index.no_result: Aucun résultat
-global.form_action.save: Enregistrer
-global.form_action.save_and_add: Sauvegarder et ajouter
-global.form_action.back_to_list: Retour à la liste
-global.form_action.update: Modifier
-global.form_action.are_you_sure: Êtes-vous sûr ?
-global.form_modal_action.close: Annuler
-global.pagination.previous: Précedent
-global.pagination.next: Suivant
-global.topbar.logout: Se deconnecter
-global.topbar.my_profile: Mon profil
-global.index_calendar.prev_month: Mois précédent
-global.index_calendar.next_month: Mois suivant
-global.index_calendar.from_to: Du %start% au %end%
-global.logout: Se déconnecter
-global.form_action.approve: Approuver
-global.form_action.disapprove: Désapprouver
-global.form_action.show: Afficher
-global.form_action.preview: Prévisualiser
-global.form_action.save_order: Enregistrer l'ordre
-global.form_action.close: Fermer
-global.form_action.cancel: Annuler
-global.form_action.confirm: Ok
-global.form_action.publish_toggle: Publier/Masquer
-global.form_action.order: Ordonner
-global.form_action.group.none: -- Choisissez une action --
-global.form_action.group.approve: Approuver
-global.form_action.group.disapprove: Désapprouver
-global.form_action.group.delete: Supprimer
-global.form_action.group.publish: Publier
-global.form_action.group.unpublish: Masquer
-global.form_action.group.disable: Désactiver
-global.form_action.group.enable: Activer
-global.form_action.group.not_blank: Veuillez choisir une action
-global.edit.published: Publié
-global.goto_dashboard: Allez au tableau de bord de l'administration
-login.label.username: Nom d'utilisateur
-login.label.password: Mot de passe
-login.label.remember_me: Se souvenir de moi
-login.label.submit: Se connecter
+global:
+  title: Administration
+  ajax:
+    loading: Chargement ...
+    error: Une erreur est survenue
+    success: Ok
+  copyright: © Company 2013
+  index_crud:
+    filter:
+      submit: Filtrer
+    group_action:
+      submit: Exécuter
+    actions: Actions
+    published: Publié
+  index:
+    new: Nouveau
+    name: Nom
+    no_result: Aucun résultat
+  form_action:
+    delete: Supprimer
+    add: Ajouter
+    edit: Editer
+    save: Enregistrer
+    save_and_add: Sauvegarder et ajouter
+    back_to_list: Retour à la liste
+    update: Modifier
+    are_you_sure: Êtes-vous sûr ?
+    approve: Approuver
+    disapprove: Désapprouver
+    show: Afficher
+    preview: Prévisualiser
+    save_order: Enregistrer l'ordre
+    close: Fermer
+    cancel: Annuler
+    confirm: Ok
+    publish_toggle: Publier/Masquer
+    order: Ordonner
+    group:
+      none: -- Choisissez une action --
+      approve: Approuver
+      disapprove: Désapprouver
+      delete: Supprimer
+      publish: Publier
+      unpublish: Masquer
+      disable: Désactiver
+      enable: Activer
+      not_blank: Veuillez choisir une action
+  form_modal_action:
+    close: Annuler
+  pagination:
+    previous: Précedent
+    next: Suivant
+  topbar:
+    logout: Se deconnecter
+    my_profile: Mon profil
+  index_calendar:
+    prev_month: Mois précédent
+    next_month: Mois suivant
+    from_to: Du %start% au %end%
+  logout: Se déconnecter
+  edit:
+    published: Publié
+  goto_dashboard: Allez au tableau de bord de l'administration
+  paginator:
+    previous: Précédent
+    next: Suivant
+
+login:
+  label:
+    username: Nom d'utilisateur
+    password: Mot de passe
+    remember_me: Se souvenir de moi
+    submit: Se connecter
 
 user:
   index:

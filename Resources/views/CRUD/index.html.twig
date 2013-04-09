@@ -106,7 +106,7 @@
 		{% endblock %}
 
 		{% block index_paginator %}
-			{{ knp_pagination_render(pagination) }}
+			{{ knp_pagination_render(pagination, 'CmsAdminBundle::paginator.html.twig') }}
 		{% endblock %}
 
 	{% block content_foot %}
