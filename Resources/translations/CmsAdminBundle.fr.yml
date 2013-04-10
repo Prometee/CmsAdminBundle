@@ -21,7 +21,7 @@ global:
     add: Ajouter
     edit: Editer
     save: Enregistrer
-    save_and_add: Sauvegarder et ajouter
+    save_and_add: Enregistrer et ajouter un nouveau
     back_to_list: Retour à la liste
     update: Modifier
     are_you_sure: Êtes-vous sûr ?
