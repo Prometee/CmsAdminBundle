@@ -1,0 +1,92 @@
+{% extends 'CmsAdminBundle::base.html.twig' %}
+{% trans_default_domain "CmsAdminBundle" %}
+
+{% block body_attributes ' id="admin"' %}
+{% block body %}
+	{% block header %}
+		{% block ajax_on_loading %}
+		<div id="ajax-on-loading">
+			<span class="ajax loading">{{ 'global.ajax.loading'|trans }}</span>
+			<span class="ajax error">{{ 'global.ajax.error'|trans }}</span>
+			<span class="ajax success">{{ 'global.ajax.success'|trans }}</span>
+		</div>
+		{% endblock %}
+
+		{% block navbar %}
+		<header class="navbar navbar-inverse navbar-fixed-top">
+			<div class="navbar-inner">
+				<nav class="container-fluid">
+					<a href="{{ path('cms_admin_dashboard') }}" title="{{ 'global.goto_dashboard'|trans }}" class="brand">{{ 'global.title'|trans }}</a>
+					<nav class="nav-collapse collapse">
+						<nav class="navbar-text pull-right">
+		{% block menutopright %}
+							{{ 'layout.logged_in_as'|trans({'%username%': ''}, 'FOSUserBundle') }}
+							<a href="{{ path('fos_user_profile_edit') }}">{{ app.user.username }}</a>
+							|
+							<a href="{{ path('fos_user_security_logout') }}">{{ 'global.logout'|trans }}</a>
+		{% endblock %}
+						</nav>
+						<ul class="nav">
+		{% block menutopleft %}
+			{% include 'CmsAdminBundle::menutopleft.html.twig' %}
+		{% endblock %}
+						</ul>
+					</nav>
+				</nav>
+			</div>
+		</header>
+		{% endblock %}
+	{% endblock %}
+
+	{% block container %}
+		<div class="container-fluid">
+			<div class="row-fluid">
+
+				<div class="span2">
+		{% block menuleft %}
+		{% endblock %}
+				</div>
+
+				<div class="span10">
+
+		{% block flashes %}
+					{% for flashMessage in app.session.flashbag.get('notice') %}
+					<div class="alert">
+						<a class="close" data-dismiss="alert">×</a>
+						{{ flashMessage }}
+					</div>
+					{% endfor %}
+					{% for flashMessage in app.session.flashbag.get('error') %}
+					<div class="alert alert-error">
+						<a class="close" data-dismiss="alert">×</a>
+						{{ flashMessage }}
+					</div>
+					{% endfor %}
+					{% for flashMessage in app.session.flashbag.get('success') %}
+					<div class="alert alert-success">
+						<a class="close" data-dismiss="alert">×</a>
+						{{ flashMessage }}
+					</div>
+					{% endfor %}
+					{% for flashMessage in app.session.flashbag.get('info') %}
+					<div class="alert alert-info">
+						<a class="close" data-dismiss="alert">×</a>
+						{{ flashMessage }}
+					</div>
+					{% endfor %}
+		{% endblock %}
+
+		{% block content %}{% endblock %}
+				</div>
+			</div>
+		</div>
+	{% endblock %}
+	{% block footer %}
+		<hr />
+		<footer class="container-fluid">
+			{% block footer_content %}
+			<p>{{ 'global.copyright'|trans }}</p>
+			{% endblock %}
+		</footer>
+	{% endblock %}
+{% endblock %}

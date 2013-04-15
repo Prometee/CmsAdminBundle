@@ -29,9 +29,9 @@
 {% endblock %}
 
 </head>
-	<body>
+<body{% block body_attributes '' %}>
 
-{% block body %}{% endblock %}
+{% block body '' %}
 
 {% block javascripts_foot %}
 	{% javascripts
