@@ -213,7 +213,7 @@ abstract class BaseAdminController extends Controller {
 	}
 
 	protected function retrieveEntity($id) {
-		return $this->getClassRepository()->findOneById($id);
+		return $this->getClassRepository()->find($id);
 	}
 
 	protected function redirectEditSuccess($entity = null) {
