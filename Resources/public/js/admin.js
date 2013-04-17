@@ -10,10 +10,8 @@ jQuery(document).ready(function(){
 		}
 	});
 	
-	jQuery('.form-horizontal .entity-collections .collection-field-row:before').css({
-		'content': jQuery('input:first',this).val()
-	});
-	
 	//Sortable Extension
-	jQuery('.table-order tbody').sortable().disableSelection();
+    if (jQuery('.table-order').length > 0) {
+        jQuery('.table-order tbody').sortable().disableSelection();
+    }
 });
