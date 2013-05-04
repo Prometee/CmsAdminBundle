@@ -3,7 +3,7 @@ var process_collection_row = function() {
 
     $c.data('index', ($c.data('index') > 0) ? $c.data('index') : $c.children().length);
 
-    jQuery('.add-collection-row', $c.parent())
+    jQuery('.add-collection-row:last', $c.parent())
         .data('parent', this)
         .on('click', function(e) {
             e.preventDefault();

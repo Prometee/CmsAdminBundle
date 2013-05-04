@@ -45,7 +45,7 @@
                     {% block index_list_item_cols %}
                     <td>
                         <input type="hidden" name="ids[]" value="{{ entity.id }}" />
-                        ({{ i }}) - {{ entity }}
+                        ({{ i+1 }}) - {{ entity }}
                     </td>
                     {% endblock %}
                 </tr>

@@ -1,0 +1,13 @@
+{% extends 'CmsAdminBundle:CRUD:index.html.twig' %}
+{% trans_default_domain "CmsAdminBundle" %}
+
+{% block index_list_head_cols %}
+	{{ parent() }}
+	{% set nb_cols = nb_cols + 1 %}
+	<th>{{ 'global.index_crud.enabled'|trans }}</th>
+{% endblock %}
+		
+{% block index_list_item_cols %}
+	{{ parent() }}
+	<td>{{ bool.show(entity.enabled) }}</td>
+{% endblock %}

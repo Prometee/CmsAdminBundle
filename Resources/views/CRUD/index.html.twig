@@ -43,10 +43,15 @@
 					<thead>
 						<tr>
 							<th class="groupCheckbox"><input type="checkbox" /></th>
+						{% block index_list_head_cols %}
 							<th>{{ 'global.index.name'|trans }}</th>
-                                                        {% if route_publish is defined  %}
+							{% block index_list_head_publish %}
+								{% if route_publish is defined  %}
+									{% set nb_cols = nb_cols + 1 %}
 							<th>{{ 'global.index_crud.published'|trans }}</th>
-							{% endif %}
+								{% endif %}
+							{% endblock %}
+						{% endblock %}
 							<th>{{ 'global.index_crud.actions'|trans }}</th>
 						</tr>
 					</thead>
@@ -61,11 +66,13 @@
 							{% endif %}
 							{% endblock %}
 							{% block index_list_item_cols %}
-							<td>{{ entity }}</td>
+								<td>{{ entity }}</td>
+								{% block index_list_item_publish %}
+									{% if route_publish is defined  %}
+									<td>{{ bool.show(entity.published) }}</td>
+									{% endif %}
+								{% endblock %}
 							{% endblock %}
-                                                        {% if route_publish is defined  %}
-							<td>{{ bool.show(entity.published) }}</td>
-							{% endif %}
 							{% block index_list_items_actions %}
 							<td class="items-actions">
 								<a class="btn btn-mini btn-primary" href="{{ path(route_edit, { 'id': entity.id }) }}" title="{{ 'global.form_action.edit'|trans }}">{{ 'global.form_action.edit'|trans }}</a>

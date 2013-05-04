@@ -12,6 +12,7 @@ global:
       submit: Exécuter
     actions: Actions
     published: Publié
+    enabled: Activé
   index:
     new: Nouveau
     name: Nom
