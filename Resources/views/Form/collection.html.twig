@@ -5,7 +5,7 @@
     {% endif %}
     <div {{ block('widget_container_attributes') }}>
         {% block collection_widget_fields %}
-        <div class="collection-fields controls">
+        <div class="collection-fields">
             {{ form_errors(form) }}
             {% for child in form %}
                 <div class="collection-field-row">
@@ -22,11 +22,9 @@
         {% block collection_widget_actions %}
             {% if allow_add is defined and allow_add %}
                 {% block collection_widget_action_add  %}
-                <div class="controls">
-                    <a href="#" class="add-collection-row btn">
-                        {{ 'global.form_action.add' | trans([], 'CmsAdminBundle') }}
-                    </a>
-                </div>
+                <a href="#" class="add-collection-row btn">
+                    {{ 'global.form_action.add' | trans([], 'CmsAdminBundle') }}
+                </a>
                 {% endblock %}
             {% endif %}
             {% if allow_delete is defined and allow_delete %}

@@ -28,9 +28,14 @@
 	display: none;
 }
 
-.form-horizontal .collection-fields>.collection-field-row>div>label {
+.form-horizontal .collection-fields>.collection-field-row>.control-group>label {
 	display: none;
 }
+.form-horizontal .collection-fields>.collection-field-row>.control-group>.controls,
+.form-horizontal .modal-body>.control-group>.controls {
+    margin-left: 0;
+}
+
 .form-horizontal .collection-fields .collection-field-row {
 	position: relative;
 	padding: 10px 10px 30px 10px;
@@ -40,10 +45,6 @@
     position: absolute;
     bottom: 0;
     right: 0;
-}
-
-.form-horizontal .control-group {
-	text-align: left;
 }
 
 .logout {
