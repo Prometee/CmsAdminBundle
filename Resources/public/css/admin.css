@@ -55,3 +55,7 @@
     background: url(../img/glyphicons-halflings-white.png) no-repeat -377px 14px;
     text-indent: -500000px;
 }
+
+.control-group.error {
+    border-left: 2px dotted red;
+}
