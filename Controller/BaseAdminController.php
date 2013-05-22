@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\Exception\NotValidException;
 use Cms\Bundle\AdminBundle\Controller\Extension\MissingDoctrineNamespaceException;
+use Symfony\Component\HttpFoundation\Response;
 
 abstract class BaseAdminController extends Controller {
 
@@ -157,7 +158,7 @@ abstract class BaseAdminController extends Controller {
 			$this->default_render_parameters[] = $param;
 		}
 	}
-	public function render($view, array $parameters = array(), \Symfony\Component\HttpFoundation\Response $response = null) {
+	public function render($view, array $parameters = array(), Response $response = null) {
 		
 		foreach ($this->default_render_parameters as $parameter) {
 			if (!in_array($parameter, $parameters)) {
