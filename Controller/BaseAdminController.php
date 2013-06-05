@@ -217,6 +217,10 @@ abstract class BaseAdminController extends Controller {
 		return $this->getClassRepository()->find($id);
 	}
 
+	protected function retrieveEntityList() {
+		return $this->getClassRepository()->findAll();
+	}
+    
 	protected function redirectEditSuccess($entity = null) {
 		return $this->redirect($this->generateUrl($this->route_edit, array('id' => $entity->getId())));
 	}
@@ -249,7 +253,7 @@ abstract class BaseAdminController extends Controller {
 		$filter_entity = (class_exists($this->filter_object_name)) ? new $this->filter_object_name() : null;
 		$filter = $this->getFilterForm($filter_entity);
 
-		$query = $this->getClassRepository()->findAll();
+		$query = $this->retrieveEntityList();
 
 		$pagination = $this->get('knp_paginator')
 				->paginate($query, $request->query->get('page', 1), $this->max_per_page);
