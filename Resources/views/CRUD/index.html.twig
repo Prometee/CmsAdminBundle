@@ -2,7 +2,7 @@
 {% trans_default_domain "CmsAdminBundle" %}
 {% import "CmsAdminBundle:Macro:boolean.html.twig" as bool %}
 
-{% set nb_cols = 3 %}
+{% set nb_cols = 0 %}
 
 {% block menuleft %}
 	{{ include(template_menuleft) }}
@@ -42,8 +42,15 @@
 					{% block index_list_head %}
 					<thead>
 						<tr>
-							<th class="groupCheckbox"><input type="checkbox" /></th>
+                        {% block index_bashactions_checkall %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                            {% set nb_cols = nb_cols + 1 %}
+                            <th><input class="checkAll" type="checkbox" /></th>
+                            {% endif %}
+                        {% endblock %}
+                            
 						{% block index_list_head_cols %}
+                            {% set nb_cols = nb_cols + 1 %}
 							<th>{{ 'global.index.name'|trans }}</th>
 							{% block index_list_head_publish %}
 								{% if route_publish is defined  %}
@@ -52,6 +59,7 @@
 								{% endif %}
 							{% endblock %}
 						{% endblock %}
+                            {% set nb_cols = nb_cols + 1 %}
 							<th>{{ 'global.index_crud.actions'|trans }}</th>
 						</tr>
 					</thead>
@@ -61,9 +69,9 @@
 						{% for entity in pagination %}
 						<tr>
 							{% block index_bashactions_item %}
-							{% if is_granted('ROLE_ADMIN') %}
-								<td class="groupCheckbox"><input type="checkbox" name="ids[]" value="{{ entity.id }}" /></td>
-							{% endif %}
+                                {% if is_granted('ROLE_ADMIN') %}
+								<td><input class="checkAllItem" type="checkbox" name="ids[]" value="{{ entity.id }}" /></td>
+                                {% endif %}
 							{% endblock %}
 							{% block index_list_item_cols %}
 								<td>{{ entity }}</td>

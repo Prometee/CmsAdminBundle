@@ -78,6 +78,8 @@ user:
     title: Liste des utilisateurs
   edit:
     title: Edition de l'utilisateur «%name%»
+  change_password:
+    title: Changer le mot de passe de l'utilisateur «%name%»
   new:
     title: Nouveau utilisateur
   flash:
@@ -86,7 +88,7 @@ user:
       new: L'utilisateur a été créé avec succès
       edit: L'utilisateur a été modifié avec succès
       group:
-        success: Les utilisateurs sélectionnés ont été supprimés
+        delete: Les utilisateurs sélectionnés ont été supprimés
     error:
       delete: Une erreur est survenue lors de la tentative de suppression
       new: Une erreur est survenue, aucun utilisateur n'a été créé
@@ -95,5 +97,5 @@ user:
         delete: Une erreur est survenue lors de la tentative de suppression de ces utilisateurs
 
   roles:
-    admin: Rédacteur
-    super_admin: Proviseur
+    admin: Administrateur
+    super_admin: Super Administrateur
