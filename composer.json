@@ -30,5 +30,10 @@
     "autoload": {
         "psr-0": { "Cms\\Bundle\\AdminBundle": "" }
     },
-    "target-dir": "Cms/Bundle/AdminBundle"
+    "target-dir": "Cms/Bundle/AdminBundle",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "sf-2.1.x-dev"
+        }
+    }
 }
