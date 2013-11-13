@@ -6,10 +6,10 @@
 	{% block header %}
 		{% block ajax_on_loading %}
 		<div id="ajax-on-loading">
-			<span class="ajax loading">{{ 'global.ajax.loading'|trans }}</span>
-			<span class="ajax error">{{ 'global.ajax.error'|trans }}</span>
-			<span class="ajax success">{{ 'global.ajax.success'|trans }}</span>
-		</div>
+	            <div class="ajax loading alert alert-info">{{ 'global.ajax.loading'|trans }}</div>
+	            <div class="ajax error alert alert-error">{{ 'global.ajax.error'|trans }}</div>
+	            <div class="ajax success alert alert-success">{{ 'global.ajax.success'|trans }}</div>
+	        </div>
 		{% endblock %}
 
 		{% block navbar %}
