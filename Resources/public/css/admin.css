@@ -26,6 +26,10 @@
 
 #ajax-on-loading .ajax {
 	display: none;
+	width: 25%;
+	font-weight: bold;
+	text-align: center;
+	margin: 0 auto;
 }
 
 .form-horizontal .collection-fields>.collection-field-row>.control-group>label {
