@@ -10,11 +10,11 @@
 
 {% block stylesheets %}
 	{% stylesheets filter='cssrewrite'
-		'@CmsAdminBundle/Resources/public/css/vendor/normalize/normalize.min.css'
-		'@CmsAdminBundle/Resources/public/css/vendor/bootstrap/bootstrap.min.css'
-		'@CmsAdminBundle/Resources/public/css/vendor/jquery-ui/jquery-ui-1.10.1.custom.min.css'
-		'@CmsAdminBundle/Resources/public/css/admin.css'
-		'@CmsAdminBundle/Resources/public/css/admin_custom.css'
+		'bundles/cmsadmin/css/vendor/normalize/normalize.min.css'
+		'bundles/cmsadmin/css/vendor/bootstrap/bootstrap.min.css'
+		'bundles/cmsadmin/css/vendor/jquery-ui/jquery-ui-1.10.1.custom.min.css'
+		'bundles/cmsadmin/css/admin.css'
+		'bundles/cmsadmin/css/admin_custom.css'
 	%}
 	<link rel="stylesheet" href="{{ asset_url }}" />
 	{% endstylesheets %}
