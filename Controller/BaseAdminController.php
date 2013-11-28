@@ -161,7 +161,7 @@ abstract class BaseAdminController extends Controller {
 	public function render($view, array $parameters = array(), Response $response = null) {
 		
 		foreach ($this->default_render_parameters as $parameter) {
-			if (!in_array($parameter, array_keys($parameters))) {
+			if (!isset($parameters[$parameter])) {
 				$parameters[$parameter] = $this->$parameter;
 			}
 		}
