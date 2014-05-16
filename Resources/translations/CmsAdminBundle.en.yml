@@ -1,0 +1,101 @@
+global:
+  title: Administration
+  ajax:
+    loading: Loading ...
+    error: An error has occurred
+    success: Ok
+  copyright: © Company 2013
+  index_crud:
+    filter:
+      submit: Filtrer
+    group_action:
+      submit: Execute
+    actions: Actions
+    published: Published
+    enabled: Enabled
+  index:
+    new: Add new
+    name: Name
+    no_result: No result
+  form_action:
+    delete: Delete
+    add: Add
+    edit: Edit
+    save: Save
+    save_and_add: Save and add
+    back_to_list: Back to list
+    update: Update
+    are_you_sure: Are you sure ?
+    approve: Approve
+    disapprove: Disapprove
+    show: Show
+    preview: Preview
+    save_order: Save order
+    close: Close
+    cancel: Cancel
+    confirm: Ok
+    publish_toggle: Publish/Unpublish
+    order: Order
+    group:
+      none: -- Choose an action --
+      approve: Approve
+      disapprove: Disapprove
+      delete: Delete
+      publish: Publish
+      unpublish: Unpublish
+      disable: Disable
+      enable: Enable
+      not_blank: Please select an action
+  form_modal_action:
+    close: Cancel
+  pagination:
+    previous: Previous
+    next: Next
+  topbar:
+    logout: Logout
+    my_profile: My profil
+  index_calendar:
+    prev_month: Previous month
+    next_month: Next month
+    from_to: From %start% to %end%
+  logout: Logout
+  edit:
+    published: Published
+  goto_dashboard: Got to dashboard
+  paginator:
+    previous: Previous
+    next: Next
+
+login:
+  label:
+    username: Username
+    password: Password
+    remember_me: Remember me
+    submit: Login
+
+user:
+  index:
+    title: User list
+  edit:
+    title: Edit user «%name%»
+  change_password:
+    title: Change password for «%name%»
+  new:
+    title: New user
+  flash:
+    success:
+      delete: L'utilisateur a été suprimé avec succés
+      new: The user was successfully created
+      edit: L'utilisateur a été modifié avec succès
+      group:
+        delete: The user has been successfully changed
+    error:
+      delete: Une erreur est survenue lors de la tentative de suppression
+      new: An error occurred while trying to delete
+      edit: Une erreur est survenue pendant la modification, veuillez vérifier les champs saisis
+      group:
+        delete: An error occurred while editing, check the type field
+
+  roles:
+    admin: Admin
+    super_admin: Super Admin
