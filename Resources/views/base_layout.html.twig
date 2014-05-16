@@ -2,6 +2,7 @@
 {% trans_default_domain "CmsAdminBundle" %}
 
 {% block body_attributes ' id="admin"' %}
+<<<<<<< HEAD
     {% block body %}
         {% block header %}
             {% block ajax_on_loading %}
@@ -11,6 +12,17 @@
                     <div class="ajax success alert alert-success">{{ 'global.ajax.success'|trans }}</div>
                 </div>
             {% endblock %}
+=======
+{% block body %}
+	{% block header %}
+		{% block ajax_on_loading %}
+		<div id="ajax-on-loading">
+	            <div class="ajax loading alert alert-info">{{ 'global.ajax.loading'|trans }}</div>
+	            <div class="ajax error alert alert-error">{{ 'global.ajax.error'|trans }}</div>
+	            <div class="ajax success alert alert-success">{{ 'global.ajax.success'|trans }}</div>
+	        </div>
+		{% endblock %}
+>>>>>>> 0320f1ae4b4ccceed3b6534e7cb1fb0ac63a5168
 
             {% block navbar %}
                 <header class="navbar navbar-inverse navbar-fixed-top">
@@ -77,6 +89,7 @@
                             {% endfor %}
                         {% endblock %}
 
+<<<<<<< HEAD
                         {% block content %}{% endblock %}
                     </div>
                 </div>
@@ -91,3 +104,19 @@
             </footer>
         {% endblock %}
     {% endblock %}
+=======
+		{% block content %}{% endblock %}
+				</div>
+			</div>
+		</div>
+	{% endblock %}
+	{% block footer %}
+		<hr />
+		<footer class="container-fluid">
+			{% block footer_content %}
+			<p>{{ 'global.copyright'|trans }}</p>
+			{% endblock %}
+		</footer>
+	{% endblock %}
+{% endblock %}
+>>>>>>> 0320f1ae4b4ccceed3b6534e7cb1fb0ac63a5168

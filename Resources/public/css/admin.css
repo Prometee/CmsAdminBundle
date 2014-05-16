@@ -26,11 +26,19 @@
 }
 
 #ajax-on-loading .ajax {
+<<<<<<< HEAD
     display: none;
     width: 25%;
     font-weight: bold;
     text-align: center;
     margin: 0 auto;
+=======
+	display: none;
+	width: 25%;
+	font-weight: bold;
+	text-align: center;
+	margin: 0 auto;
+>>>>>>> 0320f1ae4b4ccceed3b6534e7cb1fb0ac63a5168
 }
 
 .form-horizontal .collection-fields > .collection-field-row > .control-group > label {
