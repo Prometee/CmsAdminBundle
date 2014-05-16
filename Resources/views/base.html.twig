@@ -2,31 +2,29 @@
 <!DOCTYPE html>
 <html class="no-js">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<title>{% block title 'global.title'|trans %}</title>
-	<meta name="description" content="">
-	<meta name="viewport" content="width=device-width">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>{% block title 'global.title'|trans %}</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
 
-{% block stylesheets %}
-	{% stylesheets filter='cssrewrite'
-		'@CmsAdminBundle/Resources/public/css/vendor/normalize/normalize.min.css'
-		'@CmsAdminBundle/Resources/public/css/vendor/bootstrap/bootstrap.min.css'
-		'@CmsAdminBundle/Resources/public/css/vendor/jquery-ui/jquery-ui-1.10.1.custom.min.css'
-		'@CmsAdminBundle/Resources/public/css/admin.css'
-		'@CmsAdminBundle/Resources/public/css/admin_custom.css'
-	%}
-	<link rel="stylesheet" href="{{ asset_url }}" />
-	{% endstylesheets %}
-{% endblock %}
+    {% block stylesheets %}
+        {% stylesheets filter='cssrewrite'
+        '@CmsAdminBundle/Resources/public/css/vendor/normalize/normalize.min.css'
+        '@CmsAdminBundle/Resources/public/css/vendor/bootstrap/bootstrap.min.css'
+        '@CmsAdminBundle/Resources/public/css/vendor/jquery-ui/jquery-ui-1.10.1.custom.min.css'
+        '@CmsAdminBundle/Resources/public/css/admin.css'
+        '@CmsAdminBundle/Resources/public/css/admin_custom.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}"/>
+        {% endstylesheets %}
+    {% endblock %}
 
-{% block javascripts_head %}
-	{% javascripts
-		'@CmsAdminBundle/Resources/public/js/vendor/modernizr/modernizr-2.6.2-respond-1.1.0.min.js'
-	%}
-	<script type="text/javascript" src="{{ asset_url }}"></script>
-	{% endjavascripts %}
-{% endblock %}
+    {% block javascripts_head %}
+        {% javascripts
+        '@CmsAdminBundle/Resources/public/js/vendor/modernizr/modernizr-2.6.2-respond-1.1.0.min.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock %}
 
 </head>
 <body{% block body_attributes '' %}>
@@ -34,19 +32,18 @@
 {% block body '' %}
 
 {% block javascripts_foot %}
-	{% javascripts
-		'@CmsAdminBundle/Resources/public/js/vendor/jquery/jquery-1.9.1.min.js'
-		'@CmsAdminBundle/Resources/public/js/vendor/jquery/i18n/jquery.ui.datepicker-%locale%.js'
-		'@CmsAdminBundle/Resources/public/js/vendor/jquery/jquery-ui-1.10.1.custom.min.js'
-		'@CmsAdminBundle/Resources/public/js/vendor/bootstrap/bootstrap.min.js'
-		'@CmsAdminBundle/Resources/public/js/collection.js'
-		'@CmsAdminBundle/Resources/public/js/admin.js'
-		'@CmsAdminBundle/Resources/public/js/admin_custom.js'
-	%}
-	<script type="text/javascript" src="{{ asset_url }}"></script>
-	{% endjavascripts %}
-	{{ tinymce_init() }}
+    {% javascripts
+    '@CmsAdminBundle/Resources/public/js/vendor/jquery/jquery-1.9.1.min.js'
+    '@CmsAdminBundle/Resources/public/js/vendor/jquery/i18n/jquery.ui.datepicker-%locale%.js'
+    '@CmsAdminBundle/Resources/public/js/vendor/jquery/jquery-ui-1.10.1.custom.min.js'
+    '@CmsAdminBundle/Resources/public/js/vendor/bootstrap/bootstrap.min.js'
+    '@CmsAdminBundle/Resources/public/js/collection.js'
+    '@CmsAdminBundle/Resources/public/js/admin.js'
+    '@CmsAdminBundle/Resources/public/js/admin_custom.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    {{ tinymce_init() }}
 {% endblock %}
 
-	</body>
+</body>
 </html>
