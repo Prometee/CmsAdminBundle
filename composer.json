@@ -20,7 +20,7 @@
         }
     ],
     "require": {
-        "symfony/framework-bundle": ">=2.2.0-beta2,<2.3-dev",
+        "symfony/framework-bundle": ">=2.2.0-beta2",
         "knplabs/knp-paginator-bundle": "*",
         "friendsofsymfony/user-bundle": "*",
         "doctrine/doctrine-fixtures-bundle": "*",
