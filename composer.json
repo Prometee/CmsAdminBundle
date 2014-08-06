@@ -32,5 +32,10 @@
             "Cms\\Bundle\\AdminBundle": ""
         }
     },
-    "target-dir": "Cms/Bundle/AdminBundle"
+    "target-dir": "Cms/Bundle/AdminBundle",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "sf2.2-dev"
+        }
+    }
 }
