@@ -7,33 +7,48 @@
             {% block ajax_on_loading %}
                 <div id="ajax-on-loading">
                     <div class="ajax loading alert alert-info">{{ 'global.ajax.loading'|trans }}</div>
-                    <div class="ajax error alert alert-error">{{ 'global.ajax.error'|trans }}</div>
+                    <div class="ajax error alert alert-danger">{{ 'global.ajax.error'|trans }}</div>
                     <div class="ajax success alert alert-success">{{ 'global.ajax.success'|trans }}</div>
                 </div>
             {% endblock %}
 
             {% block navbar %}
                 <header class="navbar navbar-inverse navbar-fixed-top">
-                    <div class="navbar-inner">
-                        <nav class="container-fluid">
-                            <a href="{{ path('cms_admin_dashboard') }}" title="{{ 'global.goto_dashboard'|trans }}"
-                               class="brand">{{ 'global.title'|trans }}</a>
-                            <nav class="nav-collapse collapse">
-                                <nav class="navbar-text pull-right">
-                                    {% block menutopright %}
-                                        {{ 'layout.logged_in_as'|trans({'%username%': ''}, 'FOSUserBundle') }}
-                                        <a href="{{ path('fos_user_profile_edit') }}">{{ app.user.username }}</a>
-                                        |
-                                        <a href="{{ path('fos_user_security_logout') }}">{{ 'global.logout'|trans }}</a>
-                                    {% endblock %}
-                                </nav>
-                                <ul class="nav">
-                                    {% block menutopleft %}
-                                        {% include 'CmsAdminBundle::menutopleft.html.twig' %}
-                                    {% endblock %}
-                                </ul>
-                            </nav>
-                        </nav>
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#top-navbar">
+                                <span class="sr-only">Toggle navigation</span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand" href="{{ path('cms_admin_dashboard') }}" title="{{ 'global.goto_dashboard'|trans }}">
+                                <i class="glyphicon glyphicon-dashboard"></i> {{ 'global.title'|trans }}
+                            </a>
+                        </div>
+                        <div class="navbar-collapse collapse" id="top-navbar">
+                            <ul class="nav navbar-nav">
+                                {% block menutopleft %}
+                                    {% include 'CmsAdminBundle::menutopleft.html.twig' %}
+                                {% endblock %}
+                            </ul>
+                            {% block menutopright %}
+                            <ul class="nav navbar-nav navbar-right">
+                                <li>
+                                    <a href="{{ path('fos_user_profile_edit') }}">
+                                        <i class="glyphicon glyphicon-user"></i>
+                                        {{ 'layout.logged_in_as'|trans({'%username%': app.user.username }, 'FOSUserBundle') }}
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('fos_user_security_logout') }}">
+                                        <i class="glyphicon glyphicon-off"></i>
+                                        {{ 'global.logout'|trans }}
+                                    </a>
+                                </li>
+                            </ul>
+                            {% endblock %}
+                        </div>
                     </div>
                 </header>
             {% endblock %}
@@ -43,35 +58,35 @@
             <div class="container-fluid">
                 <div class="row-fluid">
 
-                    <div class="span2">
+                    <div class="col-md-2">
                         {% block menuleft %}
                         {% endblock %}
                     </div>
 
-                    <div class="span10">
+                    <div class="col-md-10">
 
                         {% block flashes %}
                             {% for flashMessage in app.session.flashbag.get('notice') %}
-                                <div class="alert">
-                                    <a class="close" data-dismiss="alert">×</a>
+                                <div class="alert alert-info">
+                                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">{{ 'global.form_modal_action'|trans }}</span></button>
                                     {{ flashMessage }}
                                 </div>
                             {% endfor %}
                             {% for flashMessage in app.session.flashbag.get('error') %}
-                                <div class="alert alert-error">
-                                    <a class="close" data-dismiss="alert">×</a>
+                                <div class="alert alert-danger">
+                                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">{{ 'global.form_modal_action'|trans }}</span></button>
                                     {{ flashMessage }}
                                 </div>
                             {% endfor %}
                             {% for flashMessage in app.session.flashbag.get('success') %}
                                 <div class="alert alert-success">
-                                    <a class="close" data-dismiss="alert">×</a>
+                                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">{{ 'global.form_modal_action'|trans }}</span></button>
                                     {{ flashMessage }}
                                 </div>
                             {% endfor %}
                             {% for flashMessage in app.session.flashbag.get('info') %}
                                 <div class="alert alert-info">
-                                    <a class="close" data-dismiss="alert">×</a>
+                                    <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">{{ 'global.form_modal_action'|trans }}</span></button>
                                     {{ flashMessage }}
                                 </div>
                             {% endfor %}

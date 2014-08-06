@@ -1,9 +1,8 @@
 {% trans_default_domain 'CmsAdminBundle' %}
 
 {% if pageCount > 1 %}
-<div class="pagination">
-    <ul>
-
+<div class="text-center">
+    <ul class="pagination">
     {% if previous is defined %}
         <li>
             <a href="{{ path(route, query|merge({(pageParameterName): previous})) }}">&laquo;&nbsp;{{ 'global.paginator.previous'|trans }}</a>

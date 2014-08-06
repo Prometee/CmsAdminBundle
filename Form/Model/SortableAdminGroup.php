@@ -2,9 +2,12 @@
 
 namespace Cms\Bundle\AdminBundle\Form\Model;
 
-class SortableAdminGroup {
-	
-    public $action = 'order';
-}
+class SortableAdminGroup extends BaseAdminGroup {
 
-?>
+    function __construct() {
+        self::$actions = array(
+            'order'=>''
+        );
+        $this->action = 'order';
+    }
+}

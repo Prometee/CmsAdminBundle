@@ -5,19 +5,36 @@ cms_admin_admin_user_index:
 cms_admin_admin_user_new:
     pattern: /new
     defaults: { _controller: CmsAdminBundle:AdminUser:new }
+    requirements:
+      _method: GET
+cms_admin_admin_user_create:
+    pattern: /create
+    defaults: { _controller: CmsAdminBundle:AdminUser:new }
+    requirements:
+      _method: POST
 
 cms_admin_admin_user_delete:
     pattern: /{id}/delete
     defaults: { _controller: CmsAdminBundle:AdminUser:delete }
     requirements:
       id: \d+
+      _method: DELETE
 
 cms_admin_admin_user_edit:
     pattern: /{id}/edit
     defaults: { _controller: CmsAdminBundle:AdminUser:edit }
     requirements:
       id: \d+
+      _method: GET
+cms_admin_admin_user_update:
+    pattern: /{id}/update
+    defaults: { _controller: CmsAdminBundle:AdminUser:edit }
+    requirements:
+      id: \d+
+      _method: PUT
 
 cms_admin_admin_user_group_process:
     pattern: /group_process
     defaults: { _controller: CmsAdminBundle:AdminUser:groupProcess }
+    requirements:
+      _method: POST

@@ -7,6 +7,15 @@ trait PublishableControllerTrait {
 	protected $route_publish = 'cms_foo_admin_foo_publish_toggle';
 	protected $publish_group_object_name = 'Cms\\Bundle\\AdminBundle\\Form\\Model\\PublishableAdminGroup';
 
+    protected function preConfigureTrait() {
+        $this->available_route_names[] = 'publish';
+        $this->addDefaultRenderParameter('route_publish');
+    }
+
+    protected function postConfigureTrait() {
+        $this->group_object_name = $this->publish_group_object_name;
+    }
+
 	protected function redirectPublishSuccess($entity = null) {
 		return $this->redirect($this->generateUrl($this->route_index));
 	}

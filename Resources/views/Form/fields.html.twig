@@ -1,13 +1,4 @@
 {# Widgets #}
-    
-{% block form_widget %}
-{% spaceless %}
-    <div {{ block('widget_container_attributes') }}>
-        {{ block('field_rows') }}
-        {{ form_rest(form) }}
-    </div>
-{% endspaceless %}
-{% endblock %}
 
 {% block datetime_widget %}
 {% spaceless %}
@@ -31,9 +22,9 @@
     {% else %}
         <div {{ block('widget_container_attributes') }}>
             {{ '{{ day }}&nbsp;&nbsp;{{ month }}&nbsp;&nbsp;{{ year }}'|replace({
-                '{{ year }}':  form_widget(form.year, {'attr': {'class' : 'span1'}}),
-                '{{ month }}': form_widget(form.month, {'attr': {'class' : 'span1'}}),
-                '{{ day }}':   form_widget(form.day, {'attr': {'class' : 'span1'}}),
+                '{{ year }}':  form_widget(form.year, {'attr': {'class' : 'col-md-1'}}),
+                '{{ month }}': form_widget(form.month, {'attr': {'class' : 'col-md-1'}}),
+                '{{ day }}':   form_widget(form.day, {'attr': {'class' : 'col-md-1'}}),
             })|raw }}
         </div>
     {% endif %}
@@ -46,7 +37,7 @@
         {{ block('field_widget') }}
     {% else %}
         <div {{ block('widget_container_attributes') }}>
-            {{ form_widget(form.hour, { 'attr': { 'class': 'span1' } }) }}:{{ form_widget(form.minute, { 'attr': { 'class': 'span1' } }) }}{% if with_seconds %}:{{ form_widget(form.second, { 'attr': { 'class': 'span1' } }) }}{% endif %}
+            {{ form_widget(form.hour, { 'attr': { 'class': ' col-md-1' } }) }}:{{ form_widget(form.minute, { 'attr': { 'class': ' col-md-1' } }) }}{% if with_seconds %}:{{ form_widget(form.second, { 'attr': { 'class': ' col-md-1' } }) }}{% endif %}
         </div>
     {% endif %}
 {% endspaceless %}
@@ -70,53 +61,71 @@
 {% endspaceless %}
 {% endblock %}
 
+{% block button_attributes -%}
+    id="{{ id }}" name="{{ full_name }}"{% if disabled %} disabled="disabled"{% endif %}
+    {% set attr = attr|merge({'class': (attr.class|default('btn-default') ~ ' btn')|trim}) %}
+    {%- for attrname, attrvalue in attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}
+{%- endblock button_attributes %}
+
+{% block button_widget -%}
+    {% if label is empty -%}
+        {% set label = name|humanize %}
+    {%- endif -%}
+    {% if icon_class is defined %}
+        {% set icon = ('<i class="' ~ icon_class ~ '"></i> ')|default('') %}
+    {% else %}
+        {% set icon = '' %}
+    {% endif %}
+    <button type="{{ type|default('button') }}" {{ block('button_attributes') }}>{{ icon|raw }}{{ label|trans({}, translation_domain) }}</button>
+{%- endblock button_widget %}
+
 {# Labels #}
 
-{% block form_label %}
-{% spaceless %}
-    {% if label is empty %}
-        {% set label = name|humanize %}
-    {% endif %}
-    {% set attr = attr|merge({'class': attr.class|default('') ~ ' control-label'}) %}
-    {% if required %}
-        {% set attr = attr|merge({'class': attr.class|default('') ~ ' required'}) %}
-    {% endif %}
-    {% set trans_label = id|replace({'_':'.'}) %}
-    {% if trans_label != (trans_label|trans({}, translation_domain)) %}
-        {% set label = trans_label|trans({}, translation_domain) %}
-    {% else %}
-        {% if label != label|trans %}
-            {% set label = label|trans %}
-        {% else %}
-            {% set label = label|trans({}, translation_domain) %}
+{% block form_label -%}
+    {% if label is not sameas(false) %}
+        {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' control-label')|trim}) %}
+        {%- if not compound -%}
+            {% set label_attr = label_attr|merge({'for': id}) %}
+        {%- endif -%}
+        {% if required %}
+            {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
         {% endif %}
-    {% endif %}
-    <label{% for attrname,attrvalue in attr %} {{attrname}}="{{attrvalue}}"{% endfor %}>{{ label }}</label>
-{% endspaceless %}
-{% endblock %}
+        {% if label is empty %}
+            {% set label = name|humanize %}
+        {% endif %}
+        {% set trans_label = id|replace({'_':'.'}) %}
+        {% if trans_label != (trans_label|trans({}, translation_domain)) %}
+            {% set label = trans_label|trans({}, translation_domain) %}
+        {% else %}
+            {% if label != label|trans %}
+                {% set label = label|trans %}
+            {% else %}
+                {% set label = label|trans({}, translation_domain) %}
+            {% endif %}
+        {% endif %}
+        <label{% for attrname,attrvalue in label_attr %} {{attrname}}="{{attrvalue}}"{% endfor %}>{{ label }}</label>
+    {%- endif %}
+{%- endblock form_label %}
 
 {# Rows #}
-
-{% block form_row %}
-{% spaceless %}
-    <div class="control-group{% if errors|length > 0 %} error{% endif %}">
-        {{ form_label(form, label|default(null)) }}
-        <div class="controls">
-        {{ form_widget(form) }}
-        {{ form_errors(form) }}
+{% block form_row -%}
+    <div class="form-group{% if errors|length > 0 %} has-error{% endif %}">
+        {{- form_errors(form) -}}
+        {{- form_label(form, null, {'label_attr': {'class': 'col-md-2'} }) -}}
+        <div class="col-md-{{ label is not sameas(false) ? '10' : '12' }}">
+            {{- form_widget(form, {'attr': {'class': compound ? '' : 'form-control'} }) -}}
         </div>
     </div>
-{% endspaceless %}
-{% endblock form_row %}
+{%- endblock form_row %}
 
 {# Misc #}
 
-{% block form_errors %}
-{% spaceless %}
-    {% if errors|length > 0 %}
-        {% for error in errors %}
-            <span class="help-inline">{{ error.messageTemplate|trans(error.messageParameters, 'validators') }}</span>
-        {% endfor %}
-    {% endif %}
-{% endspaceless %}
-{% endblock %}
+{% block form_errors -%}
+{% if errors|length > 0 -%}
+    {%- for error in errors -%}
+        <div class="alert alert-danger">
+            {{ error.messageTemplate|trans(error.messageParameters, 'validators') }}
+        </div>
+    {%- endfor -%}
+{%- endif %}
+{%- endblock form_errors %}

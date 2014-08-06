@@ -3,10 +3,6 @@ jQuery(document).ready(function(){
     jQuery('.checkAll').on('change', function () {
         jQuery(this).parent().parent().parent().parent().find('.checkAllItem').prop('checked', this.checked);
     });
-    
-    if (jQuery("[rel=tooltip]").length) {
-        jQuery("[rel=tooltip]").tooltip();
-    }
 	
 	jQuery(document).on('click', '.btn-confirm', function(e) {
 		if (!window.confirm(jQuery(this).data('title'))) {

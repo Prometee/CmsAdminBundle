@@ -4,6 +4,6 @@
 {% block form_title ( translation_prefix ~ '.new.title' )|trans([], bundle_name) %}
 
 {% block form_actions_list %}
-	<input type="submit" class="btn btn-info" name="save_and_add" value="{{ 'global.form_action.save_and_add'|trans }}">
-	{{ parent() }}
+    {{ form_widget(form.save_and_add, {'icon_class': 'glyphicon glyphicon-floppy-disk', 'label': 'global.form_action.save_and_add', 'translation_domain':'CmsAdminBundle', 'attr': {'class': 'btn-info'} }) }}
+    {{ parent() }}
 {% endblock %}

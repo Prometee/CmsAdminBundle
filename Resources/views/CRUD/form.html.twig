@@ -1,4 +1,5 @@
 {% extends 'CmsAdminBundle::layout.html.twig' %}
+{% trans_default_domain 'CmsAdminBundle' %}
 
 {% use ('CmsAdminBundle:CRUD:ajax_form.html.twig') %}
 
@@ -8,4 +9,31 @@
 
 {% block content %}
 	{{ block('form_wrapper') }}
+{% endblock %}
+
+{% block form_wrapper_tag '<section class="panel panel-default">' %}
+
+{% block form_header %}
+    <div class="panel-heading">
+        {{ parent() }}
+    </div>
+{% endblock %}
+
+{% block form_content %}
+    <div class="panel-body">
+        {{ parent() }}
+    </div>
+{% endblock %}
+
+{% block form_actions %}
+    <div class="panel-footer">
+        {{ parent() }}
+    </div>
+{% endblock %}
+
+{% block form_actions_inner %}
+    <label class="control-label col-md-2">{{ 'global.form_action.title'|trans }}</label>
+    <div class="col-md-10">
+        {{ parent() }}
+    </div>
 {% endblock %}

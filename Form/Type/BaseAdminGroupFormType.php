@@ -8,17 +8,22 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class BaseAdminGroupFormType extends AbstractType {
 
-    protected $name_prefix;
-
     public function buildForm(FormBuilderInterface $builder, array $options) {
-        $builder->add('action', 'choice', array(
-            'choices' => call_user_func(array($options['data_class'], 'getActions'))
+        if (!$builder->has('action')) {
+            $builder->add('action', 'choice', array(
+                'choices' => call_user_func(array($options['data_class'], 'getActions'))
+            ));
+        }
+        $builder->add('ids', 'entity', array(
+            'multiple'=>true,
+            'class'=>$options['ids_class']
         ));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setRequired(array(
             'data_class',
+            'ids_class',
 			'translation_domain'
         ));
     }

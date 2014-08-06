@@ -18,6 +18,7 @@ global:
     name: Name
     no_result: No result
   form_action:
+    title: Actions
     delete: Delete
     add: Add
     edit: Edit

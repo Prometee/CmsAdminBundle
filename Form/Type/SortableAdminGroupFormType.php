@@ -8,6 +8,7 @@ class SortableAdminGroupFormType extends BaseAdminGroupFormType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder->add('action', 'hidden');
+        parent::buildForm($builder, $options);
     }
 
     public function getName() {

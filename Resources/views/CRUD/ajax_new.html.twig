@@ -3,36 +3,45 @@
 
 {% block form_title ( translation_prefix ~ '.new.title' )|trans([], bundle_name) %}
 
-{% block form_actions_list '' %}			
-					
-{% if modal == true %}
-	{% block form_wrapper_tag %}
-	<div id="{{ modal_id }}" aria-labelledby="{{ modal_id }}_label" class="modal hide fade" role="dialog" aria-hidden="true">
-	{% endblock %}
-	{% block form_actions '' %}
-	{% block form_header '' %}
-	{% block form_tag %}
-		{{ parent() }}
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-			<h3 id="{{ modal_id ~ '_label' }}">{{ block('form_title') }}</h3>
-		</div>
-		<div class="modal-body">
-	{% endblock %}
-	{% block form_end_tag %}
-		</div>
-		{% block ajax_form_footer %}
-		<div class="modal-footer">
-			{% block ajax_form_footer_actions %}
-			{{ block('form_actions_list_default') }}
-			{{ block('form_actions_list') }}
-			{% endblock %}
-			{% block ajax_form_footer_default_actions %}
-			<button class="btn btn-link" data-dismiss="modal" aria-hidden="true">{{ 'global.form_modal_action.close'|trans }}</button>
-			{% endblock %}
-		</div>
-		{% endblock %}
-		{{ parent() }}
-	{% endblock %}
-	{% block form_wrapper_end_tag '</div>' %}
-{% endif %}
+{% block form_wrapper_tag %}
+<div id="{{ modal_id }}" aria-labelledby="{{ modal_id }}_label" class="modal fade" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+{% endblock %}
+
+{% block form_header %}
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="{{ modal_id ~ '_label' }}">{{ block('form_title') }}</h3>
+    </div>
+{% endblock %}
+
+{% block form_content %}
+    <div class="modal-body">
+        {{ parent() }}
+    </div>
+{% endblock %}
+
+{%  block form_actions_list '' %}
+
+{% block form_actions %}
+    {% block ajax_form_footer %}
+    <div class="modal-footer">
+        {% block ajax_form_footer_actions %}
+            {{ block('form_actions_list_default') }}
+        {% endblock %}
+        {% block ajax_form_footer_default_actions %}
+        <button class="btn btn-link" data-dismiss="modal" aria-hidden="true">
+            <i class="glyphicon glyphicon-remove"></i>
+            {{ 'global.form_modal_action.close'|trans }}
+        </button>
+        {% endblock %}
+    </div>
+    {% endblock %}
+{% endblock %}
+
+{% block form_wrapper_end_tag %}
+        </div>
+    </div>
+</div>
+{% endblock %}

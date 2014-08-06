@@ -24,5 +24,8 @@ class CmsAdminExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+
+        $container->setParameter('cms_admin.templating.fields', $config['templating']['fields']);
+        $container->setParameter('cms_admin.templating.collection', $config['templating']['collection']);
     }
 }

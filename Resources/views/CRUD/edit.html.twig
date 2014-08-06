@@ -4,9 +4,12 @@
 {% block form_title ( translation_prefix ~ '.edit.title' )|trans({'%name%': entity}, bundle_name) %}
 {% block form_action path(route_form_action, { 'id': entity.id }) %}
 
-{% block form_actions_list_default '' %}
-{% block form_actions_list %}
-	<input type="submit" class="btn btn-primary" value="{{ 'global.form_action.update'|trans }}">
-	<a class="btn btn-danger btn-confirm" data-title="{{ 'global.form_action.are_you_sure'|trans }}" href="{{ path(route_delete, { 'id': entity.id }) }}" >{{ 'global.form_action.delete'|trans }}</a>
-	{{ parent() }}
+{% block form_actions_list_default %}
+    {{ form_widget(form.submit, {'icon_class': 'glyphicon glyphicon-floppy-disk', 'label': 'global.form_action.update', 'translation_domain':'CmsAdminBundle', 'attr':{'class': 'btn-primary'} }) }}
+{% endblock %}
+{% block form_wrapper_end_tag %}
+    {{ parent() }}
+    {{ form_start(form_delete) }}
+    {{ form_widget(form_delete.submit, {'icon_class': 'glyphicon glyphicon-remove-circle', 'label': 'global.form_action.delete', 'translation_domain':'CmsAdminBundle', 'attr':{'class': 'btn-danger btn-confirm'} }) }}
+    {{ form_end(form_delete) }}
 {% endblock %}

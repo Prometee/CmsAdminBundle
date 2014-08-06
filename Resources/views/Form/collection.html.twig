@@ -1,41 +1,42 @@
-{% block collection_widget %}
-{% spaceless %}
+{% macro collection_widget_row(child, allow_delete, panel_type) -%}
+    <div class="collection-field-row panel panel-{{ panel_type }}">
+        <div class="panel-heading text-right">
+            {% if allow_delete is defined and allow_delete %}
+                <a href="#" class="delete-collection-row btn btn-danger">
+                    <i class="glyphicon glyphicon-minus-sign"></i>
+                    {{ 'global.form_action.delete' | trans([], 'CmsAdminBundle') }}
+                </a>
+            {% endif %}
+        </div>
+        <div class="panel-body">
+            {{ form_row(child, {'label': false}) }}
+        </div>
+    </div>
+{%- endmacro %}
+
+{% block collection_widget -%}
     {% if prototype is defined %}
-        {% set attr = attr|merge({'data-prototype': form_row(prototype) }) %}
+        {% set attr = attr|merge({'data-prototype': _self.collection_widget_row(prototype, allow_delete, 'warning')|e }) %}
     {% endif %}
     <div {{ block('widget_container_attributes') }}>
         {% block collection_widget_fields %}
         <div class="collection-fields">
             {{ form_errors(form) }}
             {% for child in form %}
-                <div class="collection-field-row">
-                    {{ form_row(child) }}
-                    {% if allow_delete is defined and allow_delete %}
-                    <a href="#" class="delete-collection-row btn btn-danger">
-                        {{ 'global.form_action.delete' | trans([], 'CmsAdminBundle') }}
-                    </a>
-                    {% endif %}
-                </div>
+                {{ _self.collection_widget_row(child, allow_delete, 'default') }}
             {% endfor %}
         </div>
         {% endblock %}
         {% block collection_widget_actions %}
             {% if allow_add is defined and allow_add %}
                 {% block collection_widget_action_add  %}
-                <a href="#" class="add-collection-row btn">
+                <a href="#" class="add-collection-row btn btn-info">
+                    <i class="glyphicon glyphicon-plus-sign"></i>
                     {{ 'global.form_action.add' | trans([], 'CmsAdminBundle') }}
-                </a>
-                {% endblock %}
-            {% endif %}
-            {% if allow_delete is defined and allow_delete %}
-                {% block collection_widget_action_remove  %}
-                <a href="#" class="delete-collection-row btn btn-danger hide">
-                    {{ 'global.form_action.delete' | trans([], 'CmsAdminBundle') }}
                 </a>
                 {% endblock %}
             {% endif %}
         {% endblock %}
         {{ form_rest(form) }}
     </div>
-{% endspaceless %}
-{% endblock collection_widget %}
+{%- endblock collection_widget %}

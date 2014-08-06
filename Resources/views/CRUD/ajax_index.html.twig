@@ -1,0 +1,138 @@
+{% trans_default_domain 'CmsAdminBundle' %}
+
+{% block index_wrapper %}
+    {% block index_head '<div>' %}
+        {% block index_header %}
+            {% block index_title %}
+        <h2>{{ (translation_prefix ~ '.index.title')|trans([], bundle_name) }}</h2>
+            {% endblock %}
+        {% endblock %}
+        {% block index_body %}
+            {% block index_filter %}
+                {% if filter %}
+                    <form method="POST" action="{{ path(route_index) }}" class="form-inline">
+                        {{ form_widget(filter) }}
+                        <input class="btn" type="submit" value="{{ 'global.index_crud.filter.submit'|trans }}" />
+                    </form>
+                {% endif %}
+            {% endblock %}
+
+            {% block index_list_actions %}
+                <nav class="other-actions">
+                    {% block index_list_other_actions_list %}
+                        <a class="btn btn-warning" href="{{ path(route_new) }}">
+                            <i class="glyphicon glyphicon-plus-sign"></i>
+                            {{ 'global.index.new'|trans }}
+                        </a>
+                    {% endblock %}
+                </nav>
+            {% endblock %}
+        {% endblock %}
+
+        {% block index_list_form_start %}
+            {{ form_start(groupForm, {'attr': {'class': 'form-inline'} }) }}
+            {% block index_list_form_errors %}
+                {{ form_errors(groupForm) }}
+            {% endblock %}
+        {% endblock %}
+
+        {% block index_list %}
+            {% if pagination is defined and pagination.count() > 0 or (entity_list is defined and entity_list | length > 0) %}
+                <table class="table table-hover table-responsive{% block index_table_class '' %}">
+                    {% block index_list_head %}
+                        <thead>
+                        <tr>
+                            {% block index_bashactions_checkall %}
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <th><input class="checkAll" type="checkbox" /></th>
+                                {% endif %}
+                            {% endblock %}
+                            {% block index_list_head_cols %}
+                                <th>{{ 'global.index.name'|trans }}</th>
+                                {% block index_list_head_publish %}
+                                    {% if route_publish is defined  %}
+                                        <th>{{ 'global.index_crud.published'|trans }}</th>
+                                    {% endif %}
+                                {% endblock %}
+                            {% endblock %}
+                            <th>{{ 'global.index_crud.actions'|trans }}</th>
+                        </tr>
+                        </thead>
+                    {% endblock %}
+
+                    {% do groupForm.ids.setRendered %}
+                    {% block index_list_body %}
+                        <tbody>
+                        {% for entity in pagination %}
+                            <tr>
+                                {% block index_bashactions_item %}
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <td><input class="checkAllItem" type="checkbox" name="{{ groupForm.ids.vars.full_name }}" value="{{ entity.id }}" /></td>
+                                    {% endif %}
+                                {% endblock %}
+                                {% block index_list_item_cols %}
+                                    <td>{{ entity }}</td>
+                                    {% block index_list_item_publish %}
+                                        {% if route_publish is defined  %}
+                                            <td>{{ bool.show(entity.published) }}</td>
+                                        {% endif %}
+                                    {% endblock %}
+                                {% endblock %}
+                                {% block index_list_items_actions %}
+                                    <td class="items-actions">
+                                        {% block index_list_items_actions_default %}
+                                            <a class="btn btn-mini btn-primary" href="{{ path(route_edit, { 'id': entity.id }) }}" title="{{ 'global.form_action.edit'|trans }}">
+                                                <i class="glyphicon glyphicon-pencil"></i>
+                                                {{ 'global.form_action.edit'|trans }}
+                                            </a>
+                                        {% endblock %}
+                                        {% block index_list_items_actions_other %}
+                                            {% if route_publish is defined  %}
+                                                <a class="btn btn-mini btn-primary" href="{{ path(route_publish, { 'id': entity.id }) }}" title="{{ 'global.form_action.publish_toggle'|trans }}">
+                                                    <i class="glyphicon glyphicon-ok-sign"></i>
+                                                    {{ 'global.form_action.publish_toggle'|trans }}
+                                                </a>
+                                            {% endif %}
+                                        {% endblock %}
+                                    </td>
+                                {% endblock %}
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    {% endblock %}
+                    {% block index_list_foot %}
+                    {% endblock %}
+                </table>
+                {% block index_list_bashactions %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        {{- form_errors(groupForm.action) -}}
+                        <div class="input-group">
+                            <div  class="input-group-addon">
+                                {{- form_label(groupForm.action) }}
+                            </div >
+                            {{- form_widget(groupForm.action, {'attr': {'class': 'form-control'} }) -}}
+                            <div  class="input-group-btn">
+                                {{ form_widget(groupForm.submit, {'label': 'global.index_crud.group_action.submit', 'translation_domain':'CmsAdminBundle'}) }}
+                            </div >
+                        </div>
+                    {% endif %}
+                {% endblock %}
+
+                {% block index_footer %}
+                    {% block index_paginator %}
+                        {{ knp_pagination_render(pagination, 'CmsAdminBundle::paginator.html.twig') }}
+                    {% endblock %}
+                {% endblock %}
+            {% else %}
+                {% block index_lis_no_result %}
+                <p class="no-result">{{ ('global.index.no_result') |trans }}</p>
+                {% endblock %}
+            {% endif %}
+        {% endblock %}
+
+        {% block index_list_form_end %}
+            {{ form_end(groupForm) }}
+        {% endblock %}
+
+    {% block index_foot '</div>' %}
+{% endblock %}

@@ -9,15 +9,38 @@
     <meta name="viewport" content="width=device-width">
 
     {% block stylesheets %}
-        {% stylesheets filter='cssrewrite'
-        '@CmsAdminBundle/Resources/public/css/vendor/normalize/normalize.min.css'
-        '@CmsAdminBundle/Resources/public/css/vendor/bootstrap/bootstrap.min.css'
-        '@CmsAdminBundle/Resources/public/css/vendor/jquery-ui/jquery-ui-1.10.1.custom.min.css'
-        '@CmsAdminBundle/Resources/public/css/admin.css'
-        '@CmsAdminBundle/Resources/public/css/admin_custom.css'
-        %}
-        <link rel="stylesheet" href="{{ asset_url }}" />
-        {% endstylesheets %}
+        {% block stylesheets_normalize %}
+            {% stylesheets
+                '@CmsAdminBundle/Resources/public/css/vendor/normalize/normalize.min.css'
+            %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+        {% endblock %}
+        {% block stylesheets_bootstrap %}
+            {% stylesheets filter='cssrewrite'
+            'bundles/cmsadmin/css/vendor/bootstrap/bootstrap.min.css'
+            '@CmsAdminBundle/Resources/public/css/vendor/bootstrap/bootstrap-theme.min.css'
+            %}{# need declaration with @ to be overridable in bootstrap-theme there is no "url(" #}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+        {% endblock %}
+        {% block stylesheets_jqueryui %}
+            {% stylesheets filter='cssrewrite'
+            'bundles/cmsadmin/css/vendor/jquery-ui/jquery-ui-1.11.0.custom.min.css'
+            '@CmsAdminBundle/Resources/public/css/vendor/jquery-ui/jquery-ui.structure.min.css'
+            'bundles/cmsadmin/css/vendor/jquery-ui/jquery-ui.theme.min.css'
+            %}{# need declaration with @ to be overridable in jquery-ui.structure there is no "url(" #}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+        {% endblock %}
+        {% block stylesheets_default %}
+            {% stylesheets filter='cssrewrite'
+                '@CmsAdminBundle/Resources/public/css/admin.css'
+                '@CmsAdminBundle/Resources/public/css/admin_custom.css'
+            %}{# need declaration with @ to be overridable #}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+        {% endblock %}
     {% endblock %}
 
     {% block javascripts_head %}
@@ -34,11 +57,12 @@
 
 {% block javascripts_foot %}
     {% javascripts
-    '@CmsAdminBundle/Resources/public/js/vendor/jquery/jquery-1.9.1.min.js'
+    '@CmsAdminBundle/Resources/public/js/vendor/jquery/jquery-2.1.1.min.js'
     '@CmsAdminBundle/Resources/public/js/vendor/jquery/i18n/jquery.ui.datepicker-%locale%.js'
-    '@CmsAdminBundle/Resources/public/js/vendor/jquery/jquery-ui-1.10.1.custom.min.js'
+    '@CmsAdminBundle/Resources/public/js/vendor/jquery/jquery-ui-1.11.0.custom.min.js'
     '@CmsAdminBundle/Resources/public/js/vendor/bootstrap/bootstrap.min.js'
     '@CmsAdminBundle/Resources/public/js/collection.js'
+    '@CmsAdminBundle/Resources/public/js/manage_tinymce.js'
     '@CmsAdminBundle/Resources/public/js/admin.js'
     '@CmsAdminBundle/Resources/public/js/admin_custom.js' %}
     <script type="text/javascript" src="{{ asset_url }}"></script>

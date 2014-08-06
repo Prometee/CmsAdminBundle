@@ -1,20 +1,31 @@
 {% if bundle_name is defined  %}
 	{% trans_default_domain bundle_name %}
 {% endif %}
-<div class="well sidebar-nav">
-	<ul class="nav nav-list">
-		<li class="nav-header">{% block menuleft_title 'Actions' %}</li>
-		<li class="divider"></li>
+<div class="well">
+	<ul class="nav nav-pills nav-stacked">
+		<li><h4 class="text-center">{% block menuleft_title 'Actions' %}</h4></li>
 		{% block menuleft_content %}
 			{% if translation_prefix is defined %}
 				{% if route_index is defined  %}
-					<li><a href="{{ path(route_index) }}" title="">{{ (translation_prefix ~ '.index.title')|trans }}</a></li>
+					<li{% if app.request.attributes.get('_route') == route_index %} class="active"{% endif %}>
+                        <a href="{{ path(route_index) }}" title="">
+                            <i class="glyphicon glyphicon-th-list"></i> {{ (translation_prefix ~ '.index.title')|trans }}
+                        </a>
+                    </li>
 				{% endif %}
 				{% if route_new is defined  %}
-					<li><a href="{{ path(route_new) }}" title="">{{ (translation_prefix ~ '.new.title')|trans }}</a></li>
+					<li{% if app.request.attributes.get('_route') == route_new %} class="active"{% endif %}>
+                        <a href="{{ path(route_new) }}" title="">
+                            <i class="glyphicon glyphicon-plus-sign"></i> {{ (translation_prefix ~ '.new.title')|trans }}
+                        </a>
+                    </li>
 				{% endif %}
 				{% if route_order is defined  %}
-					<li><a href="{{ path(route_order) }}" title="">{{ (translation_prefix ~ '.order.title')|trans }}</a></li>
+					<li{% if app.request.attributes.get('_route') == route_order %} class="active"{% endif %}>
+                        <a href="{{ path(route_order) }}" title="">
+                            <i class="glyphicon glyphicon-sort"></i> {{ (translation_prefix ~ '.order.title')|trans }}
+                        </a>
+                    </li>
 				{% endif %}
 			{% else %}
 				<li>&nbsp;</li>
