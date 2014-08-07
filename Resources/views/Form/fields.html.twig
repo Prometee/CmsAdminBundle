@@ -113,7 +113,10 @@
         {{- form_errors(form) -}}
         {{- form_label(form, null, {'label_attr': {'class': 'col-md-2'} }) -}}
         <div class="col-md-{{ label is not sameas(false) ? '10' : '12' }}">
-            {{- form_widget(form, {'attr': {'class': compound ? '' : 'form-control'} }) -}}
+            {% if not compound %}
+                {% set attr = attr|merge({'class': (attr.class|default('') ~ ' form-control')|trim}) %}
+            {% endif %}
+            {{- form_widget(form, {'attr': attr}) -}}
         </div>
     </div>
 {%- endblock form_row %}
