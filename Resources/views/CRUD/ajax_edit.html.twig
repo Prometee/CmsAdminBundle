@@ -28,7 +28,7 @@
 {% endblock %}
 
 {% block form_actions_list %}
-    <a class="btn btn-danger btn-confirm" data-title="{{ 'global.form_action.are_you_sure'|trans }}" href="{{ path(route_delete, { 'id': entity.id }) }}" >
+    <a class="btn btn-danger btn-confirm" data-title="{{ 'global.form_action.are_you_sure'|trans|e }}" href="{{ path(route_delete, { 'id': entity.id }) }}" >
         <i class="glyphicon glyphicon-remove-circle"></i>
         {{ 'global.form_action.delete'|trans }}
     </a>
