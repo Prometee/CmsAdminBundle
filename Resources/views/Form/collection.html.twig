@@ -1,15 +1,15 @@
 {% macro collection_widget_row(child, allow_delete, panel_type) -%}
     <div class="collection-field-row panel panel-{{ panel_type }}">
-        <div class="panel-heading text-right">
+        <div class="panel-body">
+            {{ form_row(child, {'label': false}) }}
+        </div>
+        <div class="panel-footer text-right">
             {% if allow_delete is defined and allow_delete %}
                 <a href="#" class="delete-collection-row btn btn-danger">
                     <i class="glyphicon glyphicon-minus-sign"></i>
                     {{ 'global.form_action.delete' | trans([], 'CmsAdminBundle') }}
                 </a>
             {% endif %}
-        </div>
-        <div class="panel-body">
-            {{ form_row(child, {'label': false}) }}
         </div>
     </div>
 {%- endmacro %}
