@@ -1,0 +1,22 @@
+
+#ENTITY_NAME_#:
+  index:
+    title: #ENTITY_PLURAL_NAME# list
+  edit:
+    title: Editing #ENTITY_SINGLE_NAME_# «%name%»
+  new:
+    title: New #ENTITY_SINGLE_NAME_#
+  flash:
+    success:
+      delete: The #ENTITY_SINGLE_NAME_# has been deleted successfully
+      new: The #ENTITY_SINGLE_NAME_# has been created successfully
+      edit: The #ENTITY_SINGLE_NAME_# has been modified successfully
+      group:
+        delete: Selected #ENTITY_PLURAL_NAME_# have been deleted
+    error:
+      delete: 'An error occurred while trying to delete : %exception%'
+      new: An error has occurred, no #ENTITY_SINGLE_NAME_# has been created
+      edit: An error occurred while editing, check the entered fields
+      group:
+        delete: An error occurred while editing, check the entered fields
+

@@ -1,0 +1,25 @@
+<?php
+
+namespace #BUNDLE_NAMESPACE#\Form\Type;
+
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
+class #ENTITY_NAME#FormType extends AbstractType {
+
+    public function buildForm(FormBuilderInterface $builder, array $options) {
+        $builder->add('Update_this_form_type_before_using_it');
+    }
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver) {
+        $resolver->setDefaults(array(
+            'data_class' => '#ENTITY_NAMESPACE#',
+            'cascade_validation' => true
+        ));
+    }
+
+    public function getName() {
+        return 'hicef_core_#ENTITY_NAME_#';
+    }
+}

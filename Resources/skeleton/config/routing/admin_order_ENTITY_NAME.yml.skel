@@ -1,11 +1,11 @@
 #BUNDLE_NAME_#_admin_#ENTITY_NAME_#_order:
   pattern:  /order
-  defaults: { _controller: #BUNDLE_NAME#Bundle:Admin#ENTITY_NAME#:order }
+  defaults: { _controller: #BUNDLE_NAME#:Admin#ENTITY_NAME#:order }
   requirements:
     _method: GET
 
 #BUNDLE_NAME_#_admin_#ENTITY_NAME_#_order_process:
   pattern:  /order_process
-  defaults: { _controller: #BUNDLE_NAME#Bundle:Admin#ENTITY_NAME#:orderProcess }
+  defaults: { _controller: #BUNDLE_NAME#:Admin#ENTITY_NAME#:orderProcess }
   requirements:
     _method: POST

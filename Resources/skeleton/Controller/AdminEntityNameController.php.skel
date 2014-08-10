@@ -1,0 +1,10 @@
+<?php
+
+namespace #BUNDLE_NAMESPACE#\Controller;
+
+use Cms\Bundle\AdminBundle\Controller\BaseAdminController;
+
+class Admin#ENTITY_NAME#Controller extends BaseAdminController {
+	
+	protected $doctrine_namespace = "#BUNDLE_NAME#:#ENTITY_NAME#";
+}

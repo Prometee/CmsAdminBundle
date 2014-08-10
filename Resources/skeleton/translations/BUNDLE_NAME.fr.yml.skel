@@ -1,0 +1,22 @@
+
+#ENTITY_NAME_#:
+  index:
+    title: Liste des #ENTITY_PLURAL_NAME_#
+  edit:
+    title: Edition de l#ENTITY_NAME_PREFIX_##ENTITY_SINGLE_NAME_# «%name%»
+  new:
+    title: Nouvelle #ENTITY_SINGLE_NAME_#
+  flash:
+    success:
+      delete: L#ENTITY_NAME_PREFIX_##ENTITY_SINGLE_NAME_# a été suprimé#FEMININE_# avec succés
+      new: L#ENTITY_NAME_PREFIX_##ENTITY_SINGLE_NAME_# a été créé#FEMININE_# avec succès
+      edit: L#ENTITY_NAME_PREFIX_##ENTITY_SINGLE_NAME_# a été modifiée avec succès
+      group:
+        delete: Les #ENTITY_PLURAL_NAME_# sélectionné#FEMININE_#s ont été supprimé#FEMININE_#s
+    error:
+      delete: 'Une erreur est survenue lors de la tentative de suppression : %exception%'
+      new: Une erreur est survenue, aucune #ENTITY_SINGLE_NAME_# n'a été créé#FEMININE_#
+      edit: Une erreur est survenue pendant la modification, veuillez vérifier les champs saisis
+      group:
+        delete: Une erreur est survenue lors de la tentative de suppression de ces #ENTITY_PLURAL_NAME_#
+

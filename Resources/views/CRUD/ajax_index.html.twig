@@ -37,6 +37,7 @@
         {% endblock %}
 
         {% block index_list %}
+            {% do groupForm.ids.setRendered %}
             {% if pagination is defined and pagination.count() > 0 or (entity_list is defined and entity_list | length > 0) %}
                 <table class="table table-hover table-responsive{% block index_table_class '' %}">
                     {% block index_list_head %}
@@ -59,8 +60,6 @@
                         </tr>
                         </thead>
                     {% endblock %}
-
-                    {% do groupForm.ids.setRendered %}
                     {% block index_list_body %}
                         <tbody>
                         {% for entity in pagination %}
@@ -124,6 +123,8 @@
                     {% endblock %}
                 {% endblock %}
             {% else %}
+                {% do groupForm.action.setRendered %}
+                {% do groupForm.submit.setRendered %}
                 {% block index_lis_no_result %}
                 <p class="no-result">{{ ('global.index.no_result') |trans }}</p>
                 {% endblock %}
