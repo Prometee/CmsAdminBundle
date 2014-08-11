@@ -2,7 +2,6 @@
 {% trans_default_domain 'CmsAdminBundle' %}
 
 {% block form_title ( translation_prefix ~ '.edit.title' )|trans({'%name%': entity}, bundle_name) %}
-{% block form_action path(route_form_action, { 'id': entity.id }) %}
 
 {% block form_wrapper_tag %}
 <div id="{{ modal_id }}" aria-labelledby="{{ modal_id }}_label" class="modal fade" role="dialog" aria-hidden="true">
@@ -27,13 +26,6 @@
     {{ form_widget(form.submit, {'icon_class': 'glyphicon glyphicon-floppy-disk', 'label': 'global.form_action.update', 'translation_domain':'CmsAdminBundle', 'attr':{'class': 'btn-primary'} }) }}
 {% endblock %}
 
-{% block form_actions_list %}
-    <a class="btn btn-danger btn-confirm" data-title="{{ 'global.form_action.are_you_sure'|trans|e }}" href="{{ path(route_delete, { 'id': entity.id }) }}" >
-        <i class="glyphicon glyphicon-remove-circle"></i>
-        {{ 'global.form_action.delete'|trans }}
-    </a>
-{% endblock %}
-
 {% block form_actions %}
     {% block ajax_form_footer %}
     <div class="modal-footer">
@@ -52,6 +44,19 @@
 {% endblock %}
 
 {% block form_wrapper_end_tag %}
+                <div class="modal-footer">
+                    {{ form_start(form_delete) }}
+                    {{ form_widget(form_delete.submit, {
+                        'icon_class': 'glyphicon glyphicon-remove-circle',
+                        'label': 'global.form_action.delete',
+                        'translation_domain':'CmsAdminBundle',
+                        'attr': {
+                            'class': 'btn-danger btn-confirm',
+                            'data-title': 'global.form_action.are_you_sure'|trans|e
+                        }
+                    }) }}
+                    {{ form_end(form_delete) }}
+                </div>
             </div>
         </div>
     </div>

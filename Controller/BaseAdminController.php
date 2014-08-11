@@ -19,15 +19,12 @@ abstract class BaseAdminController extends Controller
     protected $entity_name = 'Foo';
 
     protected $form_type_name = 'FooFormType';
-    protected $form_handler_name = 'FooFormHandler';
 
     protected $filter_object_name = 'FooFilter';
     protected $filter_form_type_name = 'FooFilterFormType';
-    protected $filter_form_handler_name = 'FooFilterFormHandler';
 
     protected $group_object_name = 'Cms\Bundle\AdminBundle\Form\Model\BaseAdminGroup';
     protected $group_form_type_name = 'Cms\Bundle\AdminBundle\Form\Type\BaseAdminGroupFormType';
-    protected $group_form_handler_name = 'FooGroupFormHandler';
 
     protected $route_prefix = '';
     protected $route_index = 'cms_foo_admin_foo_index';
@@ -127,15 +124,11 @@ abstract class BaseAdminController extends Controller
             $class_path = preg_replace('#Entity$#', '', $class_path);
             if (!class_exists($this->form_type_name))
                 $this->form_type_name = $class_path . 'Form\\Type\\' . $class_name . 'FormType';
-            if (!class_exists($this->form_handler_name))
-                $this->form_handler_name = $class_path . 'Form\\Handler\\' . $class_name . 'FormHandler';
 
             if (!class_exists($this->filter_object_name))
                 $this->filter_object_name = $class_path . 'Form\\Model\\' . $class_name . 'Filter';
             if (!class_exists($this->filter_form_type_name))
                 $this->filter_form_type_name = $class_path . 'Form\\Type\\' . $class_name . 'FilterFormType';
-            if (!class_exists($this->filter_form_handler_name))
-                $this->filter_form_handler_name = $class_path . 'Form\\Handler\\' . $class_name . 'FilterFormHandler';
 
             $group_object_name = $class_path . 'Form\\Model\\' . $class_name . 'Group';
             if (class_exists($group_object_name))
@@ -144,9 +137,6 @@ abstract class BaseAdminController extends Controller
             $group_form_type_name = $class_path . 'Form\\Type\\' . $class_name . 'GroupFormType';
             if (class_exists($group_form_type_name))
                 $this->group_form_type_name = $group_form_type_name;
-
-            if (!class_exists($this->group_form_handler_name))
-                $this->group_form_handler_name = $class_path . 'Form\\Handler\\' . $class_name . 'GroupFormHandler';
 
             $this->translation_prefix = $this->container->underscore($class_name);
             if (empty($this->route_prefix)) {
@@ -218,16 +208,8 @@ abstract class BaseAdminController extends Controller
         return $this->createForm(new $this->group_form_type_name(), $entity, $form_options);
     }
 
-    protected function getForm($entity, $form_options = array())
-    {
+    protected function getForm($entity, $form_options = array()) {
         return $this->createForm(new $this->form_type_name(), $entity, $form_options);
-    }
-
-    protected function getFormHandler()
-    {
-        return new $this->form_handler_name(
-            $this->getRequest(), $this->getDoctrine()->getManager()
-        );
     }
 
     protected function getFilterForm($entity)
@@ -294,23 +276,8 @@ abstract class BaseAdminController extends Controller
         return $this->render($this->template_index, array(
             'filter' => (($filter) ? $filter->createView() : null),
             'pagination' => $pagination,
-            'groupForm' => $form->createView(),
-            'route_form_action' => $this->route_group_process
+            'groupForm' => $form->createView()
         ));
-    }
-
-    protected function processFilter($filter, $filter_entity)
-    {
-
-        if ('POST' == $this->getRequest()->getMethod()) {
-            $handler = new $this->filter_form_handler_name(
-                $this->getRequest(), $this->getDoctrine()->getManager()
-            );
-
-            return $handler->process($filter, $this);
-        } else {
-            return $this->getClassRepository()->findAllQuery();
-        }
     }
 
     public function showAction($id)
