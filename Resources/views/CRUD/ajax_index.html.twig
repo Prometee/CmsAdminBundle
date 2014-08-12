@@ -4,7 +4,7 @@
     {% block index_head '<div>' %}
         {% block index_header %}
             {% block index_title %}
-        <h2>{{ (translation_prefix ~ '.index.title')|trans([], bundle_name) }}</h2>
+        <h2>{{ (translation_prefix ~ '.index.title')|trans([], translation_domain) }}</h2>
             {% endblock %}
         {% endblock %}
         {% block index_body %}

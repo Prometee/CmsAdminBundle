@@ -85,17 +85,17 @@ user:
     title: New user
   flash:
     success:
-      delete: L'utilisateur a été suprimé avec succés
+      delete: The user has been successfully deleted
       new: The user was successfully created
-      edit: L'utilisateur a été modifié avec succès
+      edit: The user has been successfully modified
       group:
         delete: The user has been successfully changed
     error:
-      delete: Une erreur est survenue lors de la tentative de suppression
-      new: An error occurred while trying to delete
-      edit: Une erreur est survenue pendant la modification, veuillez vérifier les champs saisis
+      delete: An error occurred while trying to delete
+      new: An error occurred while trying to create user
+      edit: An error occurred while trying to update user
       group:
-        delete: An error occurred while editing, check the type field
+        delete: An error occurred while deleting user(s)
 
   roles:
     admin: Admin

@@ -8,12 +8,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
- * @ORM\Table()
- * @ORM\Entity(repositoryClass="Cms\Bundle\AdminBundle\Entity\UserRepository")
+ * @ORM\MappedSuperclass
  * @UniqueEntity("email")
  */
 class User extends BaseUser
 {
+    const ROLE_ADMIN = 'ROLE_ADMIN';
+    const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
 
     /**
      * @ORM\Id
@@ -31,8 +32,8 @@ class User extends BaseUser
 
     public static function getRolesChoices() {
         return array(
-            'ROLE_ADMIN' => 'user.roles.admin',
-            'ROLE_SUPER_ADMIN' => 'user.roles.super_admin'
+            self::ROLE_ADMIN => 'user.roles.admin',
+            self::ROLE_SUPER_ADMIN => 'user.roles.super_admin'
         );
     }
 

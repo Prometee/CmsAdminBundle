@@ -9,7 +9,7 @@ cms_admin_admin_user_new:
       _method: GET
 cms_admin_admin_user_create:
     pattern: /create
-    defaults: { _controller: CmsAdminBundle:AdminUser:new }
+    defaults: { _controller: CmsAdminBundle:AdminUser:create }
     requirements:
       _method: POST
 
@@ -28,7 +28,7 @@ cms_admin_admin_user_edit:
       _method: GET
 cms_admin_admin_user_update:
     pattern: /{id}/update
-    defaults: { _controller: CmsAdminBundle:AdminUser:edit }
+    defaults: { _controller: CmsAdminBundle:AdminUser:update }
     requirements:
       id: \d+
       _method: PUT

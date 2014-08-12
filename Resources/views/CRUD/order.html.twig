@@ -2,7 +2,7 @@
 {% trans_default_domain "CmsAdminBundle" %}
 
 {% block index_title %}
-    <h2>{{ (translation_prefix ~ '.order.title')|trans([], bundle_name) }}</h2>
+    <h2>{{ (translation_prefix ~ '.order.title')|trans([], translation_domain) }}</h2>
 {% endblock %}
 
 {% block index_filter '' %}

@@ -1,7 +1,7 @@
 {% extends 'CmsAdminBundle:CRUD:ajax_form.html.twig' %}
 {% trans_default_domain 'CmsAdminBundle' %}
 
-{% block form_title ( translation_prefix ~ '.new.title' )|trans([], bundle_name) %}
+{% block form_title ( translation_prefix ~ '.new.title' )|trans([], translation_domain) %}
 
 {% block form_wrapper_tag %}
 <div id="{{ modal_id }}" aria-labelledby="{{ modal_id }}_label" class="modal fade" role="dialog" aria-hidden="true">

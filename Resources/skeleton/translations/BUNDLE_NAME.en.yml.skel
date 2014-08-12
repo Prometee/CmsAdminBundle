@@ -1,5 +1,6 @@
 
 #ENTITY_NAME_#:
+  404: This entity is not available
   index:
     title: #ENTITY_PLURAL_NAME# list
   edit:

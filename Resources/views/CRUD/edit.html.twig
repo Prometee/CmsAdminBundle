@@ -1,7 +1,7 @@
 {% extends 'CmsAdminBundle:CRUD:form.html.twig' %}
 {% trans_default_domain 'CmsAdminBundle' %}
 
-{% block form_title ( translation_prefix ~ '.edit.title' )|trans({'%name%': entity}, bundle_name) %}
+{% block form_title ( translation_prefix ~ '.edit.title' )|trans({'%name%': entity}, translation_domain) %}
 {% block form_action path(route_form_action, { 'id': entity.id }) %}
 
 {% block form_actions_list_default %}

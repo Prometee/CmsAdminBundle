@@ -1,5 +1,6 @@
 
 #ENTITY_NAME_#:
+  404: Cette entité n'est pas disponible
   index:
     title: Liste des #ENTITY_PLURAL_NAME_#
   edit:
