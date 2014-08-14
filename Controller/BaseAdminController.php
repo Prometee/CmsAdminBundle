@@ -290,6 +290,10 @@ abstract class BaseAdminController extends Controller
     {
         $entity = $this->getClassRepository()->findOneBy(array('id' => $id));
 
+        if (!$entity || !$this->checkEntityRole($entity)) {
+            throw $this->createNotFoundException($this->get('translator')->trans($this->translation_prefix . '.404', array(), $this->translation_domain));
+        }
+
         return $this->render($this->template_show, array(
             'entity' => $entity
         ));
@@ -441,7 +445,7 @@ abstract class BaseAdminController extends Controller
     {
         $entity = $this->retrieveEntity($id);
 
-        if (!$entity) {
+        if (!$entity || !$this->checkEntityRole($entity)) {
             throw $this->createNotFoundException($this->get('translator')->trans($this->translation_prefix . '.404', array(), $this->translation_domain));
         }
 
