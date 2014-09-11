@@ -10,7 +10,7 @@ global:
       submit: Filtrer
     group_action:
       submit: Execute
-    actions: Actions
+      selected: "Selected :"
     published: Published
     enabled: Enabled
   index:

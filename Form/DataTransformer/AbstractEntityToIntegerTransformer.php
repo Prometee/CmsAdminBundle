@@ -44,5 +44,3 @@ class AbstractEntityToIntegerTransformer implements DataTransformerInterface {
         return $entity;
 	}
 }
-
-?>

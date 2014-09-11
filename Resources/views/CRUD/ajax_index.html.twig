@@ -106,9 +106,9 @@
                     {% if is_granted('ROLE_ADMIN') %}
                         {{- form_errors(groupForm.action) -}}
                         <div class="input-group">
-                            <div  class="input-group-addon">
-                                {{- form_label(groupForm.action) }}
-                            </div >
+                            <div class="input-group-addon">
+                                {{ 'global.index_crud.group_action.selected'|trans }}
+                            </div>
                             {{- form_widget(groupForm.action, {'attr': {'class': 'form-control'} }) -}}
                             <div  class="input-group-btn">
                                 {{ form_widget(groupForm.submit, {'label': 'global.index_crud.group_action.submit', 'translation_domain':'CmsAdminBundle'}) }}
