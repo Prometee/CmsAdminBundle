@@ -11,6 +11,7 @@ global:
     group_action:
       submit: Execute
       selected: "Selected :"
+    actions: Actions
     published: Published
     enabled: Enabled
   index:
