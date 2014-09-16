@@ -2,6 +2,8 @@
 
 namespace Cms\Bundle\AdminBundle\Entity\Traits;
 
+use Doctrine\ORM\Query;
+
 trait BaseAdminEntityRepository {
 	
 	public function deleteGroup($ids) {
@@ -10,7 +12,7 @@ trait BaseAdminEntityRepository {
         $qb->delete()
 			->where($qb->expr()->in('t.id', $ids))
 			->getQuery()
-			->execute();
+			->execute(null, Query::HYDRATE_OBJECT);
 
         $this->_em->flush();
     }

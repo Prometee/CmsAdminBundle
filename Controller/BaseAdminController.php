@@ -197,8 +197,10 @@ abstract class BaseAdminController extends Controller
         return $this->{'template_'. ($this->getRequest()->isXmlHttpRequest() || $modal ? 'ajax_' : '') . $action};
     }
 
-    protected function getClassRepository()
-    {
+    /**
+     * @return \Doctrine\Common\Persistence\ObjectRepository
+     */
+    protected function getClassRepository() {
         return $this->getDoctrine()->getRepository($this->entity_name);
     }
 
