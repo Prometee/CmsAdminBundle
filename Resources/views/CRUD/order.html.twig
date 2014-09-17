@@ -10,7 +10,11 @@
 {% block index_list_head %}
     <thead>
     <tr>
+        {% block index_list_head_cols %}
+        <th>{{ 'global.order.order'|trans }}</th>
+        <th>{{ 'global.order.id'|trans }}</th>
         <th>{{ 'global.index.name'|trans }}</th>
+        {% endblock %}
     </tr>
     </thead>
 {% endblock %}
@@ -19,13 +23,15 @@
 
 {% block index_list_body %}
     <tbody>
-    {% for i, entity in entity_list %}
+    {% for entity in entity_list %}
         <tr>
             {% block index_list_item_cols %}
                 <td>
                     <input type="hidden" name="{{ groupForm.ids.vars.full_name }}" value="{{ entity.id }}" />
-                    (N&deg;{{ i+1 }} - ID {{ entity.id }}) - {{ entity }}
+                    {{ loop.index }}
                 </td>
+                <td>{{ entity.id }}</td>
+                <td>{{ entity }}</td>
             {% endblock %}
         </tr>
     {% endfor %}

@@ -14,6 +14,9 @@ global:
     actions: Actions
     published: Publié
     enabled: Activé
+  order:
+    order: "Ordre"
+    id: "ID"
   index:
     new: Nouveau
     name: Nom

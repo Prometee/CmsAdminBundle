@@ -18,6 +18,9 @@ global:
     new: Add new
     name: Name
     no_result: No result
+  order:
+    order: "Order"
+    id: "ID"
   form_action:
     title: Actions
     delete: Delete
