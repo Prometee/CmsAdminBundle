@@ -305,8 +305,7 @@ abstract class BaseAdminController extends Controller
      * @param $entity
      * @return \Symfony\Component\Form\Form
      */
-    public function createNewForm($entity, $modal = false)
-    {
+    public function createNewForm($entity, $modal = false) {
         $form = $this->getForm($entity, array(
             'action' => $this->generateUrl($this->route_create)
         ));
@@ -322,8 +321,7 @@ abstract class BaseAdminController extends Controller
      * @param $entity
      * @return \Symfony\Component\Form\Form
      */
-    private function createEditForm($entity)
-    {
+    protected function createEditForm($entity) {
         $form = $this->getForm($entity, array(
             'action' => $this->generateUrl($this->route_update, array('id' => $entity->getId())),
             'method' => 'PUT'
@@ -338,7 +336,7 @@ abstract class BaseAdminController extends Controller
      * @param $entity
      * @return \Symfony\Component\Form\Form
      */
-    private function createGroupForm($entity)
+    protected function createGroupForm($entity)
     {
         $form = $this->getGroupForm($entity, array(
             'action' => $this->generateUrl($this->route_group_process),
@@ -354,7 +352,7 @@ abstract class BaseAdminController extends Controller
      * @param mixed $entity
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm($entity)
+    protected function createDeleteForm($entity)
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl($this->route_delete, array('id' => $entity->getId())))
