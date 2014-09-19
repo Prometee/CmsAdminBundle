@@ -28,7 +28,7 @@
             {% block index_list_item_cols %}
                 <td>
                     <input type="hidden" name="{{ groupForm.ids.vars.full_name }}" value="{{ entity.id }}" />
-                    {{ loop.index }}
+                    {% block index_list_item_order_label entity.position %}
                 </td>
                 <td>{{ entity.id }}</td>
                 <td>{{ entity }}</td>
