@@ -183,6 +183,9 @@ abstract class BaseAdminController extends Controller
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function render($view, array $parameters = array(), Response $response = null)
     {
         foreach ($this->default_render_parameters as $parameter) {
