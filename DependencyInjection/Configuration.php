@@ -26,6 +26,7 @@ class Configuration implements ConfigurationInterface
                     ->children()
                         ->scalarNode('fields')->defaultValue("CmsAdminBundle:Form:fields.html.twig")->end()
                         ->scalarNode('collection')->defaultValue("CmsAdminBundle:Form:collection.html.twig")->end()
+                        ->scalarNode('collection_modal')->defaultValue("CmsAdminBundle:Form:collection_modal.html.twig")->end()
                     ->end()
                 ->end()
             ->end();

@@ -9,7 +9,8 @@ class TemplatingPass implements CompilerPassInterface
 {
     protected static $templating_configs = array(
         'cms_admin.templating.fields',
-        'cms_admin.templating.collection'
+        'cms_admin.templating.collection',
+        'cms_admin.templating.collection_modal'
     );
 
     /**

@@ -27,5 +27,6 @@ class CmsAdminExtension extends Extension
 
         $container->setParameter('cms_admin.templating.fields', $config['templating']['fields']);
         $container->setParameter('cms_admin.templating.collection', $config['templating']['collection']);
+        $container->setParameter('cms_admin.templating.collection_modal', $config['templating']['collection_modal']);
     }
 }

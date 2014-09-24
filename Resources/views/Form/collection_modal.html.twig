@@ -1,0 +1,99 @@
+{% extends 'CmsAdminBundle:Form:collection.html.twig' %}
+
+{% macro collection_modal_widget_row(child, opts) %}
+    {% block collection_modal_widget_row %}
+        <div id="{{ opts.id~'_'~opts.index }}" class="collection-field-row modal" role="dialog" aria-hidden="true">
+            <div class="modal-dialog {{ opts.modal_classes|default('modal-lg') }}">
+                <div class="modal-content">
+                    {% block collection_modal_widget_row_header %}
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        </div>
+                    {% endblock %}
+                    {% block collection_modal_widget_row_body %}
+                        <div class="modal-body">
+                            {{ block('collection_widget_row_body_form_row') }}
+                        </div>
+                    {% endblock %}
+                    {% block collection_modal_widget_row_footer %}
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="glyphicon glyphicon-floppy-disk"></i>
+                                {{ 'global.form_action.save'|trans({}, 'CmsAdminBundle') }}
+                            </button>
+                            {{ block('collection_widget_row_actions') }}
+                        </div>
+                    {% endblock %}
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+{% endmacro %}
+
+{% macro collection_modal_widget_row_item(child, opts) %}
+    {{ block('collection_modal_widget_row_item') }}
+{% endmacro %}
+
+{% block collection_modal_widget_row_item %}
+    <a{%- for attrname, attrvalue in opts.link_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+    {% block collection_modal_widget_row_item_label %}
+        {{ opts.label }}
+    {% endblock %}
+    </a>
+{% endblock %}
+
+{% block collection_modal_widget %}
+    {% set collection_modal_macro = collection_modal_macro is defined ? collection_modal_macro : _self %}
+    {% block collection_modal_widget_inner -%}
+        {% if prototype is defined %}
+            {% set attr = attr|merge({'data-prototype': collection_modal_macro.collection_modal_widget_row(prototype, row_default_opts|merge({
+                'index': '__name__'
+            }))|e }) %}
+            {% set attr = attr|merge({'data-prototype-link': collection_modal_macro.collection_modal_widget_row_item(prototype, row_default_opts|merge({
+                'label': 'global.collection.label_new'|trans({'%index%': '__name__'}, 'CmsAdminBundle'),
+                'link_attr': {
+                    'href': ('#'~id~'_'~'__name__'),
+                    'data-toggle':'modal'
+                }
+            }))|e }) %}
+        {% endif %}
+        {% block collection_modal_widget_content %}
+            <div {{ block('widget_container_attributes') }}>
+                {{ form_errors(form) }}
+                {% block collection_modal_widget_actions %}
+                    {% if allow_add is defined and allow_add %}
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                {{ block('collection_widget_action_add') }}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endblock %}
+                {% block collection_modal_widget_content_row %}
+                    <div class="row-fluid collection_modal_item_links">
+                    {% block collection_modal_widget_content_row_inner %}
+                        {% for child in form %}
+                            {{ collection_modal_macro.collection_modal_widget_row_item(child, row_default_opts|merge({
+                                'label': child.vars.data,
+                                'link_attr': {
+                                    'href': ('#'~id~'_'~loop.index0),
+                                    'data-toggle':'modal'
+                                }
+                            })) }}
+                        {% endfor %}
+                    {% endblock %}
+                    </div>
+                {% endblock %}
+                {% block collection_modal_widget_fields %}
+                    <div class="collection-fields">
+                        {% for child in form %}
+                            {{ collection_modal_macro.collection_modal_widget_row(child, row_default_opts|merge({
+                                'index': loop.index0
+                            })) }}
+                        {% endfor %}
+                    </div>
+                {% endblock %}
+            </div>
+        {% endblock %}
+    {%- endblock %}
+{% endblock %}

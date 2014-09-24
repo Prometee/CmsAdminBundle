@@ -1,6 +1,7 @@
 parameters:
     cms_admin.form.type.richeditor.class: Cms\Bundle\AdminBundle\Form\Extension\Type\RichEditorType
     cms_admin.form.type.image.class: Cms\Bundle\AdminBundle\Form\Extension\Type\ImageType
+    cms_admin.form.type_extension.collection_modal.class: Cms\Bundle\AdminBundle\Form\Extension\CollectionModalTypeExtension
 
 services:
             
@@ -13,3 +14,8 @@ services:
         class: %cms_admin.form.type.image.class%
         tags:
             - { name: form.type, alias: image }
+
+    form.type_extension.collection_modal:
+        class: %cms_admin.form.type_extension.collection_modal.class%
+        tags:
+            - { name: form.type_extension, alias: collection }

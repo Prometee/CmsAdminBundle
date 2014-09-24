@@ -10,14 +10,16 @@ var container_selector = '.collection-fields',
             $p = (parents.length > 0 ? parents.last() : $el).parent(),
             $c = $p.find(container_selector).first(),
             data_prototype = $p.data('prototype'),
-            html = jQuery(jQuery('<div class="new" />')
+            $row = jQuery(jQuery('<div class="new" />')
                 .append(data_prototype.replace(/__name__/g, $c.data('index')))
                 .text());
 
-        $c.trigger('cms_admin.collection_field_row.add', [html, $c, $p]);
+        $c.append($row);
 
-        $c.append(html);
-        jQuery(container_selector, html).each(process_collection_row);
+        $c.trigger('cms_admin.collection_field_row.add', [$row, $c, $p]);
+
+
+        jQuery(container_selector, $row).each(process_collection_row);
 
         $c.data('index', $c.data('index')+1);
     },
@@ -25,9 +27,12 @@ var container_selector = '.collection-fields',
     collection_field_row_delete = function(e) {
         e.preventDefault();
         var $el = jQuery(this),
+            parents = $el.parentsUntil(data_prototype_selector),
+            $p = (parents.length > 0 ? parents.last() : $el).parent(),
+            $c = $p.find(container_selector).first(),
             $row = $el.parentsUntil(container_selector).last();
         $row
-            .trigger('cms_admin.collection_field_row.delete', [$row])
+            .trigger('cms_admin.collection_field_row.delete', [$row, $c, $p])
             .remove();
     },
 

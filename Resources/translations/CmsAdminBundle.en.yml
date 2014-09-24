@@ -5,6 +5,8 @@ global:
     error: An error has occurred
     success: Ok
   copyright: © Company 2013
+  collection:
+    label_new: 'New item %index%'
   index_crud:
     filter:
       submit: Filtrer
