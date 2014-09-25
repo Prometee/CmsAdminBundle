@@ -1,7 +1,7 @@
 jQuery(document).ready(function(){
     jQuery(document)
         .on('cms_admin.collection_field_row.add', function(e, $row, $c, $p) {
-            if ($row.hasClass('collection-field-row')) {
+            if ($row.hasClass('collection-field-row modal')) {
                 var html = jQuery(jQuery('<div class="new" />')
                     .append($p.data('prototype-link').replace(/__name__/g, $c.data('index')))
                     .text());
