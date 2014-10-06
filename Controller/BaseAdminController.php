@@ -486,7 +486,7 @@ abstract class BaseAdminController extends Controller
         $entity = $this->retrieveEntity($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException($this->get('translator')->trans($this->translation_prefix . '.404', $this->translation_domain));
+            throw $this->createNotFoundException($this->get('translator')->trans($this->translation_prefix . '.404', array(), $this->translation_domain));
         }
 
         $form = $this->createDeleteForm($entity);
