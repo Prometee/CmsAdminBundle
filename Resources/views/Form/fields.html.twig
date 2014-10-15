@@ -54,9 +54,11 @@
 {% block choice_widget_expanded %}
 {% spaceless %}
     <div {{ block('widget_container_attributes') }}>
+        <div class="checkbox">
     {% for child in form %}
-        <label class="checkbox">{{ form_widget(child) }}{{ child.vars.label|trans({}, translation_domain)|escape }}</label>
+            <label class="checkbox">{{ form_widget(child) }}{{ child.vars.label|trans({}, translation_domain)|escape }}</label>
     {% endfor %}
+        </div>
     </div>
 {% endspaceless %}
 {% endblock %}
