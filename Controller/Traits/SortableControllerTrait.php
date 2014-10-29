@@ -57,10 +57,14 @@ trait SortableControllerTrait {
         return $form;
     }
 
+    protected function retrieveOrderEntityList() {
+        return $this->getClassRepository()->findBy(array(), array('position'=>'ASC'));
+    }
+
 	public function orderAction(Request $request) {
         $form = $this->createOrderGroupForm(new $this->order_group_object_name());
 
-        $entity_list = $this->getClassRepository()->findBy(array(), array('position'=>'ASC'));
+        $entity_list = $this->retrieveOrderEntityList();
 
         //For errors in order process
         $form->handleRequest($request);

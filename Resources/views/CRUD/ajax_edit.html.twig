@@ -23,7 +23,7 @@
 {% endblock %}
 
 {% block form_actions_list_default %}
-    {{ form_widget(form.submit, {'icon_class': 'glyphicon glyphicon-floppy-disk', 'label': 'global.form_action.update', 'translation_domain':'CmsAdminBundle', 'attr':{'class': 'btn-primary'} }) }}
+    {{ form_widget(form.submit, {'icon_class': 'glyphicon glyphicon-floppy-disk', 'label': 'global.form_action.update', 'translation_domain':'CmsAdminBundle', 'attr':{'class': 'btn-primary btn-lg'} }) }}
 {% endblock %}
 
 {% block form_actions %}
@@ -34,7 +34,7 @@
             {{ block('form_actions_list') }}
         {% endblock %}
         {% block ajax_form_footer_default_actions %}
-        <button class="btn btn-link" data-dismiss="modal" aria-hidden="true">
+        <button class="btn btn-link btn-lg" data-dismiss="modal" aria-hidden="true">
             <i class="glyphicon glyphicon-remove"></i>
             {{ 'global.form_modal_action.close'|trans }}
         </button>

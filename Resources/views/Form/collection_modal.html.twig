@@ -1,6 +1,7 @@
 {% extends 'CmsAdminBundle:Form:collection.html.twig' %}
 
 {% macro collection_modal_widget_row(child, opts) %}
+{% spaceless %}
     {% block collection_modal_widget_row %}
         <div id="{{ opts.id~'_'~opts.index }}" class="collection-field-row modal" role="dialog" aria-hidden="true">
             <div class="modal-dialog {{ opts.modal_classes|default('modal-lg') }}">
@@ -28,6 +29,7 @@
             </div>
         </div>
     {% endblock %}
+{% endspaceless %}
 {% endmacro %}
 
 {% macro collection_modal_widget_row_item(child, opts) %}
@@ -46,13 +48,13 @@
     {% set collection_modal_macro = collection_modal_macro is defined ? collection_modal_macro : _self %}
     {% block collection_modal_widget_inner -%}
         {% if prototype is defined %}
-            {% set attr = attr|merge({'data-prototype': collection_modal_macro.collection_modal_widget_row(prototype, row_default_opts|merge({
-                'index': '__name__'
+            {% set attr = attr|merge({'data-prototype_name' : prototype_name, 'data-prototype': collection_modal_macro.collection_modal_widget_row(prototype, row_default_opts|merge({
+                'index': prototype_name
             }))|e }) %}
             {% set attr = attr|merge({'data-prototype-link': collection_modal_macro.collection_modal_widget_row_item(prototype, row_default_opts|merge({
-                'label': 'global.collection.label_new'|trans({'%index%': '__name__'}, 'CmsAdminBundle'),
+                'label': 'global.collection.label_new'|trans({'%index%': prototype_name}, 'CmsAdminBundle'),
                 'link_attr': {
-                    'href': ('#'~id~'_'~'__name__'),
+                    'href': ('#'~id~'_'~prototype_name),
                     'data-toggle':'modal'
                 }
             }))|e }) %}

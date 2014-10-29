@@ -1,4 +1,5 @@
 {% macro collection_widget_row(child, opts) %}
+{% spaceless %}
     {% block collection_widget_row %}
     <div class="collection-field-row panel {{ opts.row_classes }}">
         {% block collection_widget_row_header '' %}
@@ -25,6 +26,7 @@
         {% endblock %}
     </div>
     {% endblock %}
+{% endspaceless %}
 {% endmacro %}
 
 {% block collection_widget %}
@@ -41,8 +43,8 @@
     {% else %}
         {% block collection_widget_inner -%}
             {% if prototype is defined %}
-                {% set attr = attr|merge({'data-prototype': collection_macro.collection_widget_row(prototype, row_default_opts|merge({
-                'index': '__name__',
+                {% set attr = attr|merge({'data-prototype_name' : prototype_name, 'data-prototype': collection_macro.collection_widget_row(prototype, row_default_opts|merge({
+                'index': prototype_name,
                 'row_classes': panel_warning_class
                 }))|e }) %}
             {% endif %}

@@ -10,10 +10,10 @@ var container_selector = '.collection-fields',
             $p = (parents.length > 0 ? parents.last() : $el).parent(),
             $c = $p.find(container_selector).first(),
             data_prototype = $p.data('prototype'),
+            r = new RegExp($p.data('prototype_name'), 'g'),
             $row = jQuery(jQuery('<div class="new" />')
-                .append(data_prototype.replace(/__name__/g, $c.data('index')))
+                .append(data_prototype.replace(r, $c.data('index')))
                 .text());
-
         $c.append($row);
 
         $c.trigger('cms_admin.collection_field_row.add', [$row, $c, $p]);

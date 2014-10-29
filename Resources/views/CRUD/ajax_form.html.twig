@@ -21,7 +21,12 @@
                 {% block form_actions_inner %}
                     {% block form_actions_list_default %}
                         {% if form.submit is defined %}
-                            {{ form_widget(form.submit, { 'icon_class': 'glyphicon glyphicon-floppy-disk', 'label': 'global.form_action.save', 'translation_domain':'CmsAdminBundle', 'attr':{'class': 'btn-primary'} }) }}
+                            {{ form_widget(form.submit, {
+                                'icon_class': 'glyphicon glyphicon-floppy-disk',
+                                'label': 'global.form_action.save',
+                                'translation_domain':'CmsAdminBundle',
+                                'attr':{'class': 'btn-primary btn-lg'}
+                            }) }}
                         {% endif %}
                     {% endblock %}
                     {% block form_actions_list %}
@@ -29,7 +34,7 @@
                             {{ form_widget(child) }}
                         {% endfor %}
                         {% block form_actions_list_index %}
-                            <a class="btn btn-default" href="{{ path(route_index) }}">
+                            <a class="btn btn-default btn-lg" href="{{ path(route_index) }}">
                                 <i class="glyphicon glyphicon-th-list"></i>
                                 {{ 'global.form_action.back_to_list'|trans }}
                             </a>

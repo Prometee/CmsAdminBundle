@@ -5,7 +5,7 @@
 {% block form_action path(route_form_action, { 'id': entity.id }) %}
 
 {% block form_actions_list_default %}
-    {{ form_widget(form.submit, {'icon_class': 'glyphicon glyphicon-floppy-disk', 'label': 'global.form_action.update', 'translation_domain':'CmsAdminBundle', 'attr':{'class': 'btn-primary'} }) }}
+    {{ form_widget(form.submit, {'icon_class': 'glyphicon glyphicon-floppy-disk', 'label': 'global.form_action.update', 'translation_domain':'CmsAdminBundle', 'attr':{'class': 'btn-primary btn-lg'} }) }}
 {% endblock %}
 {% block form_wrapper_end_tag %}
     {{ parent() }}

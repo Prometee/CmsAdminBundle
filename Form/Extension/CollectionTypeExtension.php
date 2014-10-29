@@ -3,11 +3,12 @@
 namespace Cms\Bundle\AdminBundle\Form\Extension;
 
 use Symfony\Component\Form\AbstractTypeExtension;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class CollectionModalTypeExtension extends AbstractTypeExtension {
+class CollectionTypeExtension extends AbstractTypeExtension {
 
 	/**
 	 * {@inheritdoc}
@@ -20,7 +21,9 @@ class CollectionModalTypeExtension extends AbstractTypeExtension {
      * {@inheritdoc}
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
-        $resolver->setOptional(array('modal'));
+        $resolver->setOptional(array(
+            'modal'
+        ));
     }
 
     /**
@@ -28,5 +31,6 @@ class CollectionModalTypeExtension extends AbstractTypeExtension {
      */
     public function buildView(FormView $view, FormInterface $form, array $options) {
         $view->vars['modal'] = isset($options['modal']) && $options['modal'] ? true : false;
+        $view->vars['prototype_name'] = $options['prototype_name'];
     }
 }
