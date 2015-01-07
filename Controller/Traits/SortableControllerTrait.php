@@ -2,7 +2,6 @@
 
 namespace Cms\Bundle\AdminBundle\Controller\Traits;
 
-use Symfony\Component\Form\Exception\NotValidException;
 use Symfony\Component\HttpFoundation\Request;
 
 trait SortableControllerTrait {

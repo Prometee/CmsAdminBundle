@@ -266,4 +266,4 @@ class GenerateAdminControllerCommand extends ContainerAwareCommand {
             )));
         }
     }
-} 
+}
