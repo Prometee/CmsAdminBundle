@@ -1,6 +1,6 @@
 <?php
 
-namespace Cms\Bundle\AdminBundle\Form\Extension\Type;
+namespace Cms\Bundle\AdminBundle\Form\Type;
 
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;

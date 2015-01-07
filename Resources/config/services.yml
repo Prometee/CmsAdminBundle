@@ -1,6 +1,6 @@
 parameters:
-    cms_admin.form.type.richeditor.class: Cms\Bundle\AdminBundle\Form\Extension\Type\RichEditorType
-    cms_admin.form.type.image.class: Cms\Bundle\AdminBundle\Form\Extension\Type\ImageType
+    cms_admin.form.type.richeditor.class: Cms\Bundle\AdminBundle\Form\Type\RichEditorType
+    cms_admin.form.type.image.class: Cms\Bundle\AdminBundle\Form\Type\ImageType
     cms_admin.form.type_extension.collection.class: Cms\Bundle\AdminBundle\Form\Extension\CollectionTypeExtension
 
 services:
