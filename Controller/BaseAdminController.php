@@ -91,6 +91,9 @@ abstract class BaseAdminController extends Controller
 
     protected $controller_extensions = array();
 
+    /**
+     * {@inheritdoc}
+     */
     public function setContainer(ContainerInterface $container = null)
     {
         parent::setContainer($container);
@@ -308,7 +311,7 @@ abstract class BaseAdminController extends Controller
      * @param $entity
      * @return \Symfony\Component\Form\Form
      */
-    public function createNewForm($entity, $modal = false) {
+    protected function createNewForm($entity, $modal = false) {
         $form = $this->getForm($entity, array(
             'action' => $this->generateUrl($this->route_create)
         ));
@@ -538,7 +541,7 @@ abstract class BaseAdminController extends Controller
         return $this->redirectGroupProcessSuccess();
     }
 
-    public function groupProcess($action, $entity_list) {
+    protected function groupProcess($action, $entity_list) {
         $ids = array();
         foreach($entity_list as $entity) {
             $ids[] = $entity->getId();
