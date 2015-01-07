@@ -2,7 +2,6 @@
 
 namespace Cms\Bundle\AdminBundle\Command;
 
-
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -20,7 +19,6 @@ class GenerateAdminControllerCommand extends ContainerAwareCommand {
                 new InputArgument('bundle_name', InputArgument::OPTIONAL, 'The bundle name. ex: CmsDemoBundle'),
                 new InputArgument('entity_name', InputArgument::OPTIONAL, 'The entity name. ex: MyFirstEntity'),
             ));
-            //->addOption('yell', null, InputOption::VALUE_NONE, 'Si définie, la tâche criera en majuscules')
         ;
     }
 
@@ -188,7 +186,9 @@ class GenerateAdminControllerCommand extends ContainerAwareCommand {
     }
 
     protected function generateRouting($bundle_path, $bundle_name, $entity_name) {
-        $skeleton_file = dirname(__DIR__).'/Resources/skeleton/config/routing/admin_ENTITY_NAME.yml.skel';
+        /* @var $kernel \Symfony\Component\HttpKernel\Kernel */
+        $kernel = $this->getContainer()->get('kernel');
+        $skeleton_file = $kernel->locateResource('@CmsAdminBundle/Resources/skeleton/config/routing/admin_ENTITY_NAME.yml.skel');
         $skeleton_file_content = file_get_contents($skeleton_file);
         $bundle_file = $bundle_path.'/Resources/config/routing/admin_'.$this->getContainer()->underscore($entity_name).'.yml';
         $fs = new Filesystem();
@@ -204,7 +204,9 @@ class GenerateAdminControllerCommand extends ContainerAwareCommand {
     }
 
     protected function generateTranslations($bundle_path, $bundle_name, $entity_name, $human_entity_name, $human_plural_entity_name, $feminine, $human_entity_name_prefix) {
-        $skeleton_dir = dirname(__DIR__).'/Resources/skeleton/translations';
+        /* @var $kernel \Symfony\Component\HttpKernel\Kernel */
+        $kernel = $this->getContainer()->get('kernel');
+        $skeleton_dir = $kernel->locateResource('@CmsAdminBundle/Resources/skeleton/translations');
         $finder = new Finder();
         foreach ($finder->in($skeleton_dir) as $f) {
             $skeleton_file = $f->__toString();
@@ -230,7 +232,9 @@ class GenerateAdminControllerCommand extends ContainerAwareCommand {
     }
 
     protected function generateFormType($bundle_path, $bundle_name, $entity_name, $bundle_namespace, $entity_namespace) {
-        $skeleton_file = dirname(__DIR__).'/Resources/skeleton/Form/Type/EntityNameFormType.php.skel';
+        /* @var $kernel \Symfony\Component\HttpKernel\Kernel */
+        $kernel = $this->getContainer()->get('kernel');
+        $skeleton_file = $kernel->locateResource('@CmsAdminBundle/Resources/skeleton/Form/Type/EntityNameFormType.php.skel');
         $skeleton_file_content = file_get_contents($skeleton_file);
         $bundle_file = $bundle_path.'/Form/Type/'.$entity_name.'FormType.php';
         $fs = new Filesystem();
@@ -247,7 +251,9 @@ class GenerateAdminControllerCommand extends ContainerAwareCommand {
     }
 
     protected function generateController($bundle_path, $bundle_name, $entity_name, $bundle_namespace) {
-        $skeleton_file = dirname(__DIR__).'/Resources/skeleton/Controller/AdminEntityNameController.php.skel';
+        /* @var $kernel \Symfony\Component\HttpKernel\Kernel */
+        $kernel = $this->getContainer()->get('kernel');
+        $skeleton_file = $kernel->locateResource('@CmsAdminBundle/Resources/skeleton/Controller/AdminEntityNameController.php.skel');
         $skeleton_file_content = file_get_contents($skeleton_file);
         $bundle_file = $bundle_path.'/Controller/Admin'.$entity_name.'Controller.php';
         $fs = new Filesystem();
