@@ -40,7 +40,7 @@ trait PublishableControllerTrait {
 		try {
 			$em->persist($entity);
                         $em->flush();
-		} catch (Exception $e) {
+		} catch (\Exception $e) {
 			$this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans(
 				$this->translation_prefix . '.flash.error.' . ($entity->getPublished() ? '' : 'un') . 'publish',
 				array('%exception%'=>$e->getMessage()),
