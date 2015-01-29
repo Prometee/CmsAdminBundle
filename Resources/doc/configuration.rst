@@ -26,7 +26,7 @@ If you don't need to modify the User entity you can add this import :
 
  If you want to use your entity add this lines to your *app/config/config.yml* :
 
- .. code-block:: yml
+.. code-block:: yml
     fos_user:
         db_driver: orm
         firewall_name: main
@@ -38,7 +38,7 @@ The app/config/security.yml file
 
 Replace all the content of this file by this :
 
- .. code-block:: yml
+.. code-block:: yml
     security:
         encoders:
             FOS\UserBundle\Model\UserInterface: sha512
@@ -75,7 +75,7 @@ The app/config/routing.yml file
 
 Replace all the content of this file by this :
 
- .. code-block:: yml
+.. code-block:: yml
     _imagine:
         resource: .
         type:     imagine
@@ -114,6 +114,6 @@ Next, in order to get FosUserBundle well display with bootstrap you need to link
 *vendor/prometee/cms-bundle/Cms/Bundle/AdminBundle/Resources/FOSUserBundle*
 in *app/Resources/*
 
- .. code-block:: bash
+.. code-block:: bash
     cd app/Resources
     ln -s ../../vendor/prometee/cms-bundle/Cms/Bundle/AdminBundle/Resources/FOSUserBundle .
