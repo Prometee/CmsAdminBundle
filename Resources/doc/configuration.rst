@@ -26,7 +26,7 @@ If you don't need to modify the User entity you can add this import :
     imports:
         - { resource: ../../vendor/prometee/cms-bundle/Cms/Bundle/AdminBundle/Ressources/config/default_config/fos_user.yml }
 
- If you want to use your entity add this lines to your *app/config/config.yml* :
+If you want to use your entity add this lines to your *app/config/config.yml* :
 
 .. code-block:: yaml
 
