@@ -8,6 +8,20 @@ Configure
     :local:
     :depth: 2
 
+==========================
+The app/AppKernel.php file
+==========================
+
+Check if the all this bundles are loaded :
+
+.. code-block:: php
+
+    new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
+    new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
+    new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
+    new FOS\UserBundle\FOSUserBundle(),
+    new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
+
 ==============================
 The app/config/config.yml file
 ==============================
