@@ -1,0 +1,5 @@
+imports:
+  - { resource: "%kernel.root_dir%/../vendor/knplabs/doctrine-behaviors/config/orm-services.yml" }
+  - { resource: doctrine.yml }
+  - { resource: stof_doctrine_extension.yml }
+  #- { resource: fos_user.yml } Always inherit User class or make your own

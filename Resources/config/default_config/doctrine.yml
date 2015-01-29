@@ -1,0 +1,3 @@
+doctrine:
+  orm:
+    naming_strategy: doctrine.orm.naming_strategy.underscore

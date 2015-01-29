@@ -1,0 +1,11 @@
+{% extends 'CmsAdminBundle:CRUD:ajax_form.html.twig' %}
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block form_title ( 'user.edit.title' )|trans({'%name%': app.user.username}, 'CmsAdminBundle') %}
+{% block form_action path('fos_user_profile_edit') %}
+
+{% block form_actions_list_default '' %}
+{% block form_actions_list %}
+	<input type="submit" class="btn btn-primary" value="{{ 'profile.edit.submit'|trans }}">
+    <a class="btn" href="{{ path('fos_user_change_password') }}">{{ 'resetting.reset.submit'|trans }}</a>
+{% endblock %}
