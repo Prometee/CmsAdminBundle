@@ -8,4 +8,4 @@ Admin Bundle for quick development.
 
 ## Documentation
 
-[Go to documentation index](Ressources/doc/index.rst)
+[Go to documentation index](Resources/doc/index.rst)
