@@ -5,7 +5,7 @@ Overriding Cms Admin Bundle
 **Table of Contents**
 
 .. contents::
-:local:
+    :local:
     :depth: 2
 
 ========================
