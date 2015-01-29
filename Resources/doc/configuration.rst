@@ -17,14 +17,14 @@ Add the following line in the import section (top of the *app/config/config.yml*
 .. code-block:: yaml
 
     imports:
-        - { resource: ../../vendor/prometee/cms-bundle/Cms/Bundle/AdminBundle/Ressources/config/default_config/config.yml }
+        - { resource: ../../vendor/prometee/cms-bundle/Cms/Bundle/AdminBundle/Resources/config/default_config/config.yml }
 
 If you don't need to modify the User entity you can add this import :
 
 .. code-block:: yaml
 
     imports:
-        - { resource: ../../vendor/prometee/cms-bundle/Cms/Bundle/AdminBundle/Ressources/config/default_config/fos_user.yml }
+        - { resource: ../../vendor/prometee/cms-bundle/Cms/Bundle/AdminBundle/Resources/config/default_config/fos_user.yml }
 
 If you want to use your entity add this lines to your *app/config/config.yml* :
 
@@ -110,7 +110,7 @@ Replace all the content of this file by this :
         prefix: /admin/user
 
 =========================
-The app/Ressources folder
+The app/Resources folder
 =========================
 
 Remove the content of this folder
