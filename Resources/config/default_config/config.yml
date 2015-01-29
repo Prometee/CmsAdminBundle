@@ -1,5 +1,6 @@
 imports:
-  - { resource: "../../../../../../../../knplabs/doctrine-behaviors/config/orm-services.yml" }
   - { resource: doctrine.yml }
   - { resource: stof_doctrine_extension.yml }
   #- { resource: fos_user.yml } Always inherit User class or make your own
+  # if you want to use behaviours from KnpLab import this file
+  #- { resource: "../../../../../../../../knplabs/doctrine-behaviors/config/orm-services.yml" }
