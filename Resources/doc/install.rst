@@ -5,7 +5,7 @@ Installation
 **Table of Contents**
 
 .. contents::
-:local:
+    :local:
     :depth: 2
 
 ============================
