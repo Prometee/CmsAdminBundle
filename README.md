@@ -1,3 +1,4 @@
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/ba45a68f-65ec-4f46-b2f7-7128dfa645d6/big.png)](https://insight.sensiolabs.com/projects/ba45a68f-65ec-4f46-b2f7-7128dfa645d6)
 # CmsAdminBundle
 
 Admin Bundle for quick development.
