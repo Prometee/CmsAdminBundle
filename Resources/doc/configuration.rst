@@ -16,7 +16,6 @@ Check if the all this bundles are loaded :
 
 .. code-block:: php
 
-    new Avalanche\Bundle\ImagineBundle\AvalancheImagineBundle(),
     new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
     new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
     new FOS\UserBundle\FOSUserBundle(),
@@ -94,10 +93,6 @@ The app/config/routing.yml file
 Replace all the content of this file by this :
 
 .. code-block:: yaml
-
-    _imagine:
-        resource: .
-        type:     imagine
 
     fos_user_security:
         resource: "@FOSUserBundle/Resources/config/routing/security.xml"
