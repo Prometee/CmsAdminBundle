@@ -50,18 +50,44 @@
 	{% endif %}
 {% endspaceless %}
 {% endblock %}
+
+{% block choice_widget_label %}
+{% spaceless %}
+    {% set l = child is defined ? child.vars : choice %}
+    {{ l.label|trans({}, translation_domain) }}
+{% endspaceless %}
+{% endblock %}
     
 {% block choice_widget_expanded %}
 {% spaceless %}
     <div {{ block('widget_container_attributes') }}>
-        <div class="checkbox">
     {% for child in form %}
-            <label class="checkbox">{{ form_widget(child) }}{{ child.vars.label|trans({}, translation_domain)|escape }}</label>
-    {% endfor %}
+        {% if inline is not defined or inline == false %}
+        <div class="{{ multiple ? 'checkbox' : 'radio' }}">
+        {% endif %}
+        <label{{ inline is defined and inline == true ? (' class="'~(multiple ? 'checkbox' : 'radio')~'-inline"')|raw : '' }}>
+            {{ form_widget(child) }}{{ block('choice_widget_label') }}
+        </label>
+        {% if inline is not defined or inline == false %}
         </div>
+        {% endif %}
+    {% endfor %}
     </div>
 {% endspaceless %}
 {% endblock %}
+
+{%- block choice_widget_options -%}
+    {% for group_label, choice in options %}
+        {%- if choice is iterable -%}
+            <optgroup label="{{ group_label|trans({}, translation_domain) }}">
+                {% set options = choice %}
+                {{- block('choice_widget_options') -}}
+            </optgroup>
+        {%- else -%}
+            <option value="{{ choice.value }}"{% if choice is selectedchoice(value) %} selected="selected"{% endif %}>{{ block('choice_widget_label') }}</option>
+        {%- endif -%}
+    {% endfor %}
+{%- endblock choice_widget_options -%}
 
 {% block button_attributes -%}
     id="{{ id }}" name="{{ full_name }}"{% if disabled %} disabled="disabled"{% endif %}
