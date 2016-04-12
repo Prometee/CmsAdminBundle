@@ -7,6 +7,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Cms\Bundle\AdminBundle\Controller\Exception\MissingDoctrineNamespaceException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PropertyAccess\Exception\NoSuchPropertyException;
 
 abstract class BaseAdminController extends Controller
 {
@@ -199,8 +200,17 @@ abstract class BaseAdminController extends Controller
         return parent::render($view, $parameters, $response);
     }
 
-    protected function getTemplateFor($action, $modal) {
-        return $this->{'template_'. ($this->getRequest()->isXmlHttpRequest() || $modal ? 'ajax_' : '') . $action};
+    /**
+     * @param string $action
+     * @param bool $modal
+     * @return string
+     */
+    protected function getTemplateFor($action, $modal = false) {
+        $template_route_name = 'template_'. ($this->getRequest()->isXmlHttpRequest() || $modal ? 'ajax_' : '') . $action;
+        if (!isset($this->$template_route_name)) {
+            throw new NoSuchPropertyException(sprintf('No such property "%s" in "%s"', $template_route_name, get_class($this)));
+        }
+        return $this->$template_route_name;
     }
 
     /**
