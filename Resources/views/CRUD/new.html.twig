@@ -4,6 +4,8 @@
 {% block form_title ( translation_prefix ~ '.new.title' )|trans([], translation_domain) %}
 
 {% block form_actions_list %}
+    {% if form.save_and_add is defined %}
     {{ form_widget(form.save_and_add, {'icon_class': 'glyphicon glyphicon-floppy-disk', 'label': 'global.form_action.save_and_add', 'translation_domain':'CmsAdminBundle', 'attr': {'class': 'btn-info btn-lg'} }) }}
+    {% endif %}
     {{ parent() }}
 {% endblock %}
