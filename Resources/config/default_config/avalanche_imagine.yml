@@ -1,5 +1,0 @@
-avalanche_imagine:
-    filters:
-      asset_thumb:
-        type: thumbnail
-        options: { size: [64, 64], mode: outbound }
