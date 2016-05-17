@@ -11,7 +11,6 @@ use Symfony\Component\PropertyAccess\Exception\NoSuchPropertyException;
 
 abstract class BaseAdminController extends Controller
 {
-
     //This first attribute must be implemented by the master class
     protected $doctrine_namespace = "CmsAdminBundle:Foo";
 
@@ -201,12 +200,13 @@ abstract class BaseAdminController extends Controller
     }
 
     /**
-     * @param string $action
+     * @param Request $request
+     * @param $action
      * @param bool $modal
-     * @return string
+     * @return mixed
      */
-    protected function getTemplateFor($action, $modal = false) {
-        $template_route_name = 'template_'. ($this->getRequest()->isXmlHttpRequest() || $modal ? 'ajax_' : '') . $action;
+    protected function getTemplateFor(Request $request, $action, $modal = false) {
+        $template_route_name = 'template_'. ($request->isXmlHttpRequest() || $modal ? 'ajax_' : '') . $action;
         if (!isset($this->$template_route_name)) {
             throw new NoSuchPropertyException(sprintf('No such property "%s" in "%s"', $template_route_name, get_class($this)));
         }
@@ -304,7 +304,7 @@ abstract class BaseAdminController extends Controller
         ));
     }
 
-    public function showAction($id)
+    public function showAction(Request $request, $id)
     {
         $entity = $this->getClassRepository()->findOneBy(array('id' => $id));
 
@@ -377,13 +377,13 @@ abstract class BaseAdminController extends Controller
             ->getForm();
     }
 
-    public function newAction($modal = false)
+    public function newAction(Request $request, $modal = false)
     {
         $entity = new $this->entity_name();
 
         $form = $this->createNewForm($entity, $modal);
 
-        return $this->render($this->getTemplateFor('new', $modal), array(
+        return $this->render($this->getTemplateFor($request, 'new', $modal), array(
             'modal' => $modal,
             'modal_id' => 'modal_' . $this->translation_prefix . '_new',
             'form' => $form->createView(),
@@ -404,7 +404,7 @@ abstract class BaseAdminController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->set('success', $this->get('translator')->trans(
+            $request->getSession()->getFlashBag()->set('success', $this->get('translator')->trans(
                 $this->translation_prefix . '.flash.success.new', array('%name%' => $entity), $this->translation_domain
             ));
             if (!$modal && $form->get('save_and_add')->isClicked()) {
@@ -413,12 +413,12 @@ abstract class BaseAdminController extends Controller
                 return $this->redirectEditSuccess($entity);
             }
         } else {
-            $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans(
+            $request->getSession()->getFlashBag()->set('error', $this->get('translator')->trans(
                     $this->translation_prefix . '.flash.error.new', array(), $this->translation_domain
                 )
             );
 
-            return $this->render($this->getTemplateFor('new', $modal), array(
+            return $this->render($this->getTemplateFor($request, 'new', $modal), array(
                 'modal' => $modal,
                 'modal_id' => 'modal_' . $this->translation_prefix . '_new',
                 'form' => $form->createView(),
@@ -437,7 +437,7 @@ abstract class BaseAdminController extends Controller
         return $entity ? true : false;
     }
 
-    public function editAction($id, $modal = false)
+    public function editAction(Request $request, $id, $modal = false)
     {
         $entity = $this->retrieveEntity($id);
 
@@ -448,7 +448,7 @@ abstract class BaseAdminController extends Controller
         $form = $this->createEditForm($entity);
         $form_delete = $this->createDeleteForm($entity);
 
-        return $this->render($this->getTemplateFor('edit', $modal), array(
+        return $this->render($this->getTemplateFor($request, 'edit', $modal), array(
             'modal' => $modal,
             'modal_id' => 'modal_' . $this->translation_prefix . '_edit_' . $id,
             'form' => $form->createView(),
@@ -473,18 +473,18 @@ abstract class BaseAdminController extends Controller
         if ($form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            $this->get('session')->getFlashBag()->set('success', $this->get('translator')->trans(
+            $request->getSession()->getFlashBag()->set('success', $this->get('translator')->trans(
                     $this->translation_prefix . '.flash.success.edit', array('%name%' => $entity), $this->translation_domain)
             );
 
             return $this->redirectEditSuccess($entity);
         } else {
-            $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans(
+            $request->getSession()->getFlashBag()->set('error', $this->get('translator')->trans(
                     $this->translation_prefix . '.flash.error.edit', array('%name%' => $entity), $this->translation_domain
                 )
             );
 
-            return $this->render($this->getTemplateFor('edit', $modal), array(
+            return $this->render($this->getTemplateFor($request, 'edit', $modal), array(
                 'modal' => $modal,
                 'modal_id' => 'modal_' . $this->translation_prefix . '_edit_' . $id,
                 'form' => $form->createView(),
@@ -510,11 +510,11 @@ abstract class BaseAdminController extends Controller
             $em->remove($entity);
             $em->flush();
 
-            $this->get('session')->getFlashBag()->set('success', $this->get('translator')->trans(
+            $request->getSession()->getFlashBag()->set('success', $this->get('translator')->trans(
                     $this->translation_prefix . '.flash.success.delete', array(), $this->translation_domain)
             );
         } else {
-            $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans(
+            $request->getSession()->getFlashBag()->set('error', $this->get('translator')->trans(
                 $this->translation_prefix . '.flash.error.delete', array(), $this->translation_domain
             ));
 
@@ -537,11 +537,11 @@ abstract class BaseAdminController extends Controller
 
             $this->groupProcess($data->action, $data->ids);
 
-            $this->get('session')->getFlashBag()->set('success', $this->get('translator')->trans(
+            $request->getSession()->getFlashBag()->set('success', $this->get('translator')->trans(
                 $this->translation_prefix . '.flash.success.group.' . $data->action, array(), $this->translation_domain
             ));
         } else {
-            $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans(
+            $request->getSession()->getFlashBag()->set('error', $this->get('translator')->trans(
                     $this->translation_prefix . '.flash.error.group.' . $form->getData()->action, array(), $this->translation_domain
                 )
             );

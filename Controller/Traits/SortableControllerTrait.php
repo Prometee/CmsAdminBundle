@@ -84,18 +84,18 @@ trait SortableControllerTrait {
             $data = $form->getData();
             $this->groupProcess($data->action, $data->ids);
 
-            $this->get('session')->getFlashBag()->set('success', $this->get('translator')->trans(
+            $request->getSession()->getFlashBag()->set('success', $this->get('translator')->trans(
                     $this->translation_prefix . '.flash.success.group.'.$data->action, array(), $this->bundle_name)
             );
 
             return $this->redirectOrderSuccess();
         } else {
-            $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans(
+            $request->getSession()->getFlashBag()->set('error', $this->get('translator')->trans(
                     $this->translation_prefix . '.flash.error.group.'.$form->getData()->action, array(), $this->bundle_name
                 )
             );
 
-            return $this->orderAction();
+            return $this->orderAction($request);
         }
     }
 }

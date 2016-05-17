@@ -24,7 +24,7 @@ trait PublishableControllerTrait {
 		return $this->redirect($this->generateUrl($this->route_index));
 	}
 
-	protected function publishState($id, $publish_state) {
+	protected function publishState(Request $request, $id, $publish_state) {
 
 		$em = $this->getDoctrine()->getManager();
 
@@ -41,7 +41,7 @@ trait PublishableControllerTrait {
 			$em->persist($entity);
                         $em->flush();
 		} catch (\Exception $e) {
-			$this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans(
+			$request->getSession()->getFlashBag()->set('error', $this->get('translator')->trans(
 				$this->translation_prefix . '.flash.error.' . ($entity->getPublished() ? '' : 'un') . 'publish',
 				array('%exception%'=>$e->getMessage()),
 				$this->bundle_name
@@ -50,23 +50,23 @@ trait PublishableControllerTrait {
 			return $this->redirectPublishError();
 		}
 
-		$this->get('session')->getFlashBag()->set('success', $this->get('translator')->trans(
+		$request->getSession()->getFlashBag()->set('success', $this->get('translator')->trans(
 			$this->translation_prefix . '.flash.success.' . ($entity->getPublished() ? '' : 'un') . 'publish', array(), $this->bundle_name)
 		);
 
 		return $this->redirectPublishSuccess($entity);
 	}
 
-	public function publishToggleAction($id) {
-		return $this->publishState($id, null);
+	public function publishToggleAction(Request $request, $id) {
+		return $this->publishState($request, $id, null);
 	}
 
-	public function publishAction($id) {
-		return $this->publishState($id, true);
+	public function publishAction(Request $request, $id) {
+		return $this->publishState($request, $id, true);
 	}
 
-	public function unpublishAction($id) {
-		return $this->publishState($id, false);
+	public function unpublishAction(Request $request, $id) {
+		return $this->publishState($request, $id, false);
 	}
 }
 
