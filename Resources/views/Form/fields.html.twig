@@ -110,7 +110,7 @@
 {# Labels #}
 
 {% block form_label -%}
-    {% if label is not sameas(false) %}
+    {% if label is not same as(false) %}
         {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' control-label')|trim}) %}
         {%- if not compound -%}
             {% set label_attr = label_attr|merge({'for': id}) %}
@@ -140,7 +140,7 @@
     <div class="form-group{% if errors|length > 0 %} has-error{% endif %}">
         {{- form_errors(form) -}}
         {{- form_label(form, null, {'label_attr': {'class': 'col-md-2'} }) -}}
-        <div class="col-md-{{ label is not sameas(false) ? '10' : '12' }}">
+        <div class="col-md-{{ label is not same as(false) ? '10' : '12' }}">
             {% if not compound %}
                 {% set attr = attr|merge({'class': (attr.class|default('') ~ ' form-control')|trim}) %}
             {% endif %}

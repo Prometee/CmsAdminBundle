@@ -6,16 +6,16 @@ parameters:
 services:
             
     form.type.richeditor:
-        class: %cms_admin.form.type.richeditor.class%
+        class: "%cms_admin.form.type.richeditor.class%"
         tags:
             - { name: form.type, alias: richeditor }
             
     form.type.image:
-        class: %cms_admin.form.type.image.class%
+        class: "%cms_admin.form.type.image.class%"
         tags:
             - { name: form.type, alias: image }
 
     form.type_extension.collection:
-        class: %cms_admin.form.type_extension.collection.class%
+        class: "%cms_admin.form.type_extension.collection.class%"
         tags:
             - { name: form.type_extension, alias: collection }

@@ -2,8 +2,8 @@ stfalcon_tinymce:
   include_jquery: false
   tinymce_jquery: true
   selector: ".tinymce"
-  # Get current language from the parameters.ini
-  language: %locale%
+  # Get current language from the parameters.yml
+  language: "%locale%"
   theme:
     # Simple theme: same as default theme
     simple: ~

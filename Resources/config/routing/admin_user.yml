@@ -1,40 +1,40 @@
 cms_admin_admin_user_index:
-    pattern: /
-    defaults: { _controller: CmsAdminBundle:AdminUser:index }
+    path: /
+    defaults: { _controller: "CmsAdminBundle:AdminUser:index" }
 
 cms_admin_admin_user_new:
-    pattern: /new
-    defaults: { _controller: CmsAdminBundle:AdminUser:new }
+    path: /new
+    defaults: { _controller: "CmsAdminBundle:AdminUser:new" }
     requirements:
-      _method: GET
+    methods: [GET]
 cms_admin_admin_user_create:
-    pattern: /create
-    defaults: { _controller: CmsAdminBundle:AdminUser:create }
+    path: /create
+    defaults: { _controller: "CmsAdminBundle:AdminUser:create" }
     requirements:
-      _method: POST
+    methods: [POST]
 
 cms_admin_admin_user_delete:
-    pattern: /{id}/delete
-    defaults: { _controller: CmsAdminBundle:AdminUser:delete }
+    path: /{id}/delete
+    defaults: { _controller: "CmsAdminBundle:AdminUser:delete" }
     requirements:
       id: \d+
-      _method: DELETE
+    methods: [DELETE]
 
 cms_admin_admin_user_edit:
-    pattern: /{id}/edit
-    defaults: { _controller: CmsAdminBundle:AdminUser:edit }
+    path: /{id}/edit
+    defaults: { _controller: "CmsAdminBundle:AdminUser:edit" }
     requirements:
       id: \d+
-      _method: GET
+    methods: [GET]
 cms_admin_admin_user_update:
-    pattern: /{id}/update
-    defaults: { _controller: CmsAdminBundle:AdminUser:update }
+    path: /{id}/update
+    defaults: { _controller: "CmsAdminBundle:AdminUser:update" }
     requirements:
       id: \d+
-      _method: PUT
+    methods: [PUT]
 
 cms_admin_admin_user_group_process:
-    pattern: /group_process
-    defaults: { _controller: CmsAdminBundle:AdminUser:groupProcess }
+    path: /group_process
+    defaults: { _controller: "CmsAdminBundle:AdminUser:groupProcess" }
     requirements:
-      _method: POST
+    methods: [POST]

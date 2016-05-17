@@ -1,40 +1,37 @@
 #BUNDLE_NAME_#_admin_#ENTITY_NAME_#_index:
-    pattern: /
-    defaults: { _controller: #BUNDLE_NAME#:Admin#ENTITY_NAME#:index }
+    path: /
+    defaults: { _controller: "#BUNDLE_NAME#:Admin#ENTITY_NAME#:index" }
 
 #BUNDLE_NAME_#_admin_#ENTITY_NAME_#_new:
-    pattern: /new
-    defaults: { _controller: #BUNDLE_NAME#:Admin#ENTITY_NAME#:new }
-    requirements:
-      _method: GET
+    path: /new
+    defaults: { _controller: "#BUNDLE_NAME#:Admin#ENTITY_NAME#:new" }
+    methods: [GET]
 #BUNDLE_NAME_#_admin_#ENTITY_NAME_#_create:
-    pattern: /create
-    defaults: { _controller: #BUNDLE_NAME#:Admin#ENTITY_NAME#:create }
-    requirements:
-      _method: POST
+    path: /create
+    defaults: { _controller: "#BUNDLE_NAME#:Admin#ENTITY_NAME#:create" }
+    methods: [POST]
 
 #BUNDLE_NAME_#_admin_#ENTITY_NAME_#_delete:
-    pattern: /{id}/delete
-    defaults: { _controller: #BUNDLE_NAME#:Admin#ENTITY_NAME#:delete }
+    path: /{id}/delete
+    defaults: { _controller: "#BUNDLE_NAME#:Admin#ENTITY_NAME#:delete" }
     requirements:
       id: \d+
-      _method: DELETE
+    methods: [DELETE]
 
 #BUNDLE_NAME_#_admin_#ENTITY_NAME_#_edit:
-    pattern: /{id}/edit
-    defaults: { _controller: #BUNDLE_NAME#:Admin#ENTITY_NAME#:edit }
+    path: /{id}/edit
+    defaults: { _controller: "#BUNDLE_NAME#:Admin#ENTITY_NAME#:edit" }
     requirements:
       id: \d+
-      _method: GET
+    methods: [GET]
 #BUNDLE_NAME_#_admin_#ENTITY_NAME_#_update:
-    pattern: /{id}/update
-    defaults: { _controller: #BUNDLE_NAME#:Admin#ENTITY_NAME#:update }
+    path: /{id}/update
+    defaults: { _controller: "#BUNDLE_NAME#:Admin#ENTITY_NAME#:update" }
     requirements:
       id: \d+
-      _method: PUT
+    methods: [PUT]
 
 #BUNDLE_NAME_#_admin_#ENTITY_NAME_#_group_process:
-    pattern: /group_process
-    defaults: { _controller: #BUNDLE_NAME#:Admin#ENTITY_NAME#:groupProcess }
-    requirements:
-      _method: POST
+    path: /group_process
+    defaults: { _controller: "#BUNDLE_NAME#:Admin#ENTITY_NAME#:groupProcess" }
+    methods: [POST]
