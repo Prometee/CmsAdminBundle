@@ -5,6 +5,7 @@
 
 		{% block form_header %}
             <h2>{% block form_title '' %}</h2>
+            {{ form_errors(form) }}
 		{% endblock %}
         {% block form_start_tag %}
             {{ form_start(form, {'attr': {'class': 'form-horizontal'} }) }}
