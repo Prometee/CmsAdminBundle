@@ -2,6 +2,8 @@
 
 namespace Cms\Bundle\AdminBundle\Controller\Traits;
 
+use Symfony\Component\HttpFoundation\Request;
+
 trait PublishableControllerTrait {
 
 	protected $route_publish = 'cms_foo_admin_foo_publish_toggle';
