@@ -1,48 +1,5 @@
 {# Widgets #}
 
-{% block datetime_widget %}
-{% spaceless %}
-    {% if widget == 'single_text' %}
-        {{ block('field_widget') }}
-    {% else %}
-        <div class="datetime-widget">
-        {{ form_widget(form.date) }}
-        {{ form_widget(form.time) }}
-        {{ form_errors(form.date) }}
-        {{ form_errors(form.time) }}
-        </div>
-    {% endif %}
-{% endspaceless %}
-{% endblock %}
-
-{% block date_widget %}
-{% spaceless %}
-    {% if widget == 'single_text' %}
-        {{ block('field_widget') }}
-    {% else %}
-        <div {{ block('widget_container_attributes') }}>
-            {{ '{{ day }}&nbsp;&nbsp;{{ month }}&nbsp;&nbsp;{{ year }}'|replace({
-                '{{ year }}':  form_widget(form.year, {'attr': {'class' : 'col-md-1'}}),
-                '{{ month }}': form_widget(form.month, {'attr': {'class' : 'col-md-1'}}),
-                '{{ day }}':   form_widget(form.day, {'attr': {'class' : 'col-md-1'}}),
-            })|raw }}
-        </div>
-    {% endif %}
-{% endspaceless %}
-{% endblock %}
-
-{% block time_widget %}
-{% spaceless %}
-    {% if widget == 'single_text' %}
-        {{ block('field_widget') }}
-    {% else %}
-        <div {{ block('widget_container_attributes') }}>
-            {{ form_widget(form.hour, { 'attr': { 'class': ' col-md-1' } }) }}:{{ form_widget(form.minute, { 'attr': { 'class': ' col-md-1' } }) }}{% if with_seconds %}:{{ form_widget(form.second, { 'attr': { 'class': ' col-md-1' } }) }}{% endif %}
-        </div>
-    {% endif %}
-{% endspaceless %}
-{% endblock %}
-
 {% block image_widget %}
 {% spaceless %}
 	{% if value is not empty %}

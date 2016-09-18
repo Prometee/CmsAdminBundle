@@ -8,6 +8,7 @@ use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface,
 class TemplatingPass implements CompilerPassInterface
 {
     protected static $templating_configs = array(
+        'cms_admin.templating.bootstrap3',
         'cms_admin.templating.fields',
         'cms_admin.templating.collection',
         'cms_admin.templating.collection_modal'
