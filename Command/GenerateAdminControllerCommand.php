@@ -95,7 +95,7 @@ class GenerateAdminControllerCommand extends ContainerAwareCommand {
                 }
 
                 if (!array_key_exists($entity_name, $available_entity_names)) {
-                    throw new \RuntimeException(sprintf('This entity could not be found, available are : %s', implode(", ", array_keys($available_entity_names)));
+                    throw new \RuntimeException(sprintf('This entity could not be found, available are : %s', implode(", ", array_keys($available_entity_names))));
                 }
 
                 return $entity_name;
