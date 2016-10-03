@@ -20,6 +20,7 @@ Check if the all this bundles are loaded :
     new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
     new FOS\UserBundle\FOSUserBundle(),
     new Stfalcon\Bundle\TinymceBundle\StfalconTinymceBundle(),
+    new Symfony\Bundle\AsseticBundle\AsseticBundle(),
 
 ==============================
 The app/config/config.yml file
