@@ -1,4 +1,6 @@
 cms_admin_dashboard:
     resource: "admin_dashboard.yml"
+    prefix: "/admin"
 cms_admin_user:
     resource: "admin_user.yml"
+    prefix: "/admin/user"
