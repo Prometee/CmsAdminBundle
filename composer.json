@@ -28,8 +28,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Cms\\Bundle\\AdminBundle": ""
+            "Cms\\Bundle\\AdminBundle\\": "AdminBundle"
         }
-    },
-    "target-dir": "Cms/Bundle/AdminBundle"
+    }
 }
