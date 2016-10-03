@@ -3,7 +3,7 @@
 namespace Cms\Bundle\AdminBundle\Form\Type;
 
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class RichEditorType extends TextareaType {
 
@@ -11,7 +11,7 @@ class RichEditorType extends TextareaType {
 	 * {@inheritdoc}
 	 */
 	public function getParent() {
-		return 'textarea';
+		return TextareaType::class;
 	}
 
 	/**
@@ -24,7 +24,7 @@ class RichEditorType extends TextareaType {
 	/**
 	 * {@inheritdoc}
 	 */
-    public function setDefaultOptions(OptionsResolverInterface $resolver) {
+    public function setDefaultOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
             'required' => 0,
             'attr' => array(

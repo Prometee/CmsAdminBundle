@@ -6,7 +6,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ImageType extends AbstractType {
 
@@ -17,14 +17,15 @@ class ImageType extends AbstractType {
 		$builder->setAttribute('image_width', $options['image_width']);
 	}
 
-	/**
-	 * {@inheritdoc}
-	 */
-	public function buildView(FormView $view, FormInterface $form, array $options) {
-		$view->vars['image_width'] = $form->getAttribute('image_width');
-	}
+    /**
+     * {@inheritdoc}
+     */
+	public function buildView(FormView $view, FormInterface $form, array $options)
+    {
+        $view->vars['image_width'] = $form->getConfig()->getAttribute('image_width');
+    }
 
-	public function getParent() {
+    public function getParent() {
 		return 'field';
 	}
 
@@ -38,7 +39,7 @@ class ImageType extends AbstractType {
 	/**
 	 * {@inheritdoc}
 	 */    
-    public function setDefaultOptions(OptionsResolverInterface $resolver) {
+    public function setDefaultOptions(OptionsResolver  $resolver) {
         $resolver->setDefaults(array(
             'image_width' => 200
         ));

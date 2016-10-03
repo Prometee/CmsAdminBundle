@@ -8,14 +8,14 @@ services:
     form.type.richeditor:
         class: "%cms_admin.form.type.richeditor.class%"
         tags:
-            - { name: form.type, alias: richeditor }
+            - { name: form.type }
             
     form.type.image:
         class: "%cms_admin.form.type.image.class%"
         tags:
-            - { name: form.type, alias: image }
+            - { name: form.type }
 
     form.type_extension.collection:
         class: "%cms_admin.form.type_extension.collection.class%"
         tags:
-            - { name: form.type_extension, alias: collection }
+            - { name: form.type_extension, extended_type: Symfony\Component\Form\Extension\Core\Type\Collection }

@@ -3,9 +3,10 @@
 namespace Cms\Bundle\AdminBundle\Form\Extension;
 
 use Symfony\Component\Form\AbstractTypeExtension;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CollectionTypeExtension extends AbstractTypeExtension {
 
@@ -13,16 +14,14 @@ class CollectionTypeExtension extends AbstractTypeExtension {
 	 * {@inheritdoc}
 	 */
 	public function getExtendedType() {
-		return 'collection';
+		return CollectionType::class;
 	}
 
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver) {
-        $resolver->setOptional(array(
-            'modal'
-        ));
+    public function configureOptions(OptionsResolver  $resolver) {
+        $resolver->addAllowedTypes('modal', 'bool');
     }
 
     /**

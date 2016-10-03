@@ -4,7 +4,7 @@ namespace Cms\Bundle\AdminBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class BaseAdminGroupFormType extends AbstractType {
 
@@ -20,7 +20,7 @@ class BaseAdminGroupFormType extends AbstractType {
         ));
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver) {
+    public function setDefaultOptions(OptionsResolver $resolver) {
         $resolver->setRequired(array(
             'data_class',
             'ids_class',
