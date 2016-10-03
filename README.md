@@ -5,7 +5,7 @@ Admin Bundle for quick development.
 
 ## Existing project with Composer
 
-    composer require prometee/cms-bundle:2.*
+    composer require prometee/cms-bundle
 
 ## Documentation
 
