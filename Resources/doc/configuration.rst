@@ -89,7 +89,7 @@ Replace all the content of this file by this :
 
     cms_admin:
         resource: "@CmsAdminBundle/Resources/config/routing/admin_all.yml"
-        prefix: /admin
+        prefix: "/admin"
 
 =========================
 The app/Resources folder
@@ -104,4 +104,4 @@ in *app/Resources/*
 .. code-block:: bash
 
     cd app/Resources
-    ln -s ../../vendor/prometee/cms-bundle/Cms/Bundle/AdminBundle/Resources/FOSUserBundle .
+    ln -s ../../vendor/prometee/cms-bundle/Resources/FOSUserBundle .
