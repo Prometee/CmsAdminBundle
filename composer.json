@@ -20,14 +20,14 @@
         }
     ],
     "require": {
-        "symfony/framework-bundle": "2.3.*",
+        "symfony/framework-bundle": "^2.3.*",
         "knplabs/knp-paginator-bundle": "*",
         "friendsofsymfony/user-bundle": "*",
         "doctrine/doctrine-fixtures-bundle": "*",
-        "stfalcon/tinymce-bundle": "*"
+        "stfalcon/tinymce-bundle": "^2.0"
     },
     "autoload": {
-        "psr-0": {
+        "psr-4": {
             "Cms\\Bundle\\AdminBundle": ""
         }
     },
