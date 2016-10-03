@@ -21,6 +21,7 @@
     ],
     "require": {
         "symfony/framework-bundle": "~2.3|~3.0",
+        "symfony/assetic-bundle": "*",
         "knplabs/knp-paginator-bundle": "*",
         "friendsofsymfony/user-bundle": "~2.0",
         "doctrine/doctrine-fixtures-bundle": "*",
