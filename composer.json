@@ -26,7 +26,6 @@
         "doctrine/doctrine-fixtures-bundle": "*",
         "stfalcon/tinymce-bundle": "~2.0"
     },
-    "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
             "Cms\\Bundle\\AdminBundle\\": "AdminBundle"
