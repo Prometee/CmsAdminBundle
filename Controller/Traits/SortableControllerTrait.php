@@ -80,17 +80,20 @@ trait SortableControllerTrait {
 
         $form->handleRequest($request);
 
+        /** @var Session $session */
+        $session = $request->getSession();
+
         if ($form->isValid()) {
             $data = $form->getData();
             $this->groupProcess($data->action, $data->ids);
 
-            $request->getSession()->getFlashBag()->set('success', $this->get('translator')->trans(
+            $session->getFlashBag()->set('success', $this->get('translator')->trans(
                     $this->translation_prefix . '.flash.success.group.'.$data->action, array(), $this->bundle_name)
             );
 
             return $this->redirectOrderSuccess();
         } else {
-            $request->getSession()->getFlashBag()->set('error', $this->get('translator')->trans(
+            $session->getFlashBag()->set('error', $this->get('translator')->trans(
                     $this->translation_prefix . '.flash.error.group.'.$form->getData()->action, array(), $this->bundle_name
                 )
             );

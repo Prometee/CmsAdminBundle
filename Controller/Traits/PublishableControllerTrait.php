@@ -3,6 +3,7 @@
 namespace Cms\Bundle\AdminBundle\Controller\Traits;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 trait PublishableControllerTrait {
 
@@ -39,11 +40,14 @@ trait PublishableControllerTrait {
 
 		$entity->setPublished($publish_state);
 
+		/** @var Session $session */
+		$session = $request->getSession();
+
 		try {
 			$em->persist($entity);
                         $em->flush();
 		} catch (\Exception $e) {
-			$request->getSession()->getFlashBag()->set('error', $this->get('translator')->trans(
+			$session->getFlashBag()->set('error', $this->get('translator')->trans(
 				$this->translation_prefix . '.flash.error.' . ($entity->getPublished() ? '' : 'un') . 'publish',
 				array('%exception%'=>$e->getMessage()),
 				$this->bundle_name
@@ -52,7 +56,7 @@ trait PublishableControllerTrait {
 			return $this->redirectPublishError();
 		}
 
-		$request->getSession()->getFlashBag()->set('success', $this->get('translator')->trans(
+		$session->getFlashBag()->set('success', $this->get('translator')->trans(
 			$this->translation_prefix . '.flash.success.' . ($entity->getPublished() ? '' : 'un') . 'publish', array(), $this->bundle_name)
 		);
 
@@ -71,5 +75,3 @@ trait PublishableControllerTrait {
 		return $this->publishState($request, $id, false);
 	}
 }
-
-?>

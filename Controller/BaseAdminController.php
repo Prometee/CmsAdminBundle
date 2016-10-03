@@ -3,10 +3,13 @@
 namespace Cms\Bundle\AdminBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Cms\Bundle\AdminBundle\Controller\Exception\MissingDoctrineNamespaceException;
+use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\PropertyAccess\Exception\NoSuchPropertyException;
 
 abstract class BaseAdminController extends Controller
@@ -143,13 +146,13 @@ abstract class BaseAdminController extends Controller
                 $this->group_form_type_name = $group_form_type_name;
 
             if (!$this->translation_prefix) {
-                $this->translation_prefix = $this->container->underscore($class_name);
+                $this->translation_prefix = Container::underscore($class_name);
             }
             if (!$this->translation_domain) {
                 $this->translation_domain = $this->bundle_name;
             }
             if (empty($this->route_prefix)) {
-                $this->route_prefix = $this->container->underscore(preg_replace('#Bundle$#', '', $this->bundle_name)) . '_admin';
+                $this->route_prefix = Container::underscore(preg_replace('#Bundle$#', '', $this->bundle_name)) . '_admin';
             }
 
             //Check if child class don't override any $this->route_*
@@ -223,10 +226,10 @@ abstract class BaseAdminController extends Controller
     protected function getGroupForm($entity, $form_options = array())
     {
         $form_options = array_unique(array_merge(array(
-                'data_class' => $this->group_object_name,
-                'ids_class' => $this->doctrine_namespace,
-                'translation_domain' => 'CmsAdminBundle'
-            ),
+            'data_class' => $this->group_object_name,
+            'ids_class' => $this->doctrine_namespace,
+            'translation_domain' => 'CmsAdminBundle'
+        ),
             $form_options
         ));
         return $this->createForm(new $this->group_form_type_name(), $entity, $form_options);
@@ -335,7 +338,7 @@ abstract class BaseAdminController extends Controller
 
     /**
      * @param $entity
-     * @return \Symfony\Component\Form\Form
+     * @return Form
      */
     protected function createEditForm($entity) {
         $form = $this->getForm($entity, array(
@@ -350,7 +353,7 @@ abstract class BaseAdminController extends Controller
 
     /**
      * @param $entity
-     * @return \Symfony\Component\Form\Form
+     * @return Form
      */
     protected function createGroupForm($entity)
     {
@@ -366,7 +369,7 @@ abstract class BaseAdminController extends Controller
 
     /**
      * @param mixed $entity
-     * @return \Symfony\Component\Form\Form The form
+     * @return Form The form
      */
     protected function createDeleteForm($entity)
     {
@@ -399,12 +402,15 @@ abstract class BaseAdminController extends Controller
 
         $form->handleRequest($request);
 
+        /** @var Session $session */
+        $session = $request->getSession();
+
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->set('success', $this->get('translator')->trans(
+            $session->getFlashBag()->set('success', $this->get('translator')->trans(
                 $this->translation_prefix . '.flash.success.new', array('%name%' => $entity), $this->translation_domain
             ));
             if (!$modal && $form->get('save_and_add')->isClicked()) {
@@ -413,9 +419,9 @@ abstract class BaseAdminController extends Controller
                 return $this->redirectEditSuccess($entity);
             }
         } else {
-            $request->getSession()->getFlashBag()->set('error', $this->get('translator')->trans(
-                    $this->translation_prefix . '.flash.error.new', array(), $this->translation_domain
-                )
+            $session->getFlashBag()->set('error', $this->get('translator')->trans(
+                $this->translation_prefix . '.flash.error.new', array(), $this->translation_domain
+            )
             );
 
             return $this->render($this->getTemplateFor($request, 'new', $modal), array(
@@ -468,20 +474,23 @@ abstract class BaseAdminController extends Controller
         $form = $this->createEditForm($entity);
         $form_delete = $this->createDeleteForm($entity);
 
+        /** @var Session $session */
+        $session = $request->getSession();
+
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            $request->getSession()->getFlashBag()->set('success', $this->get('translator')->trans(
-                    $this->translation_prefix . '.flash.success.edit', array('%name%' => $entity), $this->translation_domain)
+            $session->getFlashBag()->set('success', $this->get('translator')->trans(
+                $this->translation_prefix . '.flash.success.edit', array('%name%' => $entity), $this->translation_domain)
             );
 
             return $this->redirectEditSuccess($entity);
         } else {
-            $request->getSession()->getFlashBag()->set('error', $this->get('translator')->trans(
-                    $this->translation_prefix . '.flash.error.edit', array('%name%' => $entity), $this->translation_domain
-                )
+            $session->getFlashBag()->set('error', $this->get('translator')->trans(
+                $this->translation_prefix . '.flash.error.edit', array('%name%' => $entity), $this->translation_domain
+            )
             );
 
             return $this->render($this->getTemplateFor($request, 'edit', $modal), array(
@@ -505,16 +514,19 @@ abstract class BaseAdminController extends Controller
         $form = $this->createDeleteForm($entity);
         $form->handleRequest($request);
 
+        /** @var Session $session */
+        $session = $request->getSession();
+
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($entity);
             $em->flush();
 
-            $request->getSession()->getFlashBag()->set('success', $this->get('translator')->trans(
-                    $this->translation_prefix . '.flash.success.delete', array(), $this->translation_domain)
+            $session->getFlashBag()->set('success', $this->get('translator')->trans(
+                $this->translation_prefix . '.flash.success.delete', array(), $this->translation_domain)
             );
         } else {
-            $request->getSession()->getFlashBag()->set('error', $this->get('translator')->trans(
+            $session->getFlashBag()->set('error', $this->get('translator')->trans(
                 $this->translation_prefix . '.flash.error.delete', array(), $this->translation_domain
             ));
 
@@ -532,18 +544,21 @@ abstract class BaseAdminController extends Controller
 
         $form->handleRequest($request);
 
+        /** @var Session $session */
+        $session = $request->getSession();
+
         if ($form->isValid()) {
             $data = $form->getData();
 
             $this->groupProcess($data->action, $data->ids);
 
-            $request->getSession()->getFlashBag()->set('success', $this->get('translator')->trans(
+            $session->getFlashBag()->set('success', $this->get('translator')->trans(
                 $this->translation_prefix . '.flash.success.group.' . $data->action, array(), $this->translation_domain
             ));
         } else {
-            $request->getSession()->getFlashBag()->set('error', $this->get('translator')->trans(
-                    $this->translation_prefix . '.flash.error.group.' . $form->getData()->action, array(), $this->translation_domain
-                )
+            $session->getFlashBag()->set('error', $this->get('translator')->trans(
+                $this->translation_prefix . '.flash.error.group.' . $form->getData()->action, array(), $this->translation_domain
+            )
             );
             return $this->indexAction($request);
         }
