@@ -1,3 +1,4 @@
-import:
-    - { resource: "admin_dashboard.yml" }
-    - { resource: "admin_user.yml" }
+cms_admin_dashboard:
+    resource:"admin_dashboard.yml"
+cms_admin_user:
+    resource: "admin_user.yml"
