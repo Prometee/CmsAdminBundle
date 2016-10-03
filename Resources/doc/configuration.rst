@@ -30,14 +30,7 @@ Add the following line in the import section (top of the *app/config/config.yml*
 .. code-block:: yaml
 
     imports:
-        - { resource: ../../vendor/prometee/cms-bundle/Cms/Bundle/AdminBundle/Resources/config/default_config/config.yml }
-
-If you don't need to modify the User entity you can add this import :
-
-.. code-block:: yaml
-
-    imports:
-        - { resource: ../../vendor/prometee/cms-bundle/Cms/Bundle/AdminBundle/Resources/config/default_config/fos_user.yml }
+        - { resource: "@CmsAdminBundle/Resources/config/default_config/config.yml" }
 
 If you want to use your entity add this lines to your *app/config/config.yml* :
 
@@ -57,33 +50,30 @@ Replace all the content of this file by this :
 .. code-block:: yaml
 
     security:
-        encoders:
-            FOS\UserBundle\Model\UserInterface: sha512
-
-        role_hierarchy:
-            ROLE_ADMIN:       ROLE_USER
-            ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
         providers:
             fos_userbundle:
                 id: fos_user.user_provider.username
 
         firewalls:
+            # disables authentication for assets and the profiler, adapt it according to your needs
+            dev:
+                pattern: ^/(_(profiler|wdt)|css|images|js)/
+                security: false
+
             main:
                 pattern: ^/
                 form_login:
                     provider: fos_userbundle
-                    csrf_provider: form.csrf_provider
-                    login_path: fos_user_security_login
-                    check_path: fos_user_security_check
-                logout:
-                    path: fos_user_security_logout
-                    target: /
+                    csrf_token_generator: security.csrf.token_manager
+
+                logout:       true
                 anonymous:    true
 
         access_control:
-            - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-            - { path: ^/admin/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+            - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
             - { path: ^/admin/, role: ROLE_ADMIN }
 
 ================================
@@ -94,29 +84,12 @@ Replace all the content of this file by this :
 
 .. code-block:: yaml
 
-    fos_user_security:
-        resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+    fos_user:
+        resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+
+    cms_admin:
+        resource: "@CmsAdminBundle/Resources/config/routing/admin_all.yml"
         prefix: /admin
-
-    fos_user_profile:
-        resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
-        prefix: /admin/profile
-
-    fos_user_resetting:
-        resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
-        prefix: /admin/resetting
-
-    fos_user_change_password:
-        resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
-        prefix: /admin/profile
-
-    cms_admin_dashboard:
-        resource: "@CmsAdminBundle/Resources/config/routing/admin_dashboard.yml"
-        prefix: /admin
-
-    cms_admin_user:
-        resource: "@HICEFAdminBundle/Resources/config/routing/admin_user.yml"
-        prefix: /admin/user
 
 =========================
 The app/Resources folder

@@ -1,0 +1,3 @@
+import:
+    - { resource: "admin_dashboard.yml" }
+    - { resource: "admin_user.yml" }

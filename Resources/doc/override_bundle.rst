@@ -27,7 +27,7 @@ Generate the root admin bundle, this bundle will be a child of CmsAdminBundle. T
 
 .. code-block:: bash
 
-    php app/console generate:bundle --namespace=Acme/Bundle/AdminBundle --format=yml
+    php bin/console generate:bundle --namespace=Acme/Bundle/AdminBundle --format=yml
 
 Next your have to edit the root bundle class to add getParent() method like this :
 *src/Acme/Bundle/AdminBundle/AcmeAdminBundle.php*

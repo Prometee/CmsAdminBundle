@@ -22,7 +22,7 @@ Once Composer is installed on your computer, execute the create-project command 
 
 .. code-block:: bash
 
-    composer create-project symfony/framework-standard-edition my_project_name '2.3.*'
+    composer create-project symfony/framework-standard-edition my_project_name
     cd my_project_name
 
 ==============================
@@ -33,4 +33,4 @@ In your project directory
 
 .. code-block:: bash
 
-    composer require prometee/cms-bundle:2.*
+    composer require prometee/cms-bundle
