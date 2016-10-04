@@ -26,18 +26,18 @@ class User extends BaseUser
     /**
      * @var array
      *
-     * @Assert\Choice(callback = "getRolesChoicesKeys", multiple=true)
+     * @Assert\Choice(callback = "getRolesChoicesValues", multiple=true)
      */
     protected $roles;
 
     public static function getRolesChoices() {
         return array(
-            self::ROLE_ADMIN => 'user.roles.admin',
-            self::ROLE_SUPER_ADMIN => 'user.roles.super_admin'
+            'user.roles.admin' => self::ROLE_ADMIN,
+            'user.roles.super_admin' => self::ROLE_SUPER_ADMIN
         );
     }
 
-    public static function getRolesChoicesKeys() {
-        return array_keys(self::getRolesChoices());
+    public static function getRolesChoicesValues() {
+        return array_values(self::getRolesChoices());
     }
 }

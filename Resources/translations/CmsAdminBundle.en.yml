@@ -81,28 +81,28 @@ login:
     submit: Login
 
 user:
+  404: This entity is not available
   index:
-    title: User list
+    title: Users list
   edit:
-    title: Edit user «%name%»
-  change_password:
-    title: Change password for «%name%»
+    title: Editing user «%name%»
   new:
     title: New user
+  change_password:
+    title: Change password for «%name%»
   flash:
     success:
-      delete: The user has been successfully deleted
-      new: The user was successfully created
-      edit: The user has been successfully modified
+      delete: The user has been deleted successfully
+      new: The user has been created successfully
+      edit: The user has been modified successfully
       group:
-        delete: The user has been successfully changed
+        delete: Selected Users have been deleted
     error:
-      delete: An error occurred while trying to delete
-      new: An error occurred while trying to create user
-      edit: An error occurred while trying to update user
+      delete: 'An error occurred while trying to delete : %exception%'
+      new: An error has occurred, no user has been created
+      edit: An error occurred while editing, check the entered fields
       group:
-        delete: An error occurred while deleting user(s)
-
+        delete: An error occurred while editing, check the entered fields
   roles:
     admin: Admin
     super_admin: Super Admin

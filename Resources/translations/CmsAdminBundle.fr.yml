@@ -81,28 +81,28 @@ login:
     submit: Se connecter
 
 user:
+  404: Cette entité n'est pas disponible
   index:
     title: Liste des utilisateurs
   edit:
     title: Edition de l'utilisateur «%name%»
+  new:
+    title: Nouvelle utilisateur
   change_password:
     title: Changer le mot de passe de l'utilisateur «%name%»
-  new:
-    title: Nouveau utilisateur
   flash:
     success:
       delete: L'utilisateur a été suprimé avec succés
       new: L'utilisateur a été créé avec succès
-      edit: L'utilisateur a été modifié avec succès
+      edit: L'utilisateur a été modifiée avec succès
       group:
         delete: Les utilisateurs sélectionnés ont été supprimés
     error:
-      delete: Une erreur est survenue lors de la tentative de suppression
-      new: Une erreur est survenue, aucun utilisateur n'a été créé
+      delete: 'Une erreur est survenue lors de la tentative de suppression : %exception%'
+      new: Une erreur est survenue, aucune utilisateur n'a été créé
       edit: Une erreur est survenue pendant la modification, veuillez vérifier les champs saisis
       group:
         delete: Une erreur est survenue lors de la tentative de suppression de ces utilisateurs
-
   roles:
     admin: Administrateur
     super_admin: Super Administrateur
