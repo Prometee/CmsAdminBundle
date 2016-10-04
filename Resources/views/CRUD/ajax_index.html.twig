@@ -33,6 +33,7 @@
             {{ form_start(groupForm, {'attr': {'class': 'form-inline'} }) }}
             {% block index_list_form_errors %}
                 {{ form_errors(groupForm) }}
+                {{ form_errors(groupForm.ids) }}
             {% endblock %}
         {% endblock %}
 
@@ -105,6 +106,7 @@
                 {% block index_list_bashactions %}
                     {% if is_granted('ROLE_ADMIN') %}
                         {{- form_errors(groupForm.action) -}}
+                        {{ form_errors(groupForm.action) }}
                         <div class="input-group">
                             <div class="input-group-addon">
                                 {{ 'global.index_crud.group_action.selected'|trans }}
