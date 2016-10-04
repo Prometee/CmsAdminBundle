@@ -8,44 +8,6 @@
 {% endspaceless %}
 {% endblock %}
 
-{% block choice_widget_label %}
-{% spaceless %}
-    {% set l = child is defined ? child.vars : choice %}
-    {{ l.label|trans({}, translation_domain) }}
-{% endspaceless %}
-{% endblock %}
-    
-{% block choice_widget_expanded %}
-{% spaceless %}
-    <div {{ block('widget_container_attributes') }}>
-    {% for child in form %}
-        {% if inline is not defined or inline == false %}
-        <div class="{{ multiple ? 'checkbox' : 'radio' }}">
-        {% endif %}
-        <label{{ inline is defined and inline == true ? (' class="'~(multiple ? 'checkbox' : 'radio')~'-inline"')|raw : '' }}>
-            {{ form_widget(child) }}{{ block('choice_widget_label') }}
-        </label>
-        {% if inline is not defined or inline == false %}
-        </div>
-        {% endif %}
-    {% endfor %}
-    </div>
-{% endspaceless %}
-{% endblock %}
-
-{%- block choice_widget_options -%}
-    {% for group_label, choice in options %}
-        {%- if choice is iterable -%}
-            <optgroup label="{{ group_label|trans({}, translation_domain) }}">
-                {% set options = choice %}
-                {{- block('choice_widget_options') -}}
-            </optgroup>
-        {%- else -%}
-            <option value="{{ choice.value }}"{% if choice is selectedchoice(value) %} selected="selected"{% endif %}>{{ block('choice_widget_label') }}</option>
-        {%- endif -%}
-    {% endfor %}
-{%- endblock choice_widget_options -%}
-
 {% block button_attributes -%}
     id="{{ id }}" name="{{ full_name }}"{% if disabled %} disabled="disabled"{% endif %}
     {% set attr = attr|merge({'class': (attr.class|default('btn-default') ~ ' btn')|trim}) %}
@@ -63,6 +25,24 @@
     {% endif %}
     <button type="{{ type|default('button') }}" {{ block('button_attributes') }}>{{ icon|raw }}{{ label|trans({}, translation_domain) }}</button>
 {%- endblock button_widget %}
+
+{% block checkbox_row -%}
+    <div class="form-group{% if not valid %} has-error{% endif %}">
+        <div class="col-md-10 col-md-offset-2">
+            {{- form_widget(form) -}}
+            {{- form_errors(form) -}}
+        </div>
+    </div>
+{%- endblock checkbox_row %}
+
+{% block radio_row -%}
+    <div class="form-group{% if not valid %} has-error{% endif %}">
+        <div class="col-md-10 col-md-offset-2">
+            {{- form_widget(form) -}}
+            {{- form_errors(form) -}}
+        </div>
+    </div>
+{%- endblock radio_row %}
 
 {# Labels #}
 

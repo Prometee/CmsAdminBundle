@@ -24,7 +24,7 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('templating')
                     ->addDefaultsIfNotSet()
                     ->children()
-                        ->scalarNode('bootstrap3')->defaultValue("CmsAdminBundle:Form:bootstrap_3_layout.html.twig")->end()
+                        ->scalarNode('bootstrap3')->defaultValue("bootstrap_3_layout.html.twig")->end()
                         ->scalarNode('fields')->defaultValue("CmsAdminBundle:Form:fields.html.twig")->end()
                         ->scalarNode('collection')->defaultValue("CmsAdminBundle:Form:collection.html.twig")->end()
                         ->scalarNode('collection_modal')->defaultValue("CmsAdminBundle:Form:collection_modal.html.twig")->end()
