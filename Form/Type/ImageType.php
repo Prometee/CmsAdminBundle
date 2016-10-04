@@ -39,7 +39,7 @@ class ImageType extends AbstractType {
 	/**
 	 * {@inheritdoc}
 	 */    
-    public function setDefaultOptions(OptionsResolver  $resolver) {
+    public function configureOptions(OptionsResolver  $resolver) {
         $resolver->setDefaults(array(
             'image_width' => 200
         ));

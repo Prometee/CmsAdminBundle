@@ -2,10 +2,12 @@
 
 namespace Cms\Bundle\AdminBundle\Controller;
 
+use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Cms\Bundle\AdminBundle\Controller\Exception\MissingDoctrineNamespaceException;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -117,13 +119,18 @@ abstract class BaseAdminController extends Controller
 
     protected function buildController()
     {
-        if (false !== $pos = strpos($this->doctrine_namespace, ':')) {
+        if ($this->doctrine_namespace) {
+
+            /** @var EntityManager $em */
+            $em = $this->get('doctrine.orm.entity_manager');
+            $entity_namespaces = $em->getConfiguration()->getEntityNamespaces();
+            $class_metadata = $em->getClassMetadata($this->doctrine_namespace);
+            $class_name = str_replace($class_metadata->namespace.'\\', '', $class_metadata->getName());
+            $this->bundle_name = array_search($class_metadata->namespace, $entity_namespaces);
 
             $this->preConfigureTrait();
             $this->preConfigure();
 
-            $this->bundle_name = substr($this->doctrine_namespace, 0, $pos);
-            $class_name = substr($this->doctrine_namespace, $pos + 1);
             $class_path = $this->getDoctrine()->getAliasNamespace($this->bundle_name);
             if (!class_exists($this->entity_name))
                 $this->entity_name = $class_path . '\\' . $class_name;
@@ -232,17 +239,17 @@ abstract class BaseAdminController extends Controller
         ),
             $form_options
         ));
-        return $this->createForm(new $this->group_form_type_name(), $entity, $form_options);
+        return $this->createForm($this->group_form_type_name, $entity, $form_options);
     }
 
     protected function getForm($entity, $form_options = array()) {
-        return $this->createForm(new $this->form_type_name(), $entity, $form_options);
+        return $this->createForm($this->form_type_name, $entity, $form_options);
     }
 
     protected function getFilterForm($entity)
     {
         if (class_exists($this->filter_form_type_name)) {
-            return $this->createForm(new $this->filter_form_type_name(), $entity);
+            return $this->createForm($this->filter_form_type_name, $entity);
         } else {
             return null;
         }
@@ -260,27 +267,27 @@ abstract class BaseAdminController extends Controller
 
     protected function redirectEditSuccess($entity = null)
     {
-        return $this->redirect($this->generateUrl($this->route_edit, array('id' => $entity->getId())));
+        return $this->redirectToRoute($this->route_edit, array('id' => $entity->getId()));
     }
 
     protected function redirectNewSuccess($entity = null)
     {
-        return $this->redirect($this->generateUrl($this->route_edit, array('id' => $entity->getId())));
+        return $this->redirectToRoute($this->route_edit, array('id' => $entity->getId()));
     }
 
     protected function redirectDeleteSuccess($entity = null)
     {
-        return $this->redirect($this->generateUrl($this->route_index));
+        return $this->redirectToRoute($this->route_index);
     }
 
     protected function redirectDeleteError($entity = null)
     {
-        return $this->redirect($this->generateUrl($this->route_index));
+        return $this->redirectToRoute($this->route_index);
     }
 
     protected function redirectGroupProcessSuccess()
     {
-        return $this->redirect($this->generateUrl($this->route_index));
+        return $this->redirectToRoute($this->route_index);
     }
 
     public function indexAction(Request $request)
@@ -328,9 +335,9 @@ abstract class BaseAdminController extends Controller
         $form = $this->getForm($entity, array(
             'action' => $this->generateUrl($this->route_create)
         ));
-        $form->add('submit', 'submit');
+        $form->add('submit', SubmitType::class);
         if (!$modal) {
-            $form->add('save_and_add', 'submit');
+            $form->add('save_and_add', SubmitType::class);
         }
 
         return $form;
@@ -346,7 +353,7 @@ abstract class BaseAdminController extends Controller
             'method' => 'PUT'
         ));
 
-        $form->add('submit', 'submit');
+        $form->add('submit', SubmitType::class);
 
         return $form;
     }
@@ -362,7 +369,7 @@ abstract class BaseAdminController extends Controller
             'method' => 'POST'
         ));
 
-        $form->add('submit', 'submit');
+        $form->add('submit', SubmitType::class);
 
         return $form;
     }
@@ -376,7 +383,7 @@ abstract class BaseAdminController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl($this->route_delete, array('id' => $entity->getId())))
             ->setMethod('DELETE')
-            ->add('submit', 'submit')
+            ->add('submit', SubmitType::class)
             ->getForm();
     }
 
@@ -405,7 +412,7 @@ abstract class BaseAdminController extends Controller
         /** @var Session $session */
         $session = $request->getSession();
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
@@ -414,7 +421,7 @@ abstract class BaseAdminController extends Controller
                 $this->translation_prefix . '.flash.success.new', array('%name%' => $entity), $this->translation_domain
             ));
             if (!$modal && $form->get('save_and_add')->isClicked()) {
-                return $this->redirect($this->generateUrl($this->route_new));
+                return $this->redirectToRoute($this->route_new);
             } else {
                 return $this->redirectEditSuccess($entity);
             }
@@ -547,7 +554,7 @@ abstract class BaseAdminController extends Controller
         /** @var Session $session */
         $session = $request->getSession();
 
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
             $this->groupProcess($data->action, $data->ids);
@@ -558,8 +565,7 @@ abstract class BaseAdminController extends Controller
         } else {
             $session->getFlashBag()->set('error', $this->get('translator')->trans(
                 $this->translation_prefix . '.flash.error.group.' . $form->getData()->action, array(), $this->translation_domain
-            )
-            );
+            ));
             return $this->indexAction($request);
         }
 
