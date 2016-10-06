@@ -4,7 +4,7 @@ namespace Cms\Bundle\AdminBundle\Form\Model;
 
 class SortableAdminGroup extends BaseAdminGroup {
 
-    function __construct() {
+    public function __construct() {
         self::$actions = array(
             'order'=>''
         );
