@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Cms\Bundle\AdminBundle\Controller\Exception\MissingDoctrineNamespaceException;
+use Cms\Bundle\AdminBundle\Exception\MissingDoctrineNamespaceException;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
